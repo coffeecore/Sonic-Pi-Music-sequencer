@@ -12,7 +12,7 @@ For now, it's the Sonic Pi part.
 
 Just type `run_file "/absolute/path/to/seq.rb"` in Sonic Pi editor
 
-To run Python script, install [python-osc](https://pypi.org/project/python-osc/ "python-osc · PyPI"). Script __doesn't works__ at this moment.
+To run Python script, install [python-osc](https://pypi.org/project/python-osc/ "python-osc · PyPI").
 
 :heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
 
@@ -42,11 +42,9 @@ Manage instruments, can be synth or sample.
 
 | Feature |   OSC URI     | Parameters  |
 | -------------- | ---------------- | ----------------------                 |
-| Add instrument | `/instru/add`    | instruType, instruPosition, instruName |
+| Add instrument | `/instru/add`    | instruType, instruName |
 
 `instruType` : `synth` if add synth or `sample` for sample
-
-`instruPosition` : Channel position. Will use it to add beats, FXs, options etc. `-1` to put in or delete at (see below) last position
 
 `instruName` : Name of synth or sample to use for this channel
 
@@ -55,6 +53,8 @@ Manage instruments, can be synth or sample.
 | Remove instrument | `/instru/remove` | instruPosition         |
 | Change instrument | `/instru/change` | instruType, instruPosition, instruName |
 | Change instrument options | `/instru/options/change` | instruPosition, optionName, optionValue... |
+
+`instruPosition` : Channel position. Will use it to add beats, FXs, options etc. `-1` to change or delete at (see below) last position
 
 `optionName, optionValue...` : example : `[1, 'amp', 0.5, 'attack', 0.1]`
 

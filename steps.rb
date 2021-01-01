@@ -8,7 +8,7 @@ live_loop :add_step do
   instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
   bts = instru[:steps][0..]
-  if instru[:type] == 'sample' then 
+  if instru[:type] == 'sample' then
     note = 1
   end
   case stepPos
