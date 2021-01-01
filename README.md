@@ -34,7 +34,7 @@ General command of sequencer
 | Metronome     | `/metronome`      | `0` : disable `1` : enable (default) |
 | Set BPM     | `/bpm`      | Number (default : 60) |
 
-:heavy_exclamation_mark: Sequencer mod : `tracker` mod is Work In Progress
+:heavy_exclamation_mark: Sequencer mod : `tracker` mod is work in progress
 
 ### Instruments (Synths and Samples)
 
@@ -92,7 +92,7 @@ Add Sonic Pi Fxs
 | --------------                | ----------------             | ---------------------- |
 | Add FX | `/instru/fx/add` | instruPosition, fxPosition, fxName, fxOptionName, fxOptionValue...        |
 
-`fxPosition` : FX position. High is last to play
+`fxPosition` : FX position. High is last to play. `-1` to put in or delete at (see below) last position
 
 `fxName` : FX name
 
