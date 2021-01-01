@@ -46,7 +46,7 @@ Manage instruments, can be synth or sample.
 
 `instruType` : `synth` if add synth or `sample` for sample
 
-`instruPosition` : Number of instrument channel position. Will use it to add beats, FXs, options etc.
+`instruPosition` : Channel position. Will use it to add beats, FXs, options etc. `-1` to put in or delete at (see below) last position
 
 `instruName` : Name of synth or sample to use for this channel
 
