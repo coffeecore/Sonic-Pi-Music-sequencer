@@ -1,4 +1,4 @@
-set :instrus, {}
+set :instrus, []
 set :start, 0
 set :eighth, 4
 set :end, ((get(:eighth)*4)-1)
