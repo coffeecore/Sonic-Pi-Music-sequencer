@@ -20,6 +20,7 @@ To limit if statment in Sonic Pi, you must control variables on your OSC app.
 | Metronome     | `metronome`      | `0` : disable `1` : enable |
 
 
+
 ### Instruments (Synths and Samples)
 
 | Feature |   OSC URI     | Parameters  |
@@ -31,6 +32,7 @@ To limit if statment in Sonic Pi, you must control variables on your OSC app.
 `instruName` : Name of synth or sample to use for this channel
 
 
+
 | Feature |   OSC URI     | Parameters  |
 | --------------    | ---------------- | ---------------------- |
 | Remove instrument | `/instru/remove` | instruPosition         |
@@ -38,13 +40,14 @@ To limit if statment in Sonic Pi, you must control variables on your OSC app.
 `instruPosition` : Number of instrument channel position to delete
 
 
+
 | Feature |   OSC URI     | Parameters  |
 | --------------    | ---------------- | ----------------------                 |
 | Change instrument | `/instru/change` | instruType, instruPosition, instruName |
-| --------------            | ----------------         | ----------------------                     |
 | Change instrument options | `/instru/options/change` | instruPosition, optionName, optionValue... |
 
 `optionName, optionValue...` : example : `[1, 'amp', 0.5, 'attack', 0.1]`
+
 
 
 | Feature |   OSC URI     | Parameters  |
@@ -54,9 +57,11 @@ To limit if statment in Sonic Pi, you must control variables on your OSC app.
 `optionName...` : example : [1, 'amp', 'attack']
 
 
+
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
 | Remove all instrument options | `/instru/options/remove/all` | instruPosition         |
+
 
 
 ### Steps
@@ -69,9 +74,11 @@ To limit if statment in Sonic Pi, you must control variables on your OSC app.
 `note` : Note synth plays. Send any value (except null) for sample
 
 
+
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
 | Remove step | `/instru/step/remove` | instruPosition, stepPosition        |
+
 
 
 ### FXs
