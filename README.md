@@ -89,10 +89,15 @@ Add Sonic Pi Fxs
 
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
-| Add FX | `/instru/fc/add` | instruPosition, fxPosition, fxName, fxOptionName, fxOptionValue...        |
+| Add FX | `/instru/fx/add` | instruPosition, fxPosition, fxName, fxOptionName, fxOptionValue...        |
 
 `fxPosition` : FX position. High is last to play
 
 `fxName` : FX name
 
 `fxOptionName, fxOptionValue...` : FX options. Example `[3, 0, 'reverb', 'mix', 1, 'room', 1]`
+
+| Feature |   OSC URI     | Parameters  |
+| --------------                | ----------------             | ---------------------- |
+| Remove FX | `/instru/fx/remove` | instruPosition, fxPosition...        |
+| Remove all FXs | `/instru/fx/remove/all` | instruPosition      |
