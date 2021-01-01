@@ -1,7 +1,7 @@
 set :instrus, {}
-set :sn, 0
+set :start, 0
 set :eighth, 4
-set :en, ((get(:eighth)*4)-1)
+set :end, ((get(:eighth)*4)-1)
 set :n, 0
 # set :bpm, 60
 set :volume, 5
@@ -16,14 +16,14 @@ use_osc "127.0.0.1", 7000
 
 set_volume! get(:volume)
 
-live_loop :start do
+live_loop :start_play do
   use_real_time
   osc = sync "/osc*/start"
 
   set :play_state, 1
 end
 
-live_loop :stop do
+live_loop :stop_play do
   use_real_time
   osc = sync "/osc*/stop"
 
@@ -31,7 +31,7 @@ live_loop :stop do
   set :play_state, 0
 end
 
-live_loop :pause do
+live_loop :pause_play do
   use_real_time
   osc = sync "/osc*/pause"
 
@@ -46,14 +46,6 @@ live_loop :global_volume do
   set :volume, volume
 
   set_volume! get(:volume)
-end
-
-live_loop :set_eighth do
-  use_real_time
-  osc = sync "/osc*/eighth"
-  set :eighth, osc[0]
-
-  set :en, ((osc[0]*4)-1)
 end
 
 live_loop :set_debug do

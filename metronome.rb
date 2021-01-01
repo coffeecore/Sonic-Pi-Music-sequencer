@@ -15,6 +15,21 @@ live_loop :metronome do
   sleep 1
 end
 
+live_loop :set_eighth do
+  use_real_time
+  osc = sync "/osc*/eighth"
+  set :eighth, osc[0]
+
+  set(:end, ((osc[0]*4)-1)) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'step'
+end
+
+live_loop :set_end do
+  use_real_time
+  osc = sync "/osc*/end"
+
+  set(:end, osc[0]) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'tracker'
+end
+
 live_loop :set_metronome do
   use_real_time
   osc = sync "/osc*/metronome"
@@ -44,7 +59,7 @@ live_loop :tempo do
   n = look
 
   set :n, n
-  tick_set get(:sn) if look >= get(:en) and SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'step'
+  tick_set get(:start) if look >= get(:end)
 
   sleep (1.0/get(:eighth))
 end
