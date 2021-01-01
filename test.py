@@ -177,14 +177,14 @@ time.sleep(5)
 # time.sleep(0.2)
 # sender.send_message('/instru/options/remove', [1, 'release'])
 # time.sleep(0.2)
-# sender.send_message('/instru/fx/add', [3, 0, 'reverb', 'mix', 1, 'room', 1])
+sender.send_message('/instru/fx/add', [3, 'reverb', 'mix', 1, 'room', 1])
 # time.sleep(5)
-sender.send_message('/instru/options/remove/all', [3])
+# sender.send_message('/instru/options/remove/all', [3])
 time.sleep(5)
 
 # time.sleep(5)
-# sender.send_message('/instru/fx/remove', [0, 0])
-# time.sleep(0.2)
+sender.send_message('/instru/fx/remove', [3, 0])
+time.sleep(0.2)
 
 # sender.send_message('/instru/remove', [0])
 

@@ -10,17 +10,17 @@ live_loop :play do
   puts "INSTRUS #{instrus}" if get(:debug)
   instrus.each do |i, s|
     puts "INSTRU #{s[:name]}" if get(:debug)
-    beats = get(':beats'+i.to_s)
-    puts "BEATS #{beats}" if get(:debug)
-      if beats != nil then
+    steps = get(':steps'+i.to_s)
+    puts "BEATS #{steps}" if get(:debug)
+      if steps != nil then
       opts = s[:opts].to_h
       puts "OPTS #{opts}" if get(:debug)
-      fxs = s[:fxs].to_h
-      if beats[n] != nil then
-        opts[:note] = beats[n]
+      fxs = s[:fxs]
+      if steps[n] != nil then
+        opts[:note] = steps[n]
         instru = s[:name]
         string = ''
-        fxs.each_with_index do |f, ii|
+        fxs.reverse.each_with_index do |f, ii|
           string += "with_fx :#{fxs[ii][:name]}, #{fxs[ii][:opts]}.to_h do "
         end
         case s[:type]
@@ -30,7 +30,7 @@ live_loop :play do
             string += "sample instru.to_sym, opts "
         end
 
-        fxs.each_with_index do |f, ii|
+        fxs.reverse.each_with_index do |f, ii|
           string += "end "
         end
         puts "STRING #{string}" if get(:debug)

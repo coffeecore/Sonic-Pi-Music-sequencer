@@ -11,12 +11,12 @@ live_loop :add_instru do
     'type': instruType,
     'name': instruName,
     'opts': {},
-    'fxs': {}
+    'fxs': []
   }
 
   set(:instrus, instrus)
   puts Array.new(get(:en)+1)
-  set(':beats'+instruPos.to_s, Array.new(get(:en)+1))
+  set(':steps'+instruPos.to_s, Array.new(get(:en)+1))
 end
 
 live_loop :remove_instru do
@@ -29,7 +29,7 @@ live_loop :remove_instru do
   instrus.except!(instruPos)
 
   set(:instrus, instrus)
-  set(':beats'+instruPos.to_s, nil)
+  set(':steps'+instruPos.to_s, nil)
 end
 
 

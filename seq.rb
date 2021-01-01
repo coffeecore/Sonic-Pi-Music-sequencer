@@ -77,7 +77,7 @@ live_loop :set_sequencer_mod do
   puts "SEQUENCER MODE : #{SEQUENCER_MOD[osc[0]]}"
 end
 
-run_file "/Users/antoine/Music/Sonic Pi/beats.rb"
+run_file "/Users/antoine/Music/Sonic Pi/steps.rb"
 run_file "/Users/antoine/Music/Sonic Pi/fxs.rb"
 run_file "/Users/antoine/Music/Sonic Pi/instrus.rb"
 run_file "/Users/antoine/Music/Sonic Pi/metronome.rb"
