@@ -27,11 +27,12 @@ General command of sequencer
 | Play          | `/start`         |                            |
 | Stop          | `/stop`          |                            |
 | Pause         | `/pause`         |                            |
-| Global volume | `/volume`        | Between `0` and `5`        |
-| Eighth        | `/eighth`        | Number                     |
-| Debug mode    | `/debug`         | `0` : disable `1` : enable |
-| Sequencer mod | `/sequencer_mod` | `0` : step `1` : tracker   |
-| Metronome     | `metronome`      | `0` : disable `1` : enable |
+| Global volume | `/volume`        | Between `0` and `5` (default)        |
+| Eighth        | `/eighth`        | Number (default : 4)                  |
+| Debug mode    | `/debug`         | `0` : disable (default) `1` : enable |
+| Sequencer mod | `/sequencer_mod` | `0` : step (default) `1` : tracker   |
+| Metronome     | `/metronome`      | `0` : disable `1` : enable (default) |
+| Set BPM     | `/bpm`      | Number (default : 60) |
 
 :heavy_exclamation_mark: Sequencer mod : `tracker` mod is Work In Progress
 
