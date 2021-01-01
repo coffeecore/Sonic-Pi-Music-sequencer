@@ -12,7 +12,7 @@ For now, it's the Sonic Pi part.
 
 Just type `run_file "/absolute/path/to/seq.rb"` in Sonic Pi editor
 
-To run Python script, install [python-osc](https://pypi.org/project/python-osc/ "python-osc · PyPI")
+To run Python script, install [python-osc](https://pypi.org/project/python-osc/ "python-osc · PyPI"). Script __doesn't works__ at this moment.
 
 :heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
 
