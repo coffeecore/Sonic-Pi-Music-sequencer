@@ -1,7 +1,3 @@
-set :bpm, 60
-set :metronome_state, true
-
-
 live_loop :metronome do
   use_real_time
 

@@ -3,10 +3,10 @@ set :start, 0
 set :eighth, 4
 set :end, ((get(:eighth)*4)-1)
 set :n, 0
-# set :bpm, 60
+set :bpm, 60
 set :volume, 5
 set :debug, false
-# set :metronome_state, true
+set :metronome_state, true
 PLAY_STATE = ['stop', 'play', 'pause']
 set :play_state, PLAY_STATE[0]
 SEQUENCER_MOD = ['step', 'tracker']

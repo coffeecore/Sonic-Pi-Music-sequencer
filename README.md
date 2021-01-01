@@ -90,9 +90,7 @@ Add Sonic Pi Fxs
 
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
-| Add FX | `/instru/fx/add` | instruPosition, fxPosition, fxName, fxOptionName, fxOptionValue...        |
-
-`fxPosition` : FX position. High is last to play. `-1` to put in or delete at (see below) last position
+| Add FX | `/instru/fx/add` | instruPosition, fxName, fxOptionName, fxOptionValue...        |
 
 `fxName` : FX name
 

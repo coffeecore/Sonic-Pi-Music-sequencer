@@ -2,18 +2,17 @@ live_loop :add_instru do
   use_real_time
   osc = sync '/osc*/instru/add'
   instruType = osc[0]
-  instruPos = osc[1]
-  instruName = osc[2]
+  instruName = osc[1]
 
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
 
-  instrus[instruPos] = {
+  instrus.push({
     'type': instruType,
     'name': instruName,
     'opts': {},
     'fxs': [],
-    'steps': []
-  }
+    'steps': Array.new(get(:end)+1)
+  })
 
   set(:instrus, instrus)
 end
@@ -23,9 +22,9 @@ live_loop :remove_instru do
   osc = sync '/osc*/instru/remove'
   instruPos = osc[0]
 
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
 
-  instrus.except!(instruPos)
+  instrus.delete_at(instruPos)
 
   set(:instrus, instrus)
 end
@@ -38,12 +37,14 @@ live_loop :change_instru do
   instruPos = osc[1]
   instruName = osc[2]
 
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
 
   instru[:type] = instruType
   instru[:name] = instruName
+
   instrus[instruPos] = instru
+
   set(:instrus, instrus)
 end
 
@@ -51,7 +52,7 @@ live_loop :change_instru_options do
   use_real_time
   osc = sync '/osc*/instru/options/change'
   instruPos = osc[0]
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
   options = osc[1..]
 
@@ -73,7 +74,7 @@ live_loop :remove_instru_options do
   use_real_time
   osc = sync '/osc*/instru/options/remove'
   instruPos = osc[0]
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
   options = osc[1..]
 
@@ -93,7 +94,7 @@ live_loop :remove_all_instru_options do
   use_real_time
   osc = sync '/osc*/instru/options/remove/all'
   instruPos = osc[0]
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
 
   instru[:opts] = {}

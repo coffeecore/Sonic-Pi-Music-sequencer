@@ -6,13 +6,16 @@ live_loop :play do
   n = get(:n)
   puts "N #{n}" if get(:debug)
 
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
+
   puts "INSTRUS #{instrus}" if get(:debug)
-  instrus.each do |i, s|
+  instrus.each_with_index do |s, i|
     puts "INSTRU #{s[:name]}" if get(:debug)
-    steps = get(':steps'+i.to_s)
+
+    steps = s[:steps]
     puts "BEATS #{steps}" if get(:debug)
-      if steps != nil then
+
+    if steps != nil then
       opts = s[:opts].to_h
       puts "OPTS #{opts}" if get(:debug)
       fxs = s[:fxs]
@@ -21,7 +24,7 @@ live_loop :play do
         instru = s[:name]
         string = ''
         fxs.reverse.each_with_index do |f, ii|
-          string += "with_fx :#{fxs[ii][:name]}, #{fxs[ii][:opts]}.to_h do "
+          string += "with_fx :#{f.to_h[:name]}, #{f.to_h[:opts]}.to_h do "
         end
         case s[:type]
           when 'synth'

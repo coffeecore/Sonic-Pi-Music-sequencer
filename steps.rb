@@ -5,21 +5,24 @@ live_loop :add_step do
   stepPos = osc[1]
   note = osc[2]
 
-  bts = get(':steps'+instruPos.to_s)
-  instrus = get(:instrus).to_h
+  instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
+  bts = instru[:steps][0..]
   if instru[:type] == 'sample' then 
     note = 1
   end
-  case stepPos #check the new data position in the array
-    when 0 # deals with new value at the beginning
+  case stepPos
+    when 0
       lu = [note]+bts[1..-1]
-    when 1..14 #deals with new value at position 1 to 14 (index from 0)
+    when 1..14
       lu = bts[0..(stepPos-1)] +[note]+bts[(stepPos+1)..-1]
-    when 15 #deals with new value at the end of the array
+    when 15
       lu = bts[0..-2]+[note]
   end
-  set (":steps"+instruPos.to_s), lu
+  instru[:steps] = lu
+
+  instrus[instruPos] = instru
+  set(:instrus, instrus)
 end
 
 live_loop :remove_step do
@@ -28,14 +31,20 @@ live_loop :remove_step do
   instruPos = osc[0]
   stepPos = osc[1]
 
-  bts = get(':steps'+instruPos.to_s)
-  case stepPos #check the new data position in the array
-    when 0 # deals with new value at the beginning
+  instrus = get(:instrus)[0..]
+  instru = (instrus[instruPos]).to_h
+  bts = instru[:steps]
+
+  case stepPos
+    when 0
       lu = [nil]+bts[1..-1]
-    when 1..14 #deals with new value at position 1 to 14 (index from 0)
+    when 1..14
       lu = bts[0..(stepPos-1)] +[nil]+bts[(stepPos+1)..-1]
-    when 15 #deals with new value at the end of the array
+    when 15
       lu = bts[0..-2]+[nil]
   end
-  set (":steps"+instruPos.to_s), lu
+  instru[:steps] = bts
+
+  instrus[instruPos] = instru
+  set(:instrus, instrus)
 end
