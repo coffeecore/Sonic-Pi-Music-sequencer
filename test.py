@@ -35,7 +35,7 @@ instrus = {
             'attack': 0.1,
             'res': 0
         },
-        'beats': [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None]
+        'steps': [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None]
     },
     1: {
         'type': 'sample',
@@ -53,7 +53,7 @@ instrus = {
             'attack': 1,
             'res': 0
         },
-        'beats': [
+        'steps': [
         1, None, 1, None, 
         1, None, 1, None, 
         1, None, 1, None, 
@@ -68,7 +68,7 @@ instrus = {
             'attack': 1,
             'res': 0
         },
-        'beats': [
+        'steps': [
             1, None, None, None, 
             None, None, None, None, 
             1, None, 1, None, 
@@ -84,7 +84,7 @@ instrus = {
             'attack': 1,
             'res': 0
         },
-        'beats': [
+        'steps': [
             None, None, None, None, 
             1, None, None, None, 
             None, 1, None, None, 
@@ -103,10 +103,10 @@ instrus = {
 #         # opts.append(v)
 #     sender.send_message('/instru/options/remove', opts)
 #     time.sleep(0.25)
-#     for kk in range(len(i['beats'])):
-#         if i['beats'][kk] is not None :
-#             print([k, kk, i['beats'][kk]])
-#             sender.send_message('/instru/beat/add', [k, kk, i['beats'][kk]])
+#     for kk in range(len(i['steps'])):
+#         if i['steps'][kk] is not None :
+#             print([k, kk, i['steps'][kk]])
+#             sender.send_message('/instru/step/add', [k, kk, i['steps'][kk]])
 #             time.sleep(0.25)
 
 
@@ -126,54 +126,54 @@ time.sleep(0.25)
 # time.sleep(0.25)
 sender.send_message('/instru/options/change', [3, 'release', 0.01, 'amp', 0.75, 'attack', 0.1, 'res', 0])
 # time.sleep(0.25)
-sender.send_message('/instru/beat/add', [3, 2, ':c4'])
+sender.send_message('/instru/step/add', [3, 2, ':c4'])
 time.sleep(5)
 sender.send_message('/instru/options/change', [3, 'release', 0.01, 'amp', 0.75, 'attack', 0.1, 'res', 0])
 time.sleep(5)
 
-# sender.send_message('/instru/beat/add', [3, 3, ':e4'])
+# sender.send_message('/instru/step/add', [3, 3, ':e4'])
 # time.sleep(0.25)
-# sender.send_message('/instru/beat/add', [3, 6, ':g4'])
+# sender.send_message('/instru/step/add', [3, 6, ':g4'])
 # time.sleep(0.25)
-# sender.send_message('/instru/beat/add', [3, 7, ':c4'])
+# sender.send_message('/instru/step/add', [3, 7, ':c4'])
 # time.sleep(0.25)
-# sender.send_message('/instru/beat/add', [3, 9, ':e4'])
+# sender.send_message('/instru/step/add', [3, 9, ':e4'])
 # time.sleep(0.25)
-# sender.send_message('/instru/beat/add', [3, 12, ':c4'])
+# sender.send_message('/instru/step/add', [3, 12, ':c4'])
 # time.sleep(0.25)
-# sender.send_message('/instru/beat/add', [3, 14, ':g4'])
+# sender.send_message('/instru/step/add', [3, 14, ':g4'])
 # time.sleep(0.25)
 
 # sender.send_message('/instru/add', ['sample', 0, 'drum_tom_mid_hard'])
 # time.sleep(0.2)
 # sender.send_message('/instru/change', ['sample', 0, 'drum_bass_hard'])
 # time.sleep(0.2)
-# sender.send_message('/instru/beat/add', [0, 0, 1])
+# sender.send_message('/instru/step/add', [0, 0, 1])
 # time.sleep(0.2)
-# sender.send_message('/instru/beat/add', [0, 8, 1])
+# sender.send_message('/instru/step/add', [0, 8, 1])
 # time.sleep(0.2)
-# sender.send_message('/instru/beat/add', [0, 14, 1])
+# sender.send_message('/instru/step/add', [0, 14, 1])
 # time.sleep(0.2)
 
 # sender.send_message('/instru/add', ['sample', 1, 'drum_cymbal_closed'])
 # time.sleep(0.2)
 # for i in range(0,8):
-#     sender.send_message('/instru/beat/add', [1, i*2, 1])
+#     sender.send_message('/instru/step/add', [1, i*2, 1])
 #     time.sleep(0.2)
 
 
 
 # sender.send_message('/instru/add', ['sample', 2, 'drum_snare_hard'])
 # time.sleep(0.2)
-# sender.send_message('/instru/beat/add', [2, 4, 1])
+# sender.send_message('/instru/step/add', [2, 4, 1])
 # time.sleep(0.2)
-# sender.send_message('/instru/beat/add', [2, 12, 1])
+# sender.send_message('/instru/step/add', [2, 12, 1])
 # time.sleep(0.2)
 
 
 # time.sleep(3)
 
-# sender.send_message('/instru/beat/remove', [0, 3])
+# sender.send_message('/instru/step/remove', [0, 3])
 # time.sleep(0.2)
 # sender.send_message('/instru/options/remove', [1, 'release'])
 # time.sleep(0.2)
