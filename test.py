@@ -4,8 +4,8 @@ import time
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-# sender.send_message('/debug', [1])
-# time.sleep(0.2)
+sender.send_message('/debug', [1])
+time.sleep(0.2)
 
 sender.send_message('/metronome', [0])
 time.sleep(0.2)
