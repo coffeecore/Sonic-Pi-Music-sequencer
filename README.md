@@ -7,8 +7,7 @@ To limit if statment in Sonic Pi, you must control variables on your OSC app.
 ## OSC Commands
 
 ### General
-|               |                  |                            |
-| ------------- | ---------------- | ----------------------     |
+
 | Play          | `/start`         |                            |
 | Stop          | `/stop`          |                            |
 | Pause         | `/pause`         |                            |
