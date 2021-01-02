@@ -13,7 +13,7 @@ live_loop :play do
     puts "INSTRU #{s[:name]}" if get(:debug)
 
     steps = s[:steps]
-    puts "BEATS #{steps}" if get(:debug)
+    puts "STEPS #{steps}" if get(:debug)
 
     if steps != nil then
       opts = s[:opts].to_h
