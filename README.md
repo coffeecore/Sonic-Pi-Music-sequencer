@@ -34,6 +34,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ## Todo
 
+- Test real performances :sweat_smile:
 - OSC return messages
 - Python part
 
