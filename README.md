@@ -25,7 +25,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 :heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
 
-:heavy_exclamation_mark: Don't forget to add `time.sleep(int)` between OSC message in Python script
+:heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script
 
 ## OSC Commands
 
