@@ -40,7 +40,6 @@ live_loop :pause_play do
   set :play_state, 2
 end
 
-
 live_loop :global_volume do
   use_real_time
   osc    = sync "/osc*/volume"

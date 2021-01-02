@@ -56,7 +56,6 @@ live_loop :remove_instru do
   set(:instrus, instrus)
 end
 
-
 live_loop :change_instru do
   use_real_time
   osc        = sync '/osc*/instru/change'
