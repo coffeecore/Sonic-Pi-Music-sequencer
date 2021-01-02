@@ -25,24 +25,24 @@ live_loop :play do
       if steps[n] != nil then
         opts['note'] = steps[n]
         instruName = instru['name']
-        to_eval = ''
+        toEval = ''
         fxs.reverse.each do |fx|
-          to_eval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+          toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
         end
         case instru['type']
           when 'synth'
-            to_eval += "synth instruName.to_sym, opts "
+            toEval += "synth instruName.to_sym, opts "
           when 'sample'
-            to_eval += "sample instruName.to_sym, opts "
+            toEval += "sample instruName.to_sym, opts "
           when 'external_sample'
-            to_eval += "sample \"#{instruName}\", opts "
+            toEval += "sample \"#{instruName}\", opts "
         end
 
         fxs.reverse.each do |fx|
-          to_eval += "end "
+          toEval += "end "
         end
-        puts "STRING #{to_eval}" if get(:debug)
-        eval to_eval
+        puts "STRING #{toEval}" if get(:debug)
+        eval toEval
       end
     end
   end
