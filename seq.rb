@@ -1,3 +1,6 @@
+PLAY_STATE = ['stop', 'play', 'pause']
+SEQUENCER_MOD = ['step', 'tracker']
+
 set :instrus, []
 set :start, 0
 set :eighth, 4
@@ -7,9 +10,7 @@ set :bpm, 60
 set :volume, 5
 set :debug, false
 set :metronome_state, true
-PLAY_STATE = ['stop', 'play', 'pause']
 set :play_state, PLAY_STATE[0]
-SEQUENCER_MOD = ['step', 'tracker']
 set :sequencer_mod, SEQUENCER_MOD[0]
 
 use_osc "127.0.0.1", 7000
@@ -69,8 +70,13 @@ live_loop :set_sequencer_mod do
   puts "SEQUENCER MODE : #{SEQUENCER_MOD[osc[0]]}"
 end
 
+# Manage steps
 run_file "/Users/antoine/Music/Sonic Pi/steps.rb"
+# Manage FXs
 run_file "/Users/antoine/Music/Sonic Pi/fxs.rb"
+# Manage instruments
 run_file "/Users/antoine/Music/Sonic Pi/instrus.rb"
+# Manage time
 run_file "/Users/antoine/Music/Sonic Pi/metronome.rb"
+# Play all together
 run_file "/Users/antoine/Music/Sonic Pi/play.rb"
