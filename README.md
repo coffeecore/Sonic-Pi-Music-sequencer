@@ -30,6 +30,11 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ## OSC Commands
 
+- [General](#general)
+- [Instruments (Synths and Samples)](#instruments-synths-and-samples)
+- [Steps](#steps)
+- [FXs](#fxs)
+
 ### General
 
 General command of sequencer
