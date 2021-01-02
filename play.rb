@@ -10,11 +10,8 @@ live_loop :play do
 
   puts "INSTRUS #{instrus}" if get(:debug)
   instrus.each do |instru|
-    # puts "SSSSS #{s['steps']}"
-    # puts "IIIII #{i}"
-
     puts "INSTRU #{instru['name']}" if get(:debug)
-
+    
     steps = instru['steps']
     puts "STEPS #{steps}" if get(:debug)
 
