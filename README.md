@@ -1,4 +1,4 @@
-# :musical_keyboard: Sonic Pi Music sequencer OSC driven
+# :musical_keyboard: Sonic Pi Music step sequencer OSC driven
 
 ## Intro
 
@@ -31,6 +31,10 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 :heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
 
 :heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script.
+
+## Todo
+
+- Python part
 
 ## OSC Commands
 
