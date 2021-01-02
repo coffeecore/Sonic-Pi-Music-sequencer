@@ -1,7 +1,6 @@
 PLAY_STATE    = ['stop', 'play', 'pause']
 SEQUENCER_MOD = ['step', 'tracker']
-FILE_PATH     = "/Users/antoine/Music/Sonic Pi/"
-SAMPLE_PATH   = "/Users/antoine/Music/Sonic Pi/Samples/
+FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 
 set :instrus, []
 set :start, 0
@@ -73,12 +72,12 @@ live_loop :set_sequencer_mod do
 end
 
 # Manage steps
-run_file "#{FILE_PATH}steps.rb"
+run_file "#{FILE_PATH}/sonic-pi/steps.rb"
 # Manage FXs
-run_file "#{FILE_PATH}fxs.rb"
+run_file "#{FILE_PATH}/sonic-pi/fxs.rb"
 # Manage instruments
-run_file "#{FILE_PATH}instrus.rb"
+run_file "#{FILE_PATH}/sonic-pi/instrus.rb"
 # Manage time
-run_file "#{FILE_PATH}metronome.rb"
+run_file "#{FILE_PATH}/sonic-pi/metronome.rb"
 # Play all together
-run_file "#{FILE_PATH}play.rb"
+run_file "#{FILE_PATH}/sonic-pi/play.rb"
