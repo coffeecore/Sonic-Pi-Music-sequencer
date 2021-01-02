@@ -1,4 +1,4 @@
-PLAY_STATE = ['stop', 'play', 'pause']
+PLAY_STATE    = ['stop', 'play', 'pause']
 SEQUENCER_MOD = ['step', 'tracker']
 
 set :instrus, []
@@ -42,7 +42,7 @@ end
 
 live_loop :global_volume do
   use_real_time
-  osc = sync "/osc*/volume"
+  osc    = sync "/osc*/volume"
   volume = osc[0]
   set :volume, volume
 
