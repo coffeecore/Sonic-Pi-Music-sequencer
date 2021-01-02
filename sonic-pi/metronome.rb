@@ -16,7 +16,15 @@ live_loop :set_eighth do
   osc = sync "/osc*/eighth"
   set :eighth, osc[0]
 
-  set(:end, ((osc[0]*4)-1)) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'step'
+  set(:end, ((osc[0]*get(:bar))-1)) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'step'
+end
+
+live_loop :set_bar do
+  use_real_time
+  osc = sync "/osc*/bar"
+  set :bar, osc[0]
+
+  set(:end, ((get(:eighth)*osc[0])-1)) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'step'
 end
 
 live_loop :set_end do

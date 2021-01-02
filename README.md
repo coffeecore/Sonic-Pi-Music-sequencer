@@ -52,6 +52,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Pause         | `/pause`         | 1                          |
 | Global volume | `/volume`        | Between `0` and `5` (default)        |
 | Eighth        | `/eighth`        | Integer (default : 4)                  |
+| Bar        | `/bar`        | Integer (default : 4)                  |
 | Debug mode    | `/debug`         | `0` : disable (default) `1` : enable |
 | Sequencer mod | `/sequencer_mod` | `0` : step (default)  |
 | Metronome     | `/metronome`      | `0` : disable `1` : enable (default) |

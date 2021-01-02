@@ -5,7 +5,8 @@ FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 set :instrus, []
 set :start, 0
 set :eighth, 4
-set :end, ((get(:eighth)*4)-1)
+set :bar, 4
+set :end, ((get(:eighth)*get(:bar))-1)
 set :n, 0
 set :bpm, 60
 set :volume, 5
