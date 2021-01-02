@@ -36,7 +36,7 @@ instrus = [
             # 'attack': 0.1,
             # 'res': 0
         },
-        'steps': [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None]
+        'steps': [None, None, 'c4', 'e4', None, None, 'g4', 'c4', None, 'e4', None, None, 'c4', None, 'g4', None]
     },
     {
         'type': 'sample',
