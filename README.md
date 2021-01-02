@@ -1,11 +1,16 @@
-# Sonic Pi Music sequencer OSC driven
+# :musical_keyboard: Sonic Pi Music sequencer OSC driven
 
-## :musical_keyboard: Intro
+## Intro
 
 Goal is to build a music box with Raspberry Pi, E-ink screen, somes buttons and potards.
 
-Planned components :
- - Raspberry Pi 3 Model B
+For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
+
+:rocket: by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone").
+
+## Planned components
+
+ - Raspberry Pi 3 Model B or Pi Zero WH
  - Piano HAT
  - E-ink 2.13" screen
  - 6 potards
@@ -13,10 +18,6 @@ Planned components :
  - 4 leds
  - Maybe battery
  
-For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
-
-:rocket: by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone").
-
 ## How to
 
 Just type `run_file "/absolute/path/to/seq.rb"` in Sonic Pi editor
@@ -49,16 +50,14 @@ General command of sequencer
 
 ### Instruments (Synths and Samples)
 
-Manage instruments, can be synth or sample.
-
 | Feature |   OSC URI     | Parameters  |
 | -------------- | ---------------- | ----------------------                 |
 | Add instrument | `/instru/add`    | instruType, instruName |
 
 `instruType` :
- - `synth`
- - `sample`
- - `external_sample`
+ - `synth` : pre-built synths
+ - `sample` : pre-built samples
+ - `external_sample` : external samples
 
 `instruName` : Name of synth, sample or path to sample to use for this channel
 
@@ -84,8 +83,6 @@ Manage instruments, can be synth or sample.
 
 ### Steps
 
-Add step
-
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
 | Add step | `/instru/step/add` | instruPosition, stepPosition, note        |
@@ -99,8 +96,6 @@ Add step
 | Remove step | `/instru/step/remove` | instruPosition, stepPosition        |
 
 ### FXs
-
-Add Sonic Pi Fxs
 
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
