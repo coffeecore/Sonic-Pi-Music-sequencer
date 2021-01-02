@@ -4,7 +4,7 @@ import time
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-sender.send_message('/debug', [1])
+sender.send_message('/debug', [0])
 time.sleep(0.2)
 
 sender.send_message('/metronome', [0])
@@ -80,10 +80,10 @@ instrus = [
             # 'pan': -1
         },
         'steps': [
-            1, 1, 1, 1, 
-            1, 1, 1, 1, 
-            1, 1, 1, 1, 
-            1, 1, 1, 1
+            None, None, None, None, 
+            1, None, None, None, 
+            None, None, None, None, 
+            1, None, None, None
         ]
     }
 ]
@@ -112,7 +112,6 @@ time.sleep(5)
 for k in range(len(instrus)) :
     fxs = [k]
     for kk in range(len(instrus[k]['fxs'])) :
-        # fxs.append(kk)
         fxs.append(instrus[k]['fxs'][kk]['name'])
         for k, vv  in instrus[k]['fxs'][kk].items() :
             if k == 'name' :
@@ -122,6 +121,8 @@ for k in range(len(instrus)) :
         sender.send_message('/instru/fx/add', fxs)
         time.sleep(0.25)
 
+time.sleep(5)
+sender.send_message('/instru/fx/change', [0, 0, 'room', 0.5])
 time.sleep(5)
 
 for k in range(len(instrus)) :
