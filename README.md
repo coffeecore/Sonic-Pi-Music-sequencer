@@ -34,6 +34,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ## Todo
 
+- OSC return messages
 - Python part
 
 ## OSC Commands
