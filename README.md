@@ -6,7 +6,7 @@ Goal is to build a music box with Raspberry Pi, E-ink screen, somes buttons and 
 
 For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
 
-:rocket: by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone").
+:rocket: Powered by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone").
 
 ## Planned components
 
