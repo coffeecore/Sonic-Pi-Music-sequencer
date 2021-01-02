@@ -94,6 +94,7 @@ for k in range(len(instrus)) :
     time.sleep(0.25)
     for kk in range(len(instrus[k]['steps'])):
         if instrus[k]['steps'][kk] is not None :
+            print([k, kk, instrus[k]['steps'][kk]])
             sender.send_message('/instru/step/add', [k, kk, instrus[k]['steps'][kk]])
             time.sleep(0.25)
 
@@ -104,6 +105,7 @@ for k in range(len(instrus)) :
     for kk, v in instrus[k]['opts'].items() :
         opts.append(kk)
         opts.append(v)
+    print(opts)
     sender.send_message('/instru/options/change', opts)
     time.sleep(0.25)
 
@@ -118,6 +120,7 @@ for k in range(len(instrus)) :
                 continue
             fxs.append(k)
             fxs.append(vv)
+        print(fxs)
         sender.send_message('/instru/fx/add', fxs)
         time.sleep(0.25)
 
@@ -127,11 +130,13 @@ time.sleep(5)
 
 for k in range(len(instrus)) :
     for kk in range(len(instrus[k]['fxs'])) :
+        print([k, kk])
         sender.send_message('/instru/fx/remove', [k, kk])
         time.sleep(0.25)
 
 time.sleep(3)
 
 for k in range(len(instrus)) :
+    print([k])
     sender.send_message('/instru/options/remove/all', [k])
     time.sleep(0.25)
