@@ -101,5 +101,9 @@ Add Sonic Pi Fxs
 
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
+| Change FX options | `/instru/fx/change` | instruPosition, fxPosition, fxOptionName, fxOptionValue...        |
 | Remove FX | `/instru/fx/remove` | instruPosition, fxPosition...        |
 | Remove all FXs | `/instru/fx/remove/all` | instruPosition      |
+
+`fxPosition` : FX position. `-1` to change or delete at last position.
+

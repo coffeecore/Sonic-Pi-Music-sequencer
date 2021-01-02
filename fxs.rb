@@ -23,6 +23,28 @@ live_loop :add_fx do
   set(:instrus, instrus)
 end
 
+live_loop :change_options_fx do
+  use_real_time
+  osc = sync '/osc*/instru/fx/change'
+  instruPos = osc[0]
+  fxPosition   = osc[1]
+  fxOpts = osc[2..]
+  instrus = get(:instrus)[0..]
+  instru = (instrus[instruPos]).to_h
+
+  fxs = instru[:fxs][fxPosition]
+  fxOpts.each_with_index do |v, i|
+    if i % 2 == 0 then
+      fxs[:opts][v] = fxOpts[i+1]
+    end
+  end
+
+  instru[:fxs][fxPosition] = fxs
+
+  instrus[instruPos] = instru
+  set(:instrus, instrus)
+end
+
 live_loop :remove_fx do
   use_real_time
   osc = sync '/osc*/instru/fx/remove'
