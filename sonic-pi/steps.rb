@@ -15,9 +15,9 @@ live_loop :add_step do
   case stepPos
     when 0
       steps = [note]+steps[1..-1]
-    when 1..14
+    when 1..(get(:end)-1)
       steps = steps[0..(stepPos-1)] +[note]+steps[(stepPos+1)..-1]
-    when 15
+    when get(:end)
       steps = steps[0..-2]+[note]
   end
   instru['steps'] = steps
@@ -39,9 +39,9 @@ live_loop :remove_step do
   case stepPos
     when 0
       steps = [nil]+steps[1..-1]
-    when 1..14
+    when 1..(get(:end)-1)
       steps = bts[0..(stepPos-1)] +[nil]+steps[(stepPos+1)..-1]
-    when 15
+    when get(:end)
       steps = steps[0..-2]+[nil]
   end
   instru['steps'] = steps
