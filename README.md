@@ -20,13 +20,15 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
  
 ## How to
 
-Just type `run_file "/absolute/path/to/seq.rb"` in Sonic Pi editor
+Open `seq.rb` file and change value of `FILE_PATH` constant.
+
+Just type `run_file "/absolute/path/to/seq.rb"` or open `seq.rb` file in Sonic Pi editor.
 
 To run Python script, install [python-osc](https://pypi.org/project/python-osc/ "python-osc · PyPI").
 
 :heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
 
-:heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script
+:heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script.
 
 ## OSC Commands
 
