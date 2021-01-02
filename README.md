@@ -1,6 +1,6 @@
-# Sonic Pi Music sequencer OSC driven
+# :musical_keyboard: Sonic Pi Music sequencer OSC driven
 
-## :musical_keyboard: Intro
+## Intro
 
 Goal is to build a music box with Raspberry Pi, E-ink screen, somes buttons and potards.
 
