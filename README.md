@@ -10,7 +10,7 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
 
 ## Planned components
 
- - Raspberry Pi 3 Model B or Pi Zero WH
+ - Raspberry Pi
  - Piano HAT
  - E-ink 2.13" screen
  - 6 potards
