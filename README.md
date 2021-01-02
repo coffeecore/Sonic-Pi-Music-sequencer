@@ -108,7 +108,7 @@ Add Sonic Pi Fxs
 
 `fxName` : FX name
 
-`fxOptionName, fxOptionValue...` : FX options. Example `[3, 0, 'reverb', 'mix', 1, 'room', 1]`
+`fxOptionName, fxOptionValue...` : FX options. Example `[3, 'reverb', 'mix', 1, 'room', 1]`
 
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
