@@ -31,6 +31,19 @@ live_loop :add_instru_complete do
   set(:instrus, instrus)
 end
 
+live_loop :change_instru_complete do
+  use_real_time
+  osc        = sync '/osc*/instru/change/complete'
+  instru     = JSON.parse osc[0]
+  position   = osc[1]
+
+  instrus = get(:instrus)[0..]
+
+  instrus[position] = instru
+
+  set(:instrus, instrus)
+end
+
 live_loop :remove_instru do
   use_real_time
   osc       = sync '/osc*/instru/remove'

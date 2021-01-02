@@ -1,5 +1,5 @@
 live_loop :play do
-  use_real_time
+  # use_real_time
   sync :t
   use_bpm get(:bpm)
 
@@ -11,7 +11,7 @@ live_loop :play do
   puts "INSTRUS #{instrus}" if get(:debug)
   instrus.each do |instru|
     puts "INSTRU #{instru['name']}" if get(:debug)
-    
+
     steps = instru['steps']
     puts "STEPS #{steps}" if get(:debug)
 
@@ -19,7 +19,7 @@ live_loop :play do
       opts = instru['opts'].to_h
       puts "OPTS #{opts}" if get(:debug)
       fxs = instru['fxs']
-      
+
       opts['note'] = steps[n]
       instruName = instru['name']
       toEval = ''
