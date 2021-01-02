@@ -7,6 +7,8 @@ live_loop :add_step do
 
   instrus = get(:instrus)[0..]
   instru = (instrus[instruPos]).to_h
+  puts "HJHJHHJHJHHJHJ #{instru}"
+
   steps = instru[:steps][0..]
   if instru[:type] == 'sample' || instru[:type] == 'external_sample' then
     note = 1

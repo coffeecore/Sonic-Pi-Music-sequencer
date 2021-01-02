@@ -15,6 +15,8 @@ live_loop :add_instru do
   })
 
   set(:instrus, instrus)
+
+  # osc "/instru/add", instrus.length-1
 end
 
 live_loop :remove_instru do
