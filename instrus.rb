@@ -7,16 +7,28 @@ live_loop :add_instru do
   instrus = get(:instrus)[0..]
 
   instrus.push({
-    'type': instruType,
-    'name': instruName,
-    'opts': {},
-    'fxs': [],
-    'steps': Array.new(get(:end)+1)
+    'type' => instruType,
+    'name' => instruName,
+    'opts' => {},
+    'fxs' => [],
+    'steps' => Array.new(get(:end)+1)
   })
 
   set(:instrus, instrus)
 
   # osc "/instru/add", instrus.length-1
+end
+
+live_loop :add_instru_complete do
+  use_real_time
+  osc        = sync '/osc*/instru/add/complete'
+  instru     = JSON.parse osc[0]
+
+  instrus = get(:instrus)[0..]
+
+  instrus.push(instru)
+
+  set(:instrus, instrus)
 end
 
 live_loop :remove_instru do
@@ -42,8 +54,8 @@ live_loop :change_instru do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  instru[:type] = instruType
-  instru[:name] = instruName
+  instru['type'] = instruType
+  instru['name'] = instruName
 
   instrus[instruPos] = instru
 
@@ -59,7 +71,7 @@ live_loop :change_instru_options do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  opts = instru[:opts].to_h
+  opts = instru['opts'].to_h
 
   options.each_with_index do |v, i|
     if i % 2 == 0 then
@@ -67,7 +79,7 @@ live_loop :change_instru_options do
     end
   end
 
-  instru[:opts] = opts
+  instru['opts'] = opts
 
   instrus[instruPos] = instru
   set(:instrus, instrus)
@@ -82,13 +94,13 @@ live_loop :remove_instru_options do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  opts = instru[:opts].to_h
+  opts = instru['opts'].to_h
 
   options.each_with_index do |v, i|
     opts.except!(v.to_sym)
   end
 
-  instru[:opts] = opts
+  instru['opts'] = opts
 
   instrus[instruPos] = instru
   set(:instrus, instrus)
@@ -102,7 +114,7 @@ live_loop :remove_all_instru_options do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  instru[:opts] = {}
+  instru['opts'] = {}
 
   instrus[instruPos] = instru
   set(:instrus, instrus)

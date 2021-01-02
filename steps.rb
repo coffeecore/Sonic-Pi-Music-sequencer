@@ -8,8 +8,8 @@ live_loop :add_step do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  steps = instru[:steps][0..]
-  if instru[:type] == 'sample' || instru[:type] == 'external_sample' then
+  steps = instru['steps'][0..]
+  if instru['type'] == 'sample' || instru['type'] == 'external_sample' then
     note = 1
   end
   case stepPos
@@ -20,7 +20,7 @@ live_loop :add_step do
     when 15
       steps = steps[0..-2]+[note]
   end
-  instru[:steps] = steps
+  instru['steps'] = steps
 
   instrus[instruPos] = instru
   set(:instrus, instrus)
@@ -34,7 +34,7 @@ live_loop :remove_step do
 
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
-  steps   = instru[:steps]
+  steps   = instru['steps']
 
   case stepPos
     when 0
@@ -44,7 +44,7 @@ live_loop :remove_step do
     when 15
       steps = steps[0..-2]+[nil]
   end
-  instru[:steps] = steps
+  instru['steps'] = steps
 
   instrus[instruPos] = instru
   set(:instrus, instrus)

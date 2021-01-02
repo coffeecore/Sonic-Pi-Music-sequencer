@@ -8,15 +8,15 @@ live_loop :add_fx do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  fxs = instru[:fxs][0..]
-  fx  = {'name': fxName, 'opts': {}}
+  fxs = instru['fxs'][0..]
+  fx  = {'name' => fxName, 'opts' => {}}
   fxOpts.each_with_index do |v, i|
     if i % 2 == 0 then
-      fx[:opts][v] = fxOpts[i+1]
+      fx['opts'][v] = fxOpts[i+1]
     end
   end
 
-  instru[:fxs] = fxs.push(fx)
+  instru['fxs'] = fxs.push(fx)
 
   # osc "/instru/fx/add", instru.length-1
 
@@ -34,18 +34,18 @@ live_loop :change_options_fx do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  fxs = instru[:fxs][0..]
+  fxs = instru['fxs'][0..]
   fx  = fxs[fxPosition].to_h
-  fxsOptions = fx[:opts].to_h
+  fxsOptions = fx['opts'].to_h
   fxOpts.each_with_index do |v, i|
     if i % 2 == 0 then
       fxsOptions[v] = fxOpts[i+1]
     end
   end
 
-  fx[:opts]       = fxsOptions
+  fx['opts']       = fxsOptions
   fxs[fxPosition] = fx
-  instru[:fxs]    = fxs
+  instru['fxs']    = fxs
 
   instrus[instruPos] = instru
   set(:instrus, instrus)
@@ -60,13 +60,13 @@ live_loop :remove_fx do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  fxs = instru[:fxs][0..]
+  fxs = instru['fxs'][0..]
 
   fxOpts.each_with_index do |v, i|
     fxs.delete_at(i)
   end
 
-  instru[:fxs] = fxs
+  instru['fxs'] = fxs
 
   instrus[instruPos] = instru
   set(:instrus, instrus)
@@ -80,7 +80,7 @@ live_loop :remove_all_fx do
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
 
-  instru[:fxs] = []
+  instru['fxs'] = []
 
   instrus[instruPos] = instru
   set(:instrus, instrus)

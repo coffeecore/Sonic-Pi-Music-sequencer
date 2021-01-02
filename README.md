@@ -66,6 +66,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 | Feature |   OSC URI     | Parameters  |
 | --------------    | ---------------- | ---------------------- |
+| Add instrument with all options and FXs | `/instru/add/complete` | See Python script for example. Format must be JSON         |
 | Remove instrument | `/instru/remove` | instruPosition         |
 | Change instrument | `/instru/change` | instruType, instruPosition, instruName |
 | Change instrument options | `/instru/options/change` | instruPosition, optionName, optionValue... |
