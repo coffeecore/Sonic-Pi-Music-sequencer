@@ -45,11 +45,9 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Global volume | `/volume`        | Between `0` and `5` (default)        |
 | Eighth        | `/eighth`        | Number (default : 4)                  |
 | Debug mode    | `/debug`         | `0` : disable (default) `1` : enable |
-| Sequencer mod | `/sequencer_mod` | `0` : step (default) `1` : tracker   |
+| Sequencer mod | `/sequencer_mod` | `0` : step (default). Others maybe come   |
 | Metronome     | `/metronome`      | `0` : disable `1` : enable (default) |
 | Set BPM     | `/bpm`      | Number (default : 60) |
-
-:heavy_exclamation_mark: Sequencer mod : `tracker` mod is work in progress
 
 ### Instruments (Synths and Samples)
 
