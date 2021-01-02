@@ -37,8 +37,6 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ### General
 
-General command of sequencer
-
 | Feature |   OSC URI     | Parameters  |
 | ------------- | ---------------- | ----------------------     |
 | Play          | `/start`         |                            |
