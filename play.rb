@@ -31,6 +31,8 @@ live_loop :play do
             string += "synth instru.to_sym, opts "
           when 'sample'
             string += "sample instru.to_sym, opts "
+          when 'external_sample'
+            string += "sample \"#{instru}\", opts "
         end
 
         fxs.reverse.each_with_index do |f, ii|

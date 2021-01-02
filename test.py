@@ -73,17 +73,17 @@ instrus = [
         'name': 'sn_dub',
         'fxs': [],
         'opts': {
-            'release': 1,
-            'amp': 5,
-            'attack': 1,
-            'res': 0,
-            'pan': -1
+            # 'release': 1,
+            # 'amp': 5,
+            # 'attack': 1,
+            # 'res': 0,
+            # 'pan': -1
         },
         'steps': [
-            None, None, None, None, 
-            1, None, None, None, 
-            None, None, None, None, 
-            1, None, None, None
+            1, 1, 1, 1, 
+            1, 1, 1, 1, 
+            1, 1, 1, 1, 
+            1, 1, 1, 1
         ]
     }
 ]

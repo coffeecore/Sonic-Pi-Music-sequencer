@@ -44,7 +44,10 @@ Manage instruments, can be synth or sample.
 | -------------- | ---------------- | ----------------------                 |
 | Add instrument | `/instru/add`    | instruType, instruName |
 
-`instruType` : `synth` if add synth or `sample` for sample
+`instruType` :
+ - `synth`
+ - `sample`
+ - `external_sample`
 
 `instruName` : Name of synth or sample to use for this channel
 
