@@ -55,7 +55,7 @@ live_loop :tempo do
   n = look
 
   set :n, n
-  tick_set get(:start) if look >= get(:end) && SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'step'
+  tick_set get(:start) if look >= get(:end)
 
   sleep (1.0/get(:eighth))
 end
