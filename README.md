@@ -49,16 +49,14 @@ General command of sequencer
 
 ### Instruments (Synths and Samples)
 
-Manage instruments, can be synth or sample.
-
 | Feature |   OSC URI     | Parameters  |
 | -------------- | ---------------- | ----------------------                 |
 | Add instrument | `/instru/add`    | instruType, instruName |
 
 `instruType` :
- - `synth`
- - `sample`
- - `external_sample`
+ - `synth` : pre-built synths
+ - `sample` : pre-built samples
+ - `external_sample` : external samples
 
 `instruName` : Name of synth, sample or path to sample to use for this channel
 
@@ -84,8 +82,6 @@ Manage instruments, can be synth or sample.
 
 ### Steps
 
-Add step
-
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
 | Add step | `/instru/step/add` | instruPosition, stepPosition, note        |
@@ -99,8 +95,6 @@ Add step
 | Remove step | `/instru/step/remove` | instruPosition, stepPosition        |
 
 ### FXs
-
-Add Sonic Pi Fxs
 
 | Feature |   OSC URI     | Parameters  |
 | --------------                | ----------------             | ---------------------- |
