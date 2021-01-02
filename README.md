@@ -49,7 +49,7 @@ Manage instruments, can be synth or sample.
  - `sample`
  - `external_sample`
 
-`instruName` : Name of synth or sample to use for this channel
+`instruName` : Name of synth, sample or path to sample to use for this channel
 
 | Feature |   OSC URI     | Parameters  |
 | --------------    | ---------------- | ---------------------- |
