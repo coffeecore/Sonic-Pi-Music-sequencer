@@ -2,9 +2,18 @@
 
 ## :musical_keyboard: Intro
 
-Goal is to build a music box with Raspberry Pi, E-Ink screen, somes buttons and potars.
+Goal is to build a music box with Raspberry Pi, E-ink screen, somes buttons and potards.
 
-For now, it's the Sonic Pi part.
+Planned components :
+ - Raspberry Pi 3 Model B
+ - Piano HAT
+ - E-ink 2.13" screen
+ - 6 potards
+ - 10 buttons
+ - 4 leds
+ - Maybe battery
+ 
+For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
 
 :rocket: by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone").
 
