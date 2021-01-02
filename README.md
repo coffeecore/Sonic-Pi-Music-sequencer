@@ -26,6 +26,8 @@ Just type `run_file "/absolute/path/to/seq.rb"` or open `seq.rb` file in Sonic P
 
 To run Python script, install [python-osc](https://pypi.org/project/python-osc/ "python-osc · PyPI").
 
+## Limitations
+
 :heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
 
 :heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script.
