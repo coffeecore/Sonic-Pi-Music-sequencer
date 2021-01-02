@@ -28,7 +28,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ## Limitations
 
-:heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app.
+:heavy_exclamation_mark: To limit if statment in Sonic Pi, you must control variables on your OSC app to avoid errors
 
 :heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script.
 
@@ -72,7 +72,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 | Feature |   OSC URI     | Parameters  |
 | --------------    | ---------------- | ---------------------- |
-| Add instrument with all options and FXs | `/instru/add/complete` | See Python script for example. Format must be JSON         |
+| Add instrument with options, steps and FXs | `/instru/add/complete` | See Python script for example. Format must be JSON and complete to avoid errors   |
 | Remove instrument | `/instru/remove` | instruPosition         |
 | Change instrument | `/instru/change` | instruType, instruPosition, instruName |
 | Change instrument options | `/instru/options/change` | instruPosition, optionName, optionValue... |
