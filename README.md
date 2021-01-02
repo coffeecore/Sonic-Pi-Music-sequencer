@@ -47,15 +47,15 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 | Feature |   OSC URI     | Parameters  |
 | ------------- | ---------------- | ----------------------     |
-| Play          | `/start`         |                            |
-| Stop          | `/stop`          |                            |
-| Pause         | `/pause`         |                            |
+| Play          | `/start`         | 1                          |
+| Stop          | `/stop`          | 1                          |
+| Pause         | `/pause`         | 1                          |
 | Global volume | `/volume`        | Between `0` and `5` (default)        |
-| Eighth        | `/eighth`        | Number (default : 4)                  |
+| Eighth        | `/eighth`        | Integer (default : 4)                  |
 | Debug mode    | `/debug`         | `0` : disable (default) `1` : enable |
-| Sequencer mod | `/sequencer_mod` | `0` : step (default). Others maybe come   |
+| Sequencer mod | `/sequencer_mod` | `0` : step (default)  |
 | Metronome     | `/metronome`      | `0` : disable `1` : enable (default) |
-| Set BPM     | `/bpm`      | Number (default : 60) |
+| Set BPM     | `/bpm`      | Integer (default : 60) |
 
 ### Instruments (Synths and Samples)
 
@@ -77,7 +77,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Change instrument | `/instru/change` | instruType, instruPosition, instruName |
 | Change instrument options | `/instru/options/change` | instruPosition, optionName, optionValue... |
 
-`instruPosition` : Channel position. Will use it to add beats, FXs, options etc. `-1` to change or delete at (see below) last position
+`instruPosition` : Channel position. Will use it to add beats, FXs, options etc. Negative integer to change or delete (see below) from the end
 
 `optionName, optionValue...` : example : `[1, 'amp', 0.5, 'attack', 0.1]`
 
@@ -121,5 +121,5 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Remove FX | `/instru/fx/remove` | instruPosition, fxPosition...        |
 | Remove all FXs | `/instru/fx/remove/all` | instruPosition      |
 
-`fxPosition` : FX position. `-1` to change or delete at last position.
+`fxPosition` : FX position. Negative integer to change or delete from the end.
 
