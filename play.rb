@@ -9,40 +9,40 @@ live_loop :play do
   instrus = get(:instrus)[0..]
 
   puts "INSTRUS #{instrus}" if get(:debug)
-  instrus.each_with_index do |s, i|
+  instrus.each do |instru|
     # puts "SSSSS #{s['steps']}"
     # puts "IIIII #{i}"
 
-    puts "INSTRU #{s['name']}" if get(:debug)
+    puts "INSTRU #{instru['name']}" if get(:debug)
 
-    steps = s['steps']
+    steps = instru['steps']
     puts "STEPS #{steps}" if get(:debug)
 
     if steps != nil then
-      opts = s['opts'].to_h
+      opts = instru['opts'].to_h
       puts "OPTS #{opts}" if get(:debug)
-      fxs = s['fxs']
+      fxs = instru['fxs']
       if steps[n] != nil then
         opts['note'] = steps[n]
-        instru = s['name']
-        string = ''
-        fxs.reverse.each_with_index do |f, ii|
-          string += "with_fx :#{f['name']}, #{f['opts'].to_h} do "
+        instruName = instru['name']
+        to_eval = ''
+        fxs.reverse.each do |fx|
+          to_eval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
         end
-        case s['type']
+        case instru['type']
           when 'synth'
-            string += "synth instru.to_sym, opts "
+            to_eval += "synth instruName.to_sym, opts "
           when 'sample'
-            string += "sample instru.to_sym, opts "
+            to_eval += "sample instruName.to_sym, opts "
           when 'external_sample'
-            string += "sample \"#{instru}\", opts "
+            to_eval += "sample \"#{instruName}\", opts "
         end
 
-        fxs.reverse.each_with_index do |f, ii|
-          string += "end "
+        fxs.reverse.each do |fx|
+          to_eval += "end "
         end
-        puts "STRING #{string}" if get(:debug)
-        eval string
+        puts "STRING #{to_eval}" if get(:debug)
+        eval to_eval
       end
     end
   end
