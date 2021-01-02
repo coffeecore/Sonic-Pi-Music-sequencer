@@ -7,11 +7,11 @@ live_loop :add_instru do
   instrus = get(:instrus)[0..]
 
   instrus.push({
-    'type'  : instruType,
-    'name'  : instruName,
-    'opts'  : {},
-    'fxs'   : [],
-    'steps' : Array.new(get(:end)+1)
+    'type': instruType,
+    'name': instruName,
+    'opts': {},
+    'fxs': [],
+    'steps': Array.new(get(:end)+1)
   })
 
   set(:instrus, instrus)
