@@ -1,14 +1,19 @@
 live_loop :add_step do
   use_real_time
-  osc       = sync '/osc*/instru/step/add'
-  instruPos = osc[0]
-  stepPos   = osc[1]
-  note      = osc[2]
+  osc        = sync '/osc*/instru/step/add'
+  instruPos  = osc[0]
+  patternPos = osc[1]
+  stepPos    = osc[2]
+  note       = osc[3]
 
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
+  steps = instru['steps'][0..][patternPos]
 
-  steps = instru['steps'][0..]
+  if steps == nil then
+    steps = Array.new(get(:end)+1)
+  end
+
   if instru['type'] == 'sample' || instru['type'] == 'external_sample' then
     note = 1
   end
@@ -20,21 +25,28 @@ live_loop :add_step do
     when get(:end)
       steps = steps[0..-2]+[note]
   end
-  instru['steps'] = steps
+
+  ss = instru['steps'][0..]
+
+  ss[patternPos] = steps
+
+  instru['steps'] = ss
 
   instrus[instruPos] = instru
+
   set(:instrus, instrus)
 end
 
 live_loop :remove_step do
   use_real_time
-  osc       = sync '/osc*/instru/step/remove'
-  instruPos = osc[0]
-  stepPos   = osc[1]
+  osc        = sync '/osc*/instru/step/remove'
+  instruPos  = osc[0]
+  patternPos = osc[1]
+  stepPos    = osc[2]
 
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
-  steps   = instru['steps']
+  steps   = instru['steps'][patternPos]
 
   case stepPos
     when 0
@@ -44,7 +56,7 @@ live_loop :remove_step do
     when get(:end)
       steps = steps[0..-2]+[nil]
   end
-  instru['steps'] = steps
+  instru['steps'][patternPos] = steps
 
   instrus[instruPos] = instru
   set(:instrus, instrus)

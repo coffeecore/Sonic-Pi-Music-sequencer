@@ -17,7 +17,7 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
  - 10 buttons
  - 4 leds
  - Maybe battery
- 
+
 ## How to
 
 Open `seq.rb` file and change value of `FILE_PATH` constant.
@@ -47,18 +47,21 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ### General
 
-| Feature       | OSC URI          | Parameters                           |
-| ------------- | ---------------- | ------------------------------------ |
-| Play          | `/start`         | 1                                    |
-| Stop          | `/stop`          | 1                                    |
-| Pause         | `/pause`         | 1                                    |
-| Global volume | `/volume`        | Between `0` and `5` (default)        |
-| Eighth        | `/eighth`        | Integer (default : 4)                |
-| Bar           | `/bar`           | Integer (default : 4)                |
-| Debug mode    | `/debug`         | `0` : disable (default) `1` : enable |
-| Sequencer mod | `/sequencer_mod` | `0` : step (default)                 |
-| Metronome     | `/metronome`     | `0` : disable `1` : enable (default) |
-| Set BPM       | `/bpm`           | Integer (default : 60)               |
+| Feature                                  | OSC URI              | Parameters                           |
+| ---------------------------------------- | -------------------- | ------------------------------------ |
+| Play                                     | `/start`             | 1                                    |
+| Stop                                     | `/stop`              | 1                                    |
+| Pause                                    | `/pause`             | 1                                    |
+| Global volume                            | `/volume`            | Between `0` and `5` (default)        |
+| Eighth                                   | `/eighth`            | Integer (default : 4)                |
+| Bar                                      | `/bar`               | Integer (default : 4)                |
+| Debug mode                               | `/debug`             | `0` : disable (default) `1` : enable |
+| Sequencer mod                            | `/sequencer_mod`     | `0` : step (default) `1` : play      |
+| Metronome                                | `/metronome`         | `0` : disable `1` : enable (default) |
+| Set metronome note options               | `/metronome/options` | optionName, optionValue...           |
+| Set BPM                                  | `/bpm`               | Integer (default : 60)               |
+| Set pattern to play on `player` mod      | `/pattern`           | Integer (default : 0)                |
+| Set total patterns to play on `step` mod | `/pattern/max`       | Integer (default : 1)                |
 
 ### Instruments (Synths and Samples)
 
@@ -99,15 +102,17 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 | Feature        | OSC URI            | Parameters                         |
 | -------------- | ------------------ | ---------------------------------- |
-| Add step       | `/instru/step/add` | instruPosition, stepPosition, note |
+| Add step       | `/instru/step/add` | instruPosition, patternPosition, stepPosition, note |
 
 `stepPosition` : Position on your channel
+
+`patternPosition` : Pattern position
 
 `note` : Note synth plays. Send any value (except null) for sample
 
 | Feature        | OSC URI               | Parameters                   |
 | -------------- | --------------------- | ---------------------------- |
-| Remove step    | `/instru/step/remove` | instruPosition, stepPosition |
+| Remove step    | `/instru/step/remove` | instruPosition, patternPosition, stepPosition |
 
 ### FXs
 

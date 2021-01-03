@@ -12,103 +12,132 @@ sender.send_message('/metronome', [1])
 time.sleep(0.2)
 
 sender.send_message('/bpm', [60])
-time.sleep(0.25)
+time.sleep(0.2)
 
 sender.send_message('/start', [1])
-time.sleep(3)
+time.sleep(0.2)
 
 instrus = [
     {
         'type': 'synth',
         'name': 'fm',
         'fxs': [
-            {
-                'name': 'reverb',
-                'opts' : {
-                    'mix': 1,
-                    'room': 1
-                }
-            }
+            # {
+            #     'name': 'reverb',
+            #     'opts' : {
+            #         'mix': 1,
+            #         'room': 1
+            #     }
+            # }
         ],
         'opts': {
-            # 'release': 0.01,
-            # 'amp': 0.75,
-            # 'attack': 0.1,
-            # 'res': 0
-        },
-        'steps': [None, None, 'c4', 'e4', None, None, 'g4', 'c4', None, 'e4', None, None, 'c4', None, 'g4', None]
-    },
-    {
-        'type': 'sample',
-        'name': 'drum_cymbal_closed',
-        'fxs': [],
-        'opts': {
-            'release': 1,
-            'amp': 5,
-            'attack': 1,
+            'release': 0.01,
+            'amp': 0.75,
+            'attack': 0.1,
             'res': 0
         },
         'steps': [
-        1, None, 1, None, 
-        1, None, 1, None, 
-        1, None, 1, None, 
-        1, None, 1, None]
-    },
-    {
-        'type': 'sample',
-        'name': 'drum_bass_hard',
-        'fxs':[],
-        'opts': {
-            'release': 1,
-            'amp': 5,
-            'attack': 1,
-            'res': 0
-        },
-        'steps': [
-            1, None, None, None, 
-            None, None, None, None, 
-            1, None, None, None, 
-            None, None, 1, None
+            [None, None, 'c4', 'e4', None, None, 'g4', 'c4', None, 'e4', None, None, 'c4', None, 'g4', None],
+            [None, None, 'c2', 'e2', None, None, 'g2', 'c2', None, 'e2', None, None, 'c2', None, 'g2', None]
         ]
     },
-    {
-        'type': 'sample',
-        'name': 'sn_dub',
-        'fxs': [],
-        'opts': {
-            # 'release': 1,
-            # 'amp': 5,
-            # 'attack': 1,
-            # 'res': 0,
-            # 'pan': -1
-        },
-        'steps': [
-            None, None, None, None, 
-            1, None, None, None, 
-            None, None, None, None, 
-            1, None, None, None
-        ]
-    }
+    # {
+    #     'type': 'sample',
+    #     'name': 'drum_cymbal_closed',
+    #     'fxs': [],
+    #     'opts': {
+    #         # 'release': 1,
+    #         # 'amp': 5,
+    #         # 'attack': 1,
+    #         # 'res': 0
+    #     },
+    #     'steps': [
+    #         [
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None
+    #         ],
+    #         [
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None
+    #         ]
+    #     ]
+    # },
+    # {
+    #     'type': 'sample',
+    #     'name': 'drum_bass_hard',
+    #     'fxs':[],
+    #     'opts': {
+    #         # 'release': 1,
+    #         # 'amp': 5,
+    #         # 'attack': 1,
+    #         # 'res': 0
+    #     },
+    #     'steps': [
+    #         [
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, 1, None
+    #         ],
+    #         [
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, 1, None
+    #         ]
+    #     ]
+    # },
+    # {
+    #     'type': 'sample',
+    #     'name': 'sn_dub',
+    #     'fxs': [],
+    #     'opts': {
+    #         # 'release': 1,
+    #         # 'amp': 5,
+    #         # 'attack': 1,
+    #         # 'res': 0,
+    #         # 'pan': -1
+    #     },
+    #     'steps': [
+    #         [
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None
+    #         ],
+    #         [
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None
+    #         ]
+    #     ]
+    # }
 ]
 
 for k in range(len(instrus)) :
     print([instrus[k]['type'], instrus[k]['name']])
     print(instrus[k])
-    if k == 0 :
-        sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
-        time.sleep(0.25)
-        continue
+    # if k == 0 :
+    # sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
+    # time.sleep(0.25)
+        # continue
     sender.send_message('/instru/add', [instrus[k]['type'], instrus[k]['name']])
-    time.sleep(0.25)
+    time.sleep(0.2)
     # exit()
 
     for kk in range(len(instrus[k]['steps'])):
-        if instrus[k]['steps'][kk] is not None :
-            print([k, kk, instrus[k]['steps'][kk]])
-            sender.send_message('/instru/step/add', [k, kk, instrus[k]['steps'][kk]])
-            time.sleep(0.25)
+        for kkk in range(len(instrus[k]['steps'][kk])):
+            if instrus[k]['steps'][kk][kkk] is not None :
+                print([k, kk, kkk, instrus[k]['steps'][kk][kkk]])
+                sender.send_message('/instru/step/add', [k, kk, kkk, instrus[k]['steps'][kk][kkk]])
+                time.sleep(0.2)
 
-time.sleep(5)
+# time.sleep(5)
 
 # for k in range(len(instrus)) :
 #     opts = [k]
