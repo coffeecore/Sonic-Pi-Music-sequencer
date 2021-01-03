@@ -4,7 +4,7 @@ live_loop :metronome do
   # sync :t
   use_bpm get(:bpm)
 
-  if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'play' then
+  if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'single' then
     play 60, get(:metronome_options).to_h
   end
 
@@ -83,7 +83,7 @@ live_loop :tempo do
 
   p = get(:p)
 
-  if SEQUENCER_MOD[get(:sequencer_mod).to_i] != 'play' then
+  if SEQUENCER_MOD[get(:sequencer_mod).to_i] != 'single' then
     puts "JJJKJKJKJKJKJK #{get(:p)}"
     set :p, p+1 if n != 0 and n % ((get(:eighth)*get(:bar))-1) == 0
     set :p, get(:start) if p >= get(:pmax)

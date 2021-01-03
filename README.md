@@ -56,12 +56,16 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Eighth                                   | `/eighth`            | Integer (default : 4)                |
 | Bar                                      | `/bar`               | Integer (default : 4)                |
 | Debug mode                               | `/debug`             | `0` : disable (default) `1` : enable |
-| Sequencer mod                            | `/sequencer_mod`     | `0` : step (default) `1` : player    |
+| Sequencer mod                            | `/sequencer_mod`     | `0` : bank `1` : single    |
 | Metronome                                | `/metronome`         | `0` : disable `1` : enable (default) |
 | Set metronome note options               | `/metronome/options` | optionName, optionValue...           |
 | Set BPM                                  | `/bpm`               | Integer (default : 60)               |
-| Set pattern to play on `player` mod      | `/pattern`           | Integer (default : 0)                |
+| Set pattern to play on `single` mod      | `/pattern`           | Integer (default : 0)                |
 | Set total patterns to play on `step` mod | `/pattern/max`       | Integer (default : 1)                |
+
+`/sequencer_mod` _Features in progress_ :
+ - bank : play all patterns from 0 to `/pattern/max` setting
+ - single : play only pattern at this position
 
 ### Instruments (Synths and Samples)
 

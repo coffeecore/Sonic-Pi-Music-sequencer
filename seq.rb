@@ -1,5 +1,5 @@
 PLAY_STATE    = ['stop', 'play', 'pause']
-SEQUENCER_MOD = ['sequencer', 'play', 'tracker']
+SEQUENCER_MOD = ['sequencer', 'single', 'tracker']
 FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 
 set :instrus, []
