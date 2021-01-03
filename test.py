@@ -22,13 +22,13 @@ instrus = [
         'type': 'synth',
         'name': 'fm',
         'fxs': [
-            # {
-            #     'name': 'reverb',
-            #     'opts' : {
-            #         'mix': 1,
-            #         'room': 1
-            #     }
-            # }
+            {
+                'name': 'reverb',
+                'opts' : {
+                    'mix': 1,
+                    'room': 1
+                }
+            }
         ],
         'opts': {
             'release': 0.01,
@@ -41,91 +41,99 @@ instrus = [
             [None, None, 'c2', 'e2', None, None, 'g2', 'c2', None, 'e2', None, None, 'c2', None, 'g2', None]
         ]
     },
-    # {
-    #     'type': 'sample',
-    #     'name': 'drum_cymbal_closed',
-    #     'fxs': [],
-    #     'opts': {
-    #         # 'release': 1,
-    #         # 'amp': 5,
-    #         # 'attack': 1,
-    #         # 'res': 0
-    #     },
-    #     'steps': [
-    #         [
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None
-    #         ],
-    #         [
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None
-    #         ]
-    #     ]
-    # },
-    # {
-    #     'type': 'sample',
-    #     'name': 'drum_bass_hard',
-    #     'fxs':[],
-    #     'opts': {
-    #         # 'release': 1,
-    #         # 'amp': 5,
-    #         # 'attack': 1,
-    #         # 'res': 0
-    #     },
-    #     'steps': [
-    #         [
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, 1, None
-    #         ],
-    #         [
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, 1, None
-    #         ]
-    #     ]
-    # },
-    # {
-    #     'type': 'sample',
-    #     'name': 'sn_dub',
-    #     'fxs': [],
-    #     'opts': {
-    #         # 'release': 1,
-    #         # 'amp': 5,
-    #         # 'attack': 1,
-    #         # 'res': 0,
-    #         # 'pan': -1
-    #     },
-    #     'steps': [
-    #         [
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None
-    #         ],
-    #         [
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None
-    #         ]
-    #     ]
-    # }
+    {
+        'type': 'sample',
+        'name': 'drum_cymbal_closed',
+        'fxs': [],
+        'opts': {
+            'release': 1,
+            'amp': 5,
+            'attack': 1,
+            'res': 0
+        },
+        'steps': [
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ],
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': 'drum_bass_hard',
+        'fxs':[],
+        'opts': {
+            # 'release': 1,
+            # 'amp': 5,
+            # 'attack': 1,
+            # 'res': 0
+        },
+        'steps': [
+            [
+                1, None, None, None, 
+                None, None, None, None, 
+                1, None, None, None, 
+                None, None, 1, None
+            ],
+            [
+                1, None, None, None, 
+                None, None, None, None, 
+                1, None, None, None, 
+                None, None, 1, None
+            ]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': 'sn_dub',
+        'fxs': [
+            {
+                'name': 'reverb',
+                'opts' : {
+                    'mix': 0.5,
+                    'room': 0.5
+                }
+            }
+        ],
+        'opts': {
+            'release': 1,
+            'amp': 5,
+            'attack': 1,
+            'res': 0,
+            'pan': -1
+        },
+        'steps': [
+            [
+                None, None, None, None, 
+                1, None, None, None, 
+                None, None, None, None, 
+                1, None, None, None
+            ],
+            [
+                None, None, None, None, 
+                1, None, None, None, 
+                None, None, None, None, 
+                1, None, None, None
+            ]
+        ]
+    }
 ]
 
 for k in range(len(instrus)) :
     print([instrus[k]['type'], instrus[k]['name']])
     print(instrus[k])
-    # if k == 0 :
-    # sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
-    # time.sleep(0.25)
-        # continue
+    if k == 0 :
+        sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
+        time.sleep(0.25)
+        continue
     sender.send_message('/instru/add', [instrus[k]['type'], instrus[k]['name']])
     time.sleep(0.2)
     # exit()
@@ -139,33 +147,33 @@ for k in range(len(instrus)) :
 
 # time.sleep(5)
 
-# for k in range(len(instrus)) :
-#     opts = [k]
-#     for kk, v in instrus[k]['opts'].items() :
-#         opts.append(kk)
-#         opts.append(v)
-#     print(opts)
-#     sender.send_message('/instru/options/change', opts)
-#     time.sleep(0.25)
+for k in range(len(instrus)) :
+    opts = [k]
+    for kk, v in instrus[k]['opts'].items() :
+        opts.append(kk)
+        opts.append(v)
+    print(opts)
+    sender.send_message('/instru/options/change', opts)
+    time.sleep(0.25)
 
 # time.sleep(5)
 
-# for k in range(len(instrus)) :
-#     fxs = [k]
-#     for kk in range(len(instrus[k]['fxs'])) :
-#         fxs.append(instrus[k]['fxs'][kk]['name'])
-#         for k, vv  in instrus[k]['fxs'][kk].items() :
-#             if k == 'name' :
-#                 continue
-#             fxs.append(k)
-#             fxs.append(vv)
-#         print(fxs)
-#         sender.send_message('/instru/fx/add', fxs)
-#         time.sleep(0.25)
+for k in range(len(instrus)) :
+    fxs = [k]
+    for kk in range(len(instrus[k]['fxs'])) :
+        fxs.append(instrus[k]['fxs'][kk]['name'])
+        for kkk, vv  in instrus[k]['fxs'][kk]['opts'].items() :
+            if kkk == 'name' :
+                continue
+            fxs.append(kkk)
+            fxs.append(vv)
+        print(fxs)
+        sender.send_message('/instru/fx/add', fxs)
+        time.sleep(0.25)
 
-# time.sleep(5)
+time.sleep(5)
 # sender.send_message('/instru/fx/change', [0, 0, 'room', 0.5])
-# time.sleep(5)
+time.sleep(5)
 
 for k in range(len(instrus)) :
     for kk in range(len(instrus[k]['fxs'])) :
