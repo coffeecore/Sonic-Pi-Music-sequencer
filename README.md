@@ -56,7 +56,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Eighth                                   | `/eighth`            | Integer (default : 4)                |
 | Bar                                      | `/bar`               | Integer (default : 4)                |
 | Debug mode                               | `/debug`             | `0` : disable (default) `1` : enable |
-| Sequencer mod                            | `/sequencer_mod`     | `0` : step (default) `1` : play      |
+| Sequencer mod                            | `/sequencer_mod`     | `0` : step (default) `1` : player    |
 | Metronome                                | `/metronome`         | `0` : disable `1` : enable (default) |
 | Set metronome note options               | `/metronome/options` | optionName, optionValue...           |
 | Set BPM                                  | `/bpm`               | Integer (default : 60)               |
