@@ -13,7 +13,7 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
  - Raspberry Pi
  - Piano HAT
  - E-ink 2.13" screen
- - 6 potards
+ - 5 potards
  - 10 buttons
  - 4 leds
  - Maybe battery
