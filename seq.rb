@@ -24,6 +24,8 @@ use_osc "127.0.0.1", 7000
 
 set_volume! get(:volume)
 
+# Set play state on "start"
+#
 live_loop :start_play do
   use_real_time
   osc = sync "/osc*/start"
@@ -31,6 +33,8 @@ live_loop :start_play do
   set :play_state, 1
 end
 
+# Set play state on "stop"
+#
 live_loop :stop_play do
   use_real_time
   osc = sync "/osc*/stop"
@@ -39,6 +43,9 @@ live_loop :stop_play do
   set :play_state, 0
 end
 
+
+# Set play state on "pause"
+#
 live_loop :pause_play do
   use_real_time
   osc = sync "/osc*/pause"
@@ -46,6 +53,12 @@ live_loop :pause_play do
   set :play_state, 2
 end
 
+
+# Set global volume
+#
+# Parameter :
+# - integer between 0 and 5
+#
 live_loop :global_volume do
   use_real_time
   osc    = sync "/osc*/volume"
@@ -55,6 +68,11 @@ live_loop :global_volume do
   set_volume! get(:volume)
 end
 
+# Set debug mode on/off
+#
+# Parameter :
+# - 0 (disable) or 1 (enable)
+#
 live_loop :set_debug do
   use_real_time
   osc = sync "/osc*/debug"
@@ -69,6 +87,14 @@ live_loop :set_debug do
   end
 end
 
+# Set sequencer mod
+#
+# Parameter :
+# - 0 (sequencer), 1 (single)
+#
+# sequencer :
+# signle
+#
 live_loop :set_sequencer_mod do
   use_real_time
   osc = sync "/osc*/sequencer_mod"

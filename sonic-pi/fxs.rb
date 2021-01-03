@@ -6,6 +6,7 @@
 # - FX options
 # Example :
 # - [0, 'reverb', 'room', 1, 'mix', 0.5]
+#
 live_loop :add_fx do
   use_real_time
   osc       = sync "/osc*/instru/fx/add"
@@ -40,6 +41,7 @@ end
 # - FX options
 # Example :
 # - [0, 0, 'room', 1, 'mix', 0.5]
+#
 live_loop :change_options_fx do
   use_real_time
   osc        = sync '/osc*/instru/fx/change'
@@ -75,6 +77,7 @@ end
 # - FX position
 # Example :
 # - [0, 0...]
+#
 live_loop :remove_fx do
   use_real_time
   osc       = sync '/osc*/instru/fx/remove'
@@ -103,6 +106,7 @@ end
 # - FX name
 # Example :
 # - [0]
+#
 live_loop :remove_all_fx do
   use_real_time
   osc       = sync '/osc*/instru/fx/remove/all'
