@@ -1,10 +1,10 @@
 live_loop :metronome do
-  # use_real_time
+  use_real_time
 
-  sync :t
+  # sync :t
   use_bpm get(:bpm)
 
-  if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'play' then
+  if get(:metronome_state) then #&& PLAY_STATE[get(:play_state).to_i] == 'play' then
     play 60, get(:metronome_options).to_h
   end
 
@@ -16,7 +16,7 @@ live_loop :set_eighth do
   osc = sync "/osc*/eighth"
   set :eighth, osc[0]
 
-  set(:endBar, ((osc[0]*get(:bar))-1)) #if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
+  set(:endBar, ((osc[0]*get(:bar))-1))
 end
 
 live_loop :set_bar do
@@ -24,14 +24,14 @@ live_loop :set_bar do
   osc = sync "/osc*/bar"
   set :bar, osc[0]
 
-  set(:endBar, ((get(:eighth)*osc[0])-1)) #if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
+  set(:endBar, ((get(:eighth)*osc[0])-1))
 end
 
 live_loop :set_end do
   use_real_time
   osc = sync "/osc*/end"
 
-  set(:endBar, osc[0]) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'tracker'
+  set(:endBar, osc[0]) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
 end
 
 live_loop :set_metronome do

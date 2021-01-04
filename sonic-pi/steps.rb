@@ -8,10 +8,10 @@ live_loop :add_step do
 
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
-  steps = instru['steps'][0..][patternPos]
+  patterns = instru['patterns'][0..][patternPos]
 
-  if steps == nil then
-    steps = Array.new(get(:end)+1)
+  if patterns == nil then
+    patterns = Array.new(get(:end)+1)
   end
 
   if instru['type'] == 'sample' || instru['type'] == 'external_sample' then
@@ -19,18 +19,18 @@ live_loop :add_step do
   end
   case stepPos
     when 0
-      steps = [note]+steps[1..-1]
+      patterns = [note]+patterns[1..-1]
     when 1..(get(:end)-1)
-      steps = steps[0..(stepPos-1)] +[note]+steps[(stepPos+1)..-1]
+      patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
     when get(:end)
-      steps = steps[0..-2]+[note]
+      patterns = patterns[0..-2]+[note]
   end
 
-  ss = instru['steps'][0..]
+  ss = instru['patterns'][0..]
 
-  ss[patternPos] = steps
+  ss[patternPos] = patterns
 
-  instru['steps'] = ss
+  instru['patterns'] = ss
 
   instrus[instruPos] = instru
 
@@ -46,17 +46,17 @@ live_loop :remove_step do
 
   instrus = get(:instrus)[0..]
   instru  = (instrus[instruPos]).to_h
-  steps   = instru['steps'][patternPos]
+  patterns   = instru['patterns'][patternPos]
 
   case stepPos
     when 0
-      steps = [nil]+steps[1..-1]
+      patterns = [nil]+patterns[1..-1]
     when 1..(get(:end)-1)
-      steps = bts[0..(stepPos-1)] +[nil]+steps[(stepPos+1)..-1]
+      patterns = bts[0..(stepPos-1)] +[nil]+patterns[(stepPos+1)..-1]
     when get(:end)
-      steps = steps[0..-2]+[nil]
+      patterns = patterns[0..-2]+[nil]
   end
-  instru['steps'][patternPos] = steps
+  instru['patterns'][patternPos] = patterns
 
   instrus[instruPos] = instru
   set(:instrus, instrus)

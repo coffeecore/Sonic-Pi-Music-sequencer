@@ -1,6 +1,9 @@
 live_loop :play do
   # use_real_time
   sync :t
+  while get(:play_state) != 1 do
+    sleep (1.0/get(:eighth))
+  end
   use_bpm get(:bpm)
 
   n = get(:n)
@@ -13,11 +16,11 @@ live_loop :play do
 
     instrus.each do |instru|
       puts "INSTRU #{instru['name']}" if get(:debug)
-      # puts "PPPPPPPP #{get(:p)}"
-      steps = instru['steps'][p]
-      puts "STEPS #{steps}" if get(:debug)
 
-      if steps != nil && steps[n] != nil then
+      patterns = instru['patterns'][p]
+      puts "PATTERNS #{patterns}" if get(:debug)
+
+      if patterns != nil && patterns[n] != nil then
         opts = instru['opts'].to_h
         puts "OPTS #{opts}" if get(:debug)
 
@@ -32,7 +35,7 @@ live_loop :play do
         end
         case instru['type']
           when 'synth'
-            opts[:note] = steps[n].to_sym
+            opts[:note] = patterns[n].to_sym
             # toEval += "synth instruName.to_sym "
             toEval += "synth instruName.to_sym, opts "
           when 'sample'

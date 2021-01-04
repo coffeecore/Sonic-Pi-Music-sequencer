@@ -21,7 +21,7 @@ live_loop :add_instru do
     'name'  => instruName,
     'opts'  => {},
     'fxs'   => [],
-    'steps' => [Array.new(get(:end)+1)]
+    'patterns' => [Array.new(get(:end)+1)]
   })
 
   set(:instrus, instrus)

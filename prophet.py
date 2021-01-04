@@ -6,12 +6,18 @@ import random
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
+# sender.send_message('/start', [1])
+# time.sleep(0.2)
+# sender.send_message('/stop', [1])
+# time.sleep(0.2)
+# exit()
+
 sender.send_message('/debug', [1])
 time.sleep(0.2)
 
 sender.send_message('/metronome', [1])
 time.sleep(0.2)
-exit()
+
 sender.send_message('/bpm', [60])
 time.sleep(0.2)
 
@@ -147,10 +153,10 @@ print("METRONOME")
 sender.send_message('/metronome', [0])
 time.sleep(0.2)
 print("PAUSE")
-sender.send_message('/pause', [1])
-time.sleep(0.2)
-sender.send_message('/start', [1])
-time.sleep(0.2)
+# sender.send_message('/pause', [1])
+# time.sleep(0.2)
+# sender.send_message('/start', [1])
+# time.sleep(0.2)
 for kk in range(8) :
     print(kk)
     opts = [0]
@@ -163,4 +169,4 @@ for kk in range(8) :
     sender.send_message('/instru/fxs/change', opts)
     time.sleep(2)
 time.sleep(8)
-sender.send_message('/stop', [1])
+sender.send_message('/pause', [1])
