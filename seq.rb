@@ -1,12 +1,12 @@
 PLAY_STATE    = ['stop', 'play', 'pause']
-SEQUENCER_MOD = ['sequencer', 'single', 'tracker']
+SEQUENCER_MOD = ['sequencer', 'single']
 FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 
 set :instrus, []
-set :start, 0
+set :startBar, 0
 set :eighth, 4
 set :bar, 4
-set :end, ((get(:eighth)*get(:bar))-1)
+set :endBar, ((get(:eighth)*get(:bar))-1)
 set :n, 0
 set :pmax, 2
 set :p, 0

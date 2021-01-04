@@ -16,7 +16,7 @@ live_loop :set_eighth do
   osc = sync "/osc*/eighth"
   set :eighth, osc[0]
 
-  set(:end, ((osc[0]*get(:bar))-1)) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
+  set(:endBar, ((osc[0]*get(:bar))-1)) #if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
 end
 
 live_loop :set_bar do
@@ -24,14 +24,14 @@ live_loop :set_bar do
   osc = sync "/osc*/bar"
   set :bar, osc[0]
 
-  set(:end, ((get(:eighth)*osc[0])-1)) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
+  set(:endBar, ((get(:eighth)*osc[0])-1)) #if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'sequencer'
 end
 
 live_loop :set_end do
   use_real_time
   osc = sync "/osc*/end"
 
-  set(:end, osc[0]) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'tracker'
+  set(:endBar, osc[0]) if SEQUENCER_MOD[get(:sequencer_mod).to_i] == 'tracker'
 end
 
 live_loop :set_metronome do
@@ -84,12 +84,11 @@ live_loop :tempo do
   p = get(:p)
 
   if SEQUENCER_MOD[get(:sequencer_mod).to_i] != 'single' then
-    puts "JJJKJKJKJKJKJK #{get(:p)}"
-    set :p, p+1 if n != 0 and n % ((get(:eighth)*get(:bar))-1) == 0
-    set :p, get(:start) if p >= get(:pmax)
+    set :p, p+1 if n != 0 and n % (get(:endBar)-1) == 0
+    set :p, get(:startBar) if p >= get(:pmax)
   end
 
-  tick_set get(:start) if look >= get(:end)
+  tick_set get(:startBar) if look >= get(:endBar)
 
   sleep (1.0/get(:eighth))
 end

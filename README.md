@@ -37,6 +37,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 - Test real performances :sweat_smile:
 - OSC return messages
 - Python part
+- Arrange patterns system
 
 ## OSC Commands
 
@@ -64,8 +65,8 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Set total patterns to play on `step` mod | `/pattern/max`       | Integer (default : 1)                |
 
 `/sequencer_mod` _Features in progress_ :
- - bank : play all patterns from 0 to `/pattern/max` setting
- - single : play only pattern at this position
+ - sequencer : play all patterns from single mod position to `/pattern/max` setting and loop from 0
+ - single : loop on pattern at this position
 
 ### Instruments (Synths and Samples)
 
