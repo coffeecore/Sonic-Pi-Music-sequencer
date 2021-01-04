@@ -32,6 +32,8 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 :heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script.
 
+:heavy_exclamation_mark: Limit use of FXs. I must think about new architecture.
+
 ## Todo
 
 - Test real performances :sweat_smile:
