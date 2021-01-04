@@ -17,7 +17,7 @@ set :metronome_state, true
 set :play_state, PLAY_STATE[0]
 set :sequencer_mod, SEQUENCER_MOD[0]
 set :metronome_options, {
-  'release' => 0.01
+  'release' => 0.001
 }
 sleep 0.01
 use_osc "127.0.0.1", 7000
