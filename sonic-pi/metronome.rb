@@ -1,10 +1,10 @@
 live_loop :metronome do
-  use_real_time
+  # use_real_time
 
-  # sync :t
+  sync :t
   use_bpm get(:bpm)
 
-  if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'single' then
+  if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'play' then
     play 60, get(:metronome_options).to_h
   end
 

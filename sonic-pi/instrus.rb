@@ -1,3 +1,13 @@
+# Add an instrument channel
+#
+# OSC parameters :
+# - instrument type ('synth', 'sample', 'external_sample')
+# - instrument name
+# Example :
+# - ['synth', 'tb303']
+# - ['sample', 'drum_cymbal_closed']
+# - ['external_sample', '/path/to/your/file.ext']
+#
 live_loop :add_instru do
   use_real_time
   osc        = sync '/osc*/instru/add'
@@ -19,6 +29,13 @@ live_loop :add_instru do
   # osc "/instru/add", instrus.length-1
 end
 
+# Add an instrument channel with options and FXs in JSON format
+#
+# OSC parameters :
+# - json
+# Example :
+# - see python script
+#
 live_loop :add_instru_complete do
   use_real_time
   osc        = sync '/osc*/instru/add/complete'
@@ -31,6 +48,15 @@ live_loop :add_instru_complete do
   set(:instrus, instrus)
 end
 
+# Add an instrument channel with options and FXs in JSON format
+#
+# OSC parameters :
+# - json
+# - position instrument
+# Example :
+# - see python script for json
+# - [json, 0]
+#
 live_loop :change_instru_complete do
   use_real_time
   osc        = sync '/osc*/instru/change/complete'

@@ -7,9 +7,9 @@ set :startBar, 0
 set :eighth, 4
 set :bar, 4
 set :endBar, ((get(:eighth)*get(:bar))-1)
-set :n, 0
-set :pmax, 2
-set :p, 0
+set :n, 0 # Increment step position
+set :pmax, 2 # Max patterns to play in sequencer mod
+set :p, 0 # Pattern to play in single mod
 set :bpm, 60
 set :volume, 5
 set :debug, false
