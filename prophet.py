@@ -63,7 +63,7 @@ instrus = [
         'opts': {
             'release': 8
         },
-        'steps': [
+        'patterns': [
             ['e1', None, None, None, 'e1', None, None, None],
             ['e1', None, None, None, None, None, None, None],
             ['e1', None, None, None, None, None, None, None],
@@ -88,7 +88,7 @@ instrus = [
         'opts': {
             'rate': 0.5
         },
-        'steps': [
+        'patterns': [
             [1, None, None, None, None, None, None, None],
             [1, None, None, None, None, None, None, None],
             [1, None, None, None, None, None, None, None],
@@ -114,7 +114,7 @@ instrus = [
         'opts': {
             'rate': 0.5
         },
-        'steps': [
+        'patterns': [
             [1,    None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [1,    None, None, None, None, None, None, None],
@@ -137,36 +137,37 @@ time.sleep(0.2)
 # for k in range(len(instrus)) :
 # for i in range(8) :
     # print(i)
-for kk in range(8) :
-    print(kk)
-    opts = [0]
-    opts.append('cutoff')
-    opts.append(70+((130-70)/8)*kk)
-    sender.send_message('/instru/options/change', opts)
-    opts = [1]
-    opts.append('phase')
-    opts.append(random.choice([0.125, 0.25]))
-    sender.send_message('/instru/fxs/change', opts)
-    time.sleep(2)
+while True:
+    for kk in range(8) :
+        print(kk)
+        opts = [0]
+        opts.append('cutoff')
+        opts.append(70+((130-70)/8)*kk)
+        sender.send_message('/instru/options/change', opts)
+        opts = [1]
+        opts.append('phase')
+        opts.append(random.choice([0.125, 0.25]))
+        sender.send_message('/instru/fxs/change', opts)
+        time.sleep(2)
 
-print("METRONOME")
-sender.send_message('/metronome', [0])
-time.sleep(0.2)
-print("PAUSE")
+# print("METRONOME")
+# sender.send_message('/metronome', [0])
+# time.sleep(0.2)
+# print("PAUSE")
 # sender.send_message('/pause', [1])
 # time.sleep(0.2)
 # sender.send_message('/start', [1])
 # time.sleep(0.2)
-for kk in range(8) :
-    print(kk)
-    opts = [0]
-    opts.append('cutoff')
-    opts.append(70+((130-70)/8)*kk)
-    sender.send_message('/instru/options/change', opts)
-    opts = [1]
-    opts.append('phase')
-    opts.append(random.choice([0.125, 0.25]))
-    sender.send_message('/instru/fxs/change', opts)
-    time.sleep(2)
-time.sleep(8)
-sender.send_message('/pause', [1])
+# for kk in range(8) :
+#     print(kk)
+#     opts = [0]
+#     opts.append('cutoff')
+#     opts.append(70+((130-70)/8)*kk)
+#     sender.send_message('/instru/options/change', opts)
+#     opts = [1]
+#     opts.append('phase')
+#     opts.append(random.choice([0.125, 0.25]))
+#     sender.send_message('/instru/fxs/change', opts)
+#     time.sleep(2)
+# time.sleep(8)
+# sender.send_message('/pause', [1])
