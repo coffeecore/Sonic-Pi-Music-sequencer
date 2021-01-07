@@ -1,8 +1,9 @@
 live_loop :play do
   use_real_time
-  use_debug(get(:debug))
-  # sync :t
-  while get(:play_state) != 1 do
+  use_debug get(:debug)
+  use_cue_logging get(:cue_logging)
+  # sync :temp
+  while PLAY_STATE[get(:play_state).to_i] != 'play' do
     sleep (1.0/get(:eighth))
   end
   use_bpm get(:bpm)

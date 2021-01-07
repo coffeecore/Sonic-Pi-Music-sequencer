@@ -1,12 +1,3 @@
-# Add FXs to an instrument
-#
-# OSC parameters :
-# - instrument position
-# - FX name
-# - FX options
-# Example :
-# - [0, 'reverb', 'room', 1, 'mix', 0.5]
-#
 live_loop :add_fx do
   use_real_time
   osc       = sync "/osc*/instru/fx/add"
@@ -33,15 +24,6 @@ live_loop :add_fx do
   set(:instrus, instrus)
 end
 
-# Change FX options
-#
-# OSC parameters :
-# - instrument position
-# - FX position
-# - FX options
-# Example :
-# - [0, 0, 'room', 1, 'mix', 0.5]
-#
 live_loop :change_options_fx do
   use_real_time
   osc        = sync '/osc*/instru/fx/change'
@@ -69,15 +51,6 @@ live_loop :change_options_fx do
   set(:instrus, instrus)
 end
 
-# Remove FXs from an instrument
-#
-# OSC parameters :
-# - instrument position
-# - FX name
-# - FX position
-# Example :
-# - [0, 0...]
-#
 live_loop :remove_fx do
   use_real_time
   osc       = sync '/osc*/instru/fx/remove'
@@ -99,14 +72,6 @@ live_loop :remove_fx do
   set(:instrus, instrus)
 end
 
-# Remove all FXs from an instrument
-#
-# OSC parameters :
-# - instrument position
-# - FX name
-# Example :
-# - [0]
-#
 live_loop :remove_all_fx do
   use_real_time
   osc       = sync '/osc*/instru/fx/remove/all'

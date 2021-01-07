@@ -1,5 +1,6 @@
 .DS_Store
 model.rb
-Samples/*
-!Samples/.gitkeep
-
+samples/*
+!samples/.gitkeep
+records/*
+!records/.gitkeep
