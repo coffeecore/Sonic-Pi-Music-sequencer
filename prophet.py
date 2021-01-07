@@ -6,11 +6,11 @@ import random
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-# sender.send_message('/start', [1])
-# time.sleep(0.2)
+sender.send_message('/start', [1])
+time.sleep(0.2)
 # sender.send_message('/stop', [1])
 # time.sleep(0.2)
-# exit()
+exit()
 
 sender.send_message('/debug', [1])
 time.sleep(0.2)
@@ -129,7 +129,7 @@ instrus = [
 
 for k in range(len(instrus)) :
     sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
-    time.sleep(0.2)
+    # time.sleep(0.2)
 time.sleep(1)
 sender.send_message('/start', [1])
 time.sleep(0.2)

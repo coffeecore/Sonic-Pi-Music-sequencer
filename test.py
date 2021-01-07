@@ -5,13 +5,13 @@ import json
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-sender.send_message('/debug', [1])
+sender.send_message('/debug', [0])
 time.sleep(0.2)
 
-sender.send_message('/metronome', [1])
+sender.send_message('/metronome', [0])
 time.sleep(0.2)
 
-sender.send_message('/bpm', [60])
+sender.send_message('/bpm', [150])
 time.sleep(0.2)
 
 sender.send_message('/start', [1])
@@ -31,12 +31,12 @@ instrus = [
             }
         ],
         'opts': {
-            'release': 0.01,
-            'amp': 0.75,
-            'attack': 0.1,
-            'res': 0
+            # 'release': 0.01,
+            # 'amp': 0.75,
+            # 'attack': 0.1,
+            # 'res': 0
         },
-        'steps': [
+        'patterns': [
             [None, None, 'c4', 'e4', None, None, 'g4', 'c4', None, 'e4', None, None, 'c4', None, 'g4', None],
             [None, None, 'c2', 'e2', None, None, 'g2', 'c2', None, 'e2', None, None, 'c2', None, 'g2', None]
         ]
@@ -51,7 +51,7 @@ instrus = [
             'attack': 1,
             'res': 0
         },
-        'steps': [
+        'patterns': [
             [
                 1, None, 1, None, 
                 1, None, 1, None, 
@@ -76,7 +76,7 @@ instrus = [
             # 'attack': 1,
             # 'res': 0
         },
-        'steps': [
+        'patterns': [
             [
                 1, None, None, None, 
                 None, None, None, None, 
@@ -95,22 +95,22 @@ instrus = [
         'type': 'sample',
         'name': 'sn_dub',
         'fxs': [
-            {
-                'name': 'reverb',
-                'opts' : {
-                    'mix': 0.5,
-                    'room': 0.5
-                }
-            }
+            # {
+            #     'name': 'reverb',
+            #     'opts' : {
+            #         'mix': 0.5,
+            #         'room': 0.5
+            #     }
+            # }
         ],
         'opts': {
-            'release': 1,
-            'amp': 5,
-            'attack': 1,
-            'res': 0,
-            'pan': -1
+            # 'release': 1,
+            # 'amp': 5,
+            # 'attack': 1,
+            # 'res': 0,
+            # 'pan': -1
         },
-        'steps': [
+        'patterns': [
             [
                 None, None, None, None, 
                 1, None, None, None, 
@@ -130,21 +130,22 @@ instrus = [
 for k in range(len(instrus)) :
     print([instrus[k]['type'], instrus[k]['name']])
     print(instrus[k])
-    if k == 0 :
-        sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
-        time.sleep(0.25)
-        continue
-    sender.send_message('/instru/add', [instrus[k]['type'], instrus[k]['name']])
-    time.sleep(0.2)
-    # exit()
+    # if k == 0 :
+    sender.send_message('/instru/add/complete', [json.dumps(instrus[k])])
+    time.sleep(0.25)
+    #     continue
+    # sender.send_message('/instru/add', [instrus[k]['type'], instrus[k]['name']])
+    # time.sleep(0.25)
+    # # exit()
 
-    for kk in range(len(instrus[k]['steps'])):
-        for kkk in range(len(instrus[k]['steps'][kk])):
-            if instrus[k]['steps'][kk][kkk] is not None :
-                print([k, kk, kkk, instrus[k]['steps'][kk][kkk]])
-                sender.send_message('/instru/step/add', [k, kk, kkk, instrus[k]['steps'][kk][kkk]])
-                time.sleep(0.2)
+    # for kk in range(len(instrus[k]['patterns'])):
+    #     for kkk in range(len(instrus[k]['patterns'][kk])):
+    #         if instrus[k]['patterns'][kk][kkk] is not None :
+    #             print([k, kk, kkk, instrus[k]['patterns'][kk][kkk]])
+    #             sender.send_message('/instru/step/add', [k, kk, kkk, instrus[k]['patterns'][kk][kkk]])
+    #             time.sleep(0.2)
 
+exit()
 # time.sleep(5)
 
 for k in range(len(instrus)) :

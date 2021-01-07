@@ -7,11 +7,13 @@ live_loop :add_step do
   note       = osc[3]
 
   instrus = get(:instrus)[0..]
+
   instru  = (instrus[instruPos]).to_h
+
   patterns = instru['patterns'][0..][patternPos]
 
   if patterns == nil then
-    patterns = Array.new(get(:end)+1)
+    patterns = Array.new(get(:endBar)+1)
   end
 
   if instru['type'] == 'sample' || instru['type'] == 'external_sample' then
@@ -20,9 +22,9 @@ live_loop :add_step do
   case stepPos
     when 0
       patterns = [note]+patterns[1..-1]
-    when 1..(get(:end)-1)
+    when 1..(get(:endBar)-1)
       patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
-    when get(:end)
+    when get(:endBar)
       patterns = patterns[0..-2]+[note]
   end
 
@@ -51,9 +53,9 @@ live_loop :remove_step do
   case stepPos
     when 0
       patterns = [nil]+patterns[1..-1]
-    when 1..(get(:end)-1)
+    when 1..(get(:endBar)-1)
       patterns = bts[0..(stepPos-1)] +[nil]+patterns[(stepPos+1)..-1]
-    when get(:end)
+    when get(:endBar)
       patterns = patterns[0..-2]+[nil]
   end
   instru['patterns'][patternPos] = patterns

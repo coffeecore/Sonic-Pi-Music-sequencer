@@ -1,6 +1,7 @@
 live_loop :play do
-  # use_real_time
-  sync :t
+  use_real_time
+  use_debug(get(:debug))
+  # sync :t
   while get(:play_state) != 1 do
     sleep (1.0/get(:eighth))
   end
@@ -55,5 +56,6 @@ live_loop :play do
       end
     end
   end
+  sleep (1.0/get(:eighth))
 end
 

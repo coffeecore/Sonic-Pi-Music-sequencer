@@ -66,6 +66,7 @@ end
 
 live_loop :tempo do
   use_real_time
+  use_debug(get(:debug))
   cue :t
   use_bpm get(:bpm)
 
