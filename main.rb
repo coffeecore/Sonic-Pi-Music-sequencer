@@ -2,32 +2,7 @@ PLAY_STATE    = ['stop', 'play', 'pause']
 SEQUENCER_MOD = ['sequencer', 'single']
 FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 
-set :instrus, []
-set :startBar, 0
-set :eighth, 4
-set :bar, 4
-set :endBar, ((get(:eighth)*get(:bar))-1)
-set :n, 0 # Increment step position
-set :pmax, 1 # Max patterns to play in sequencer mod
-set :p, 0 # Pattern to play in single mod
-set :bpm, 60
-set :volume, 5
-set :debug, false
-set :cue_logging, false
-set :metronome_state, true
-set :play_state, 0
-set :sequencer_mod, 0
-set :metronome_options, {
-  'release' => 0.001
-}
-
-use_osc "127.0.0.1", 7000
-
-set_volume! get(:volume)
-
-live_loop :reset do
-  use_real_time
-  osc    = sync "/osc*/reset"
+define :reset_f do
   set :instrus, []
   set :startBar, 0
   set :eighth, 4
@@ -41,11 +16,23 @@ live_loop :reset do
   set :debug, false
   set :cue_logging, false
   set :metronome_state, true
-  set :play_state, 0
-  set :sequencer_mod, 0
+  set :play_state, 0 #stop
+  set :sequencer_mod, 0 #sequencer
   set :metronome_options, {
     'release' => 0.001
   }
+end
+
+reset_f
+
+use_osc "127.0.0.1", 7000
+
+set_volume! get(:volume)
+
+live_loop :reset do
+  use_real_time
+  osc    = sync "/osc*/reset"
+  reset_f
 end
 
 live_loop :global_volume do

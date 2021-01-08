@@ -3,10 +3,10 @@ live_loop :play do
   use_debug get(:debug)
   use_cue_logging get(:cue_logging)
   # sync :temp
+  use_bpm get(:bpm)
   while PLAY_STATE[get(:play_state).to_i] != 'play' do
     sleep (1.0/get(:eighth))
   end
-  use_bpm get(:bpm)
 
   n = get(:n)
   p = get(:p)
@@ -63,6 +63,7 @@ live_loop :play do
     p = 0 if p >= get(:pmax)
     set :p, p
   end
+  
   sleep (1.0/get(:eighth))
 end
 
