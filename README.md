@@ -83,17 +83,6 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 ### Instruments (Synths and Samples)
 
-| Feature        | OSC URI          | Parameters             |
-| -------------- | ---------------- | ---------------------- |
-| Add instrument | `/instru/add`    | instruType, instruName |
-
-`instruType` :
- - `synth` : pre-built synths
- - `sample` : pre-built samples
- - `external_sample` : external samples
-
-`instruName` : Name of synth, sample or path to sample to use for this channel
-
 | Feature                                       | OSC URI                   | Parameters                                                                      |
 | --------------------------------------------- | ----------------- | ---------------------- |
 | Add instrument with options, steps and FXs    | `/instru/add/complete`    | See Python script for example. Format must be JSON and complete to avoid errors |
