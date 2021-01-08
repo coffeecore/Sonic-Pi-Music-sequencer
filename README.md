@@ -75,6 +75,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Set BPM                                  | `/bpm`               | Integer (default : 60)               |
 | Set pattern to play on `single` mod      | `/pattern`           | Integer (default : 0)                |
 | Set total patterns to play on `step` mod | `/pattern/max`       | Integer (default : 1)                |
+| Reset all Time State var                 | `/reset`             | 1                                    |
 
 `/sequencer_mod` _Features in progress_ :
  - sequencer : play all patterns from single mod position to `/pattern/max` setting and loop from 0
