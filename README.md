@@ -26,7 +26,7 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
 - Change some parameters (BPM for example)
 - Metronome
 - Step sequencer
-- Can play one pattern in loop or loop on many patterns (only forwarded patterns at this moment)
+- Can play one pattern in loop or loop on many patterns
 
 ## How to
 
