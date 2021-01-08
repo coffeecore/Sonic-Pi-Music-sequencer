@@ -12,7 +12,7 @@ set :pmax, 1 # Max patterns to play in sequencer mod
 set :p, 0 # Pattern to play in single mod
 set :bpm, 60
 set :volume, 5
-set :debug, true
+set :debug, false
 set :cue_logging, false
 set :metronome_state, true
 set :play_state, 0

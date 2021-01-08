@@ -73,9 +73,6 @@ live_loop :step do
 
     tick
     n = look
-    puts "###################"
-              puts "LOOOK #{look}"
-              puts "NNNNNNN #{n}"
     set :n, n
 
     tick_set get(:startBar) if look >= get(:endBar)

@@ -18,6 +18,16 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
  - 4 leds
  - Maybe battery
 
+## What can it do ?
+
+- Add sample or synth (I must try the limit)
+- Sample/synth options
+- FXs
+- Change some parameters (BPM for example)
+- Metronome
+- Step sequencer
+- Can play one pattern in loop or loop on many patterns (only forwarded patterns at this moment)
+
 ## How to
 
 Open `seq.rb` file and change value of `FILE_PATH` constant.
@@ -32,7 +42,7 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 
 :heavy_exclamation_mark: Don't forget to add `time.sleep(float)` between OSC message in Python script.
 
-:heavy_exclamation_mark: Limit use of FXs. I must think about new architecture.
+:heavy_exclamation_mark: Limit use of FXs
 
 ## Todo
 
