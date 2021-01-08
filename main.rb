@@ -16,7 +16,7 @@ set :debug, false
 set :cue_logging, false
 set :metronome_state, true
 set :play_state, 0
-set :sequencer_mod, SEQUENCER_MOD[0]
+set :sequencer_mod, 0
 set :metronome_options, {
   'release' => 0.001
 }
