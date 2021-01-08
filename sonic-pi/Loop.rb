@@ -57,6 +57,12 @@ live_loop :play do
       end
     end
   end
+
+  if SEQUENCER_MOD[get(:sequencer_mod).to_i] != 'single' then
+    p = p+1 if n >= get(:endBar)
+    p = 0 if p >= get(:pmax)
+    set :p, p
+  end
   sleep (1.0/get(:eighth))
 end
 

@@ -12,7 +12,7 @@ set :pmax, 1 # Max patterns to play in sequencer mod
 set :p, 0 # Pattern to play in single mod
 set :bpm, 60
 set :volume, 5
-set :debug, false
+set :debug, true
 set :cue_logging, false
 set :metronome_state, true
 set :play_state, 0
@@ -37,6 +37,7 @@ end
 live_loop :set_debug do
   use_real_time
   osc = sync "/osc*/debug"
+
   if osc[0] == 1 then
     puts "DEBUG MODE ENABLING..."
     set :debug, true

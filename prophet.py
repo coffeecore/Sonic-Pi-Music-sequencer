@@ -4,17 +4,17 @@ import time
 import json
 import random
 
-sender = udp_client.SimpleUDPClient('127.0.0.1', 51251)
+sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-sender.send_message('/record/start', [1])
-time.sleep(12)
-sender.send_message('/record/stop', [1])
-time.sleep(0.2)
-sender.send_message('/record/save', [1])
-time.sleep(0.2)
-# sender.send_message('/stop', [1])
+# sender.send_message('/record/start', [1])
+# time.sleep(12)
+# sender.send_message('/record/stop', [1])
 # time.sleep(0.2)
-exit()
+# sender.send_message('/record/save', [1])
+# time.sleep(0.2)
+# # sender.send_message('/stop', [1])
+# # time.sleep(0.2)
+# exit()
 
 sender.send_message('/debug', [1])
 time.sleep(0.2)

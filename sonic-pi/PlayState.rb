@@ -4,6 +4,12 @@ live_loop :start_play do
   use_cue_logging get(:cue_logging)
   osc = sync "/osc*/start"
 
+  playState = get(:play_state)
+
+  if playState == 0 then
+    set :n, get(:startBar)
+  end
+
   set :play_state, 1
 end
 

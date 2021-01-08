@@ -62,6 +62,7 @@ live_loop :step do
     use_bpm get(:bpm)
     use_debug get(:debug)
     use_cue_logging get(:cue_logging)
+    cue :st
     # sync :temp
     while PLAY_STATE[get(:play_state).to_i] != 'play' do
         if PLAY_STATE[get(:play_state).to_i] == 'stop' then
@@ -72,32 +73,12 @@ live_loop :step do
 
     tick
     n = look
+    puts "###################"
+              puts "LOOOK #{look}"
+              puts "NNNNNNN #{n}"
     set :n, n
 
     tick_set get(:startBar) if look >= get(:endBar)
-
-    sleep (1.0/get(:eighth))
-end
-
-live_loop :pattern do
-    use_real_time
-    use_bpm get(:bpm)
-    use_debug get(:debug)
-    use_cue_logging get(:cue_logging)
-    # sync :temp
-    while PLAY_STATE[get(:play_state).to_i] != 'play' do
-        if PLAY_STATE[get(:play_state).to_i] == 'stop' then
-            tick_reset
-        end
-        sleep (1.0/get(:eighth))
-    end
-
-    p = get(:p)
-    n = get(:n)
-    if SEQUENCER_MOD[get(:sequencer_mod).to_i] != 'single' then
-        set :p, p+1 if n != 0 and n % (get(:endBar)-1) == 0
-        set :p, get(:startBar) if p >= get(:pmax)+1
-    end
 
     sleep (1.0/get(:eighth))
 end
