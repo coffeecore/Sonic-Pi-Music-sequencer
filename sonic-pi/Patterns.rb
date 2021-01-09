@@ -11,9 +11,6 @@ live_loop :add_pattern do
 
   patterns = instru['patterns'][0..]
 
-  puts "KJKJJKJKJKJKJKJKJKJJKJKKJJKJK"
-  puts patterns
-
   patterns.push(Array.new(get(:endBar)+1))
 
   instru['patterns'] = patterns
