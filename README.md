@@ -105,6 +105,15 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | ----------------------------- | ---------------------------- | ---------------------- |
 | Remove all instrument options | `/instru/options/remove/all` | instruPosition         |
 
+## Patterns
+
+| Feature        | OSC URI            | Parameters                         |
+| -------------- | ------------------ | ---------------------------------- |
+| Add pattern       | `/instru/pattern/add` | instruPosition |
+| Remove pattern    | `/instru/pattern/remove` | instruPosition, patternPosition |
+
+`patternPosition` : Pattern position
+
 ### Steps
 
 | Feature        | OSC URI            | Parameters                         |
@@ -112,8 +121,6 @@ To run Python script, install [python-osc](https://pypi.org/project/python-osc/ 
 | Add step       | `/instru/step/add` | instruPosition, patternPosition, stepPosition, note |
 
 `stepPosition` : Position on your channel
-
-`patternPosition` : Pattern position
 
 `note` : Note synth plays. Send any value (except null) for sample
 
