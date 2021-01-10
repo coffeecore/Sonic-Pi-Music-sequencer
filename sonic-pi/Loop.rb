@@ -1,3 +1,8 @@
+# synths_paths = FILE_PATH+"/synths/SonicPiSuperColliderSynthDefs"
+# puts synths_paths
+# load_synthdefs synths_paths
+# load_synthdefs "/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs"
+
 live_loop :play do
   use_real_time
   use_debug get(:debug)
@@ -40,6 +45,12 @@ live_loop :play do
             opts[:note] = patterns[n].to_sym
             # toEval += "synth instruName.to_sym "
             toEval += "synth instruName.to_sym, opts "
+          when 'external_synth'
+            opts[:note] = patterns[n].to_sym
+            # toEval += "synth instruName.to_sym "
+            # toEval += "synth \"#{instruName}\", opts "
+            toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
+            toEval += "use_synth \"#{instruName}\" \n play 60"
           when 'sample'
             toEval += "sample instruName.to_sym, opts "
             # toEval += "sample instruName.to_sym "
