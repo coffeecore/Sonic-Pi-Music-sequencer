@@ -5,3 +5,5 @@ samples/*
 records/*
 !records/.gitkeep
 SonicPiSuperColliderSynthDefs
+synths/*
+!synths/.gitkeep
