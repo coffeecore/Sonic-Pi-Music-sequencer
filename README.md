@@ -20,7 +20,7 @@ For now, it's the Sonic Pi part. To manage buttons etc. python will be used.
 
 ## What can it do ?
 
-- Add sample or synth (I must try the limit)
+- Add sample (external works) or synth (I must try the limit)
 - Sample/synth options
 - FXs
 - Change some parameters (BPM for example)
