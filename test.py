@@ -37,8 +37,8 @@ instrus = [
             # 'res': 0
         },
         'patterns': [
-            [None, None, 'c4', 'e4', None, None, 'g4', 'c4', None, 'e4', None, None, 'c4', None, 'g4', None],
-            [None, None, 'c2', 'e2', None, None, 'g2', 'c2', None, 'e2', None, None, 'c2', None, 'g2', None]
+            [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None],
+            [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, ':e2', None, None, ':c2', None, ':g2', None]
         ]
     },
     {

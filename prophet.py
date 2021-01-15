@@ -68,67 +68,67 @@ instrus = [
             'release': 8
         },
         'patterns': [
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None],
-            ['e1', None, None, None, None, None, None, None]
+            [':e1', None, None, None, None, None, None, None],
+            [':a2', None, None, None, None, None, None, None],
+            [':e1', None, None, None, None, None, None, None],
+            [':a2', None, None, None, None, None, None, None],
+            [':e1', None, None, None, None, None, None, None],
+            [':a2', None, None, None, None, None, None, None],
+            [':e1', None, None, None, None, None, None, None],
+            [':a2', None, None, None, None, None, None, None]
         ]
     },
-    # {
-    #     'type': 'sample',
-    #     'name': 'guit_em9',
-    #     'fxs': [
-    #         {
-    #             'name': 'slicer',
-    #             'opts': {
-    #                 'phase': 0.125,
-    #             }
-    #         }
-    #     ],
-    #     'opts': {
-    #         'rate': 0.5
-    #     },
-    #     'patterns': [
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None],
-    #         [1, None, None, None, None, None, None, None]
-    #     ]
-    # },
-    # {
-    #     'type': 'sample',
-    #     'name': 'loop_mika',
-    #     'fxs': [
-    #         {
-    #             'name': 'slicer',
-    #             'opts': {
-    #                 'wave': 0,
-    #                 'phase': 0.25
-    #             }
-    #         }
-    #     ],
-    #     'opts': {
-    #         'rate': 0.5
-    #     },
-    #     'patterns': [
-    #         [1,    None, None, None, None, None, None, None],
-    #         [None, None, None, None, None, None, None, None],
-    #         [1,    None, None, None, None, None, None, None],
-    #         [None, None, None, None, None, None, None, None],
-    #         [1,    None, None, None, None, None, None, None],
-    #         [None, None, None, None, None, None, None, None],
-    #         [1,    None, None, None, None, None, None, None],
-    #         [None, None, None, None, None, None, None, None]
-    #     ]
-    # }
+    {
+        'type': 'sample',
+        'name': 'guit_em9',
+        'fxs': [
+            {
+                'name': 'slicer',
+                'opts': {
+                    'phase': 0.125,
+                }
+            }
+        ],
+        'opts': {
+            'rate': 0.5
+        },
+        'patterns': [
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None],
+            [1, None, None, None, None, None, None, None]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': 'loop_mika',
+        'fxs': [
+            {
+                'name': 'slicer',
+                'opts': {
+                    'wave': 0,
+                    'phase': 0.25
+                }
+            }
+        ],
+        'opts': {
+            'rate': 0.5
+        },
+        'patterns': [
+            [1,    None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [1,    None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [1,    None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [1,    None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
+        ]
+    }
 ]
 
 for k in range(len(instrus)) :
@@ -157,18 +157,18 @@ time.sleep(0.2)
 # for k in range(len(instrus)) :
 # for i in range(8) :
     # print(i)
-# while True:
-#     for kk in range(8) :
-#         print(kk)
-#         opts = [0]
-#         opts.append('cutoff')
-#         opts.append(70+((130-70)/8)*kk)
-#         sender.send_message('/instru/options/change', opts)
-#         opts = [1]
-#         opts.append('phase')
-#         opts.append(random.choice([0.125, 0.25]))
-#         sender.send_message('/instru/fxs/change', opts)
-#         time.sleep(2)
+while True:
+    for kk in range(8) :
+        print(kk)
+        opts = [0]
+        opts.append('cutoff')
+        opts.append(70+((130-70)/8)*kk)
+        sender.send_message('/instru/options/change', opts)
+        opts = [1]
+        opts.append('phase')
+        opts.append(random.choice([0.125, 0.25]))
+        sender.send_message('/instru/fxs/change', opts)
+        time.sleep(2)
 
 # print("METRONOME")
 # sender.send_message('/metronome', [0])
