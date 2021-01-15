@@ -18,8 +18,6 @@ live_loop :add_fx do
 
   instru['fxs'] = fxs.push(fx)
 
-  # osc "/instru/fx/add", instru.length-1
-
   instrus[instruPos] = instru
   set(:instrus, instrus)
 end

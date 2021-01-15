@@ -62,8 +62,7 @@ live_loop :step do
     use_bpm get(:bpm)
     use_debug get(:debug)
     use_cue_logging get(:cue_logging)
-    cue :st
-    # sync :temp
+
     while PLAY_STATE[get(:play_state).to_i] != 'play' do
         if PLAY_STATE[get(:play_state).to_i] == 'stop' then
             tick_reset
