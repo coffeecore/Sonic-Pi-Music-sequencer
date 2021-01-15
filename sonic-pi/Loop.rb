@@ -33,9 +33,9 @@ live_loop :play do
             opts[:note] = eval(patterns[n].to_s)
             toEval += "synth instruName.to_sym, opts "
           when 'external_synth'
-            opts[:note] = patterns[n].to_sym
-            toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
-            toEval += "use_synth \"#{instruName}\" \n play 60"
+            # opts[:note] = patterns[n].to_sym
+            # toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
+            # toEval += "use_synth \"#{instruName}\" \n play 60"
           when 'sample'
             toEval += "sample instruName.to_sym, opts "
           when 'external_sample'
@@ -55,7 +55,7 @@ live_loop :play do
     p = 0 if p >= get(:pmax)
     set :p, p
   end
-  
+
   sleep (1.0/get(:eighth))
 end
 
