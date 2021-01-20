@@ -11,41 +11,45 @@ live_loop :play do
   n = get(:n)
   p = get(:p)
 
+  puts "Pattern #{p}"
+  puts "Step #{n}"
+
   if p != nil then
     instrus = get(:instrus)[0..]
 
     instrus.each do |instru|
+      if instru['patterns'] != nil then
+        patterns = instru['patterns'][p]
 
-      patterns = instru['patterns'][p]
+        if patterns != nil && patterns[n] != nil then
+          opts = instru['opts'].to_h
 
-      if patterns != nil && patterns[n] != nil then
-        opts = instru['opts'].to_h
+          fxs = instru['fxs']
 
-        fxs = instru['fxs']
+          instruName = instru['name']
+          toEval = ''
+          fxs.reverse.each do |fx|
+            toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+          end
+          case instru['type']
+            when 'synth'
+              opts[:note] = eval(patterns[n].to_s)
+              toEval += "synth instruName.to_sym, opts "
+            when 'external_synth'
+              # opts[:note] = patterns[n].to_sym
+              # toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
+              # toEval += "use_synth \"#{instruName}\" \n play 60"
+            when 'sample'
+              toEval += "sample instruName.to_sym, opts "
+            when 'external_sample'
+              toEval += "sample \"#{instruName}\", opts "
+          end
 
-        instruName = instru['name']
-        toEval = ''
-        fxs.reverse.each do |fx|
-          toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+          fxs.reverse.each do |fx|
+            toEval += "end "
+          end
+          eval toEval
         end
-        case instru['type']
-          when 'synth'
-            opts[:note] = eval(patterns[n].to_s)
-            toEval += "synth instruName.to_sym, opts "
-          when 'external_synth'
-            # opts[:note] = patterns[n].to_sym
-            # toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
-            # toEval += "use_synth \"#{instruName}\" \n play 60"
-          when 'sample'
-            toEval += "sample instruName.to_sym, opts "
-          when 'external_sample'
-            toEval += "sample \"#{instruName}\", opts "
-        end
-
-        fxs.reverse.each do |fx|
-          toEval += "end "
-        end
-        eval toEval
       end
     end
   end

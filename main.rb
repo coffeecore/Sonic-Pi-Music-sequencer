@@ -4,10 +4,13 @@ FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 
 define :reset_f do
   set :instrus, []
+  # Result 4/4 with sixteenth note.
+  # To have 3/4 with eighth note set "eighth" to 2 and "bar" to 3
   set :startBar, 0
   set :eighth, 4
   set :bar, 4
   set :endBar, ((get(:eighth)*get(:bar))-1)
+  #
   set :n, 0 # Increment step position
   set :pmax, 1 # Max patterns to play in sequencer mod
   set :p, 0 # Pattern to play in single mod

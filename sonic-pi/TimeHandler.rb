@@ -3,18 +3,20 @@ live_loop :tempo do
     use_bpm get(:bpm)
     use_debug get(:debug)
     use_cue_logging get(:cue_logging)
-    cue :temp
+    # cue :temp
     sleep (1.0/get(:eighth))
 end
 
 live_loop :metronome do
-  sync :temp
+  # sync :temp
+  use_real_time
   use_bpm get(:bpm)
   use_debug get(:debug)
   use_cue_logging get(:cue_logging)
   if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'play' && get(:n) % get(:eighth) == 0 then
     play 60, release: 0.001
   end
+  sleep 1
 end
 
 live_loop :set_eighth do
