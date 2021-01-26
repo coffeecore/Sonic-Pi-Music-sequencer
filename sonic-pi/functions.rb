@@ -11,7 +11,7 @@ define :ring_delete_at do |ring, index|
     return ringClone
 end
 
-define :ring_add_at do |ring, index, value|
+define :ring_set_at do |ring, index, value|
     ringClone = ring_clone(ring)
     ringClone[index] = value
 

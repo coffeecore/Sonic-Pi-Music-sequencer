@@ -6,7 +6,8 @@ live_loop :add_pattern do
   instruPos  = osc[0]
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
 
   instru  = (instrus[instruPos]).to_h
 
@@ -17,9 +18,9 @@ live_loop :add_pattern do
 
   instru['patterns'] = patterns
 
-  # instrus[instruPos] = instru
+  instrus[instruPos] = instru
 
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
 
   set(:instrus, instrus)
 end
@@ -33,17 +34,18 @@ live_loop :remove_pattern do
   patternPos = osc[1]
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
   instru  = (instrus[instruPos]).to_h
   # patterns   = instru['patterns'][0..]
-  patterns   = instru['patterns'].take(get(:instrus).length)
+  patterns   = ring_clone(instru['patterns'])
 
-  patterns.delete_at(patternPos)
+  patterns.ring_delete_at(patterns, patternPos)
 
   instru['patterns'] = patterns
 
-  # instrus[instruPos] = instru
+  instrus[instruPos] = instru
 
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end

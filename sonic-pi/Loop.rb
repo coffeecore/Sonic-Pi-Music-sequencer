@@ -16,7 +16,8 @@ live_loop :play do
 
   if p != nil then
     # instrus = get(:instrus)[0..]
-    instrus = get(:instrus).take(get(:instrus).length)
+    # instrus = get(:instrus).take(get(:instrus).length)
+    instrus = ring_clone(get(:instrus))
 
     instrus.each do |instru|
       if instru['patterns'] != nil then
@@ -33,6 +34,7 @@ live_loop :play do
             puts "#{fx['name']}"
             toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
           end
+          puts patterns[n]
           case instru['type']
             when 'synth'
               opts[:note] = eval(patterns[n].to_s)

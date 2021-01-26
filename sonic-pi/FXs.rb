@@ -7,7 +7,8 @@ live_loop :add_fx do
   fxOpts    = osc.drop(2)
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
   instru  = (instrus[instruPos]).to_h
 
   # fxs = instru['fxs'][0..]
@@ -22,8 +23,8 @@ live_loop :add_fx do
   # instru['fxs'] = fxs.push(fx)
   instru['fxs'] = fxs+[fx]
 
-  # instrus[instruPos] = instru
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  instrus[instruPos] = instru
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end
 
@@ -36,7 +37,8 @@ live_loop :change_options_fx do
   fxOpts     = osc.drop(2)
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
   instru  = (instrus[instruPos]).to_h
 
   # fxs = instru['fxs'][0..]
@@ -53,8 +55,8 @@ live_loop :change_options_fx do
   fxs[fxPosition] = fx
   instru['fxs']    = fxs
 
-  # instrus[instruPos] = instru
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  instrus[instruPos] = instru
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end
 
@@ -66,7 +68,8 @@ live_loop :remove_fx do
   fxOpts    = osc.drop(1)
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
   instru  = (instrus[instruPos]).to_h
 
   # fxs = instru['fxs'][0..]
@@ -79,8 +82,8 @@ live_loop :remove_fx do
 
   instru['fxs'] = fxs
 
-  # instrus[instruPos] = instru
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  instrus[instruPos] = instru
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end
 
@@ -90,13 +93,14 @@ live_loop :remove_all_fx do
   instruPos = osc[0]
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
   instru  = (instrus[instruPos]).to_h
 
   instru['fxs'] = []
   puts instru
-  # instrus[instruPos] = instru
+  instrus[instruPos] = instru
 
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end

@@ -9,7 +9,8 @@ live_loop :add_step do
   note       = osc[3]
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
 
   instru  = (instrus[instruPos]).to_h
 
@@ -24,27 +25,28 @@ live_loop :add_step do
   if instru['type'] == 'sample' || instru['type'] == 'external_sample' then
     note = 1
   end
-  case stepPos
-    when 0
-      # patterns = [note]+patterns[1..-1]
-      patterns = [note]+patterns.drop(1)
-    when 1..(get(:endBar)-1)
-      # patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
-      patterns = patterns.take(stepPos)+[note]+patterns.drop(stepPos+1)
-    when get(:endBar)
-      # patterns = patterns[0..-2]+[note]
-      patterns = patterns.take(stepPos)+[note]
-  end
+  # case stepPos
+  #   when 0
+  #     # patterns = [note]+patterns[1..-1]
+  #     patterns = [note]+patterns.drop(1)
+  #   when 1..(get(:endBar)-1)
+  #     # patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
+  #     patterns = patterns.take(stepPos)+[note]+patterns.drop(stepPos+1)
+  #   when get(:endBar)
+  #     # patterns = patterns[0..-2]+[note]
+  #     patterns = patterns.take(stepPos)+[note]
+  # end
+  patterns = ring_set_at(patterns, stepPos, note)
 
   # ss = instru['patterns'][0..]
-  ss = instru['patterns'].take(instru['patterns'].length)
+  ss = ring_clone(instru['patterns'])
 
   ss[patternPos] = patterns
 
   instru['patterns'] = ss
 
-  # instrus[instruPos] = instru
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  instrus[instruPos] = instru
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
 
   set(:instrus, instrus)
 end
@@ -59,7 +61,8 @@ live_loop :remove_step do
   stepPos    = osc[2]
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
   instru  = (instrus[instruPos]).to_h
   patterns   = instru['patterns'][patternPos]
 
@@ -71,21 +74,22 @@ live_loop :remove_step do
   #   when get(:endBar)
   #     patterns = patterns[0..-2]+[nil]
   # end
-  case stepPos
-    when 0
-      # patterns = [note]+patterns[1..-1]
-      patterns = [nil]+patterns.drop(1)
-    when 1..(get(:endBar)-1)
-      # patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
-      patterns = patterns.take(stepPos)+[nil]+patterns.drop(stepPos+1)
-    when get(:endBar)
-      # patterns = patterns[0..-2]+[note]
-      patterns = patterns.take(stepPos)+[nil]
-  end
+  # case stepPos
+  #   when 0
+  #     # patterns = [note]+patterns[1..-1]
+  #     patterns = [nil]+patterns.drop(1)
+  #   when 1..(get(:endBar)-1)
+  #     # patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
+  #     patterns = patterns.take(stepPos)+[nil]+patterns.drop(stepPos+1)
+  #   when get(:endBar)
+  #     # patterns = patterns[0..-2]+[note]
+  #     patterns = patterns.take(stepPos)+[nil]
+  # end
+  patterns = ring_set_at(patterns, stepPos, nil)
 
   instru['patterns'][patternPos] = patterns
 
-  # instrus[instruPos] = instru
-  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
+  instrus[instruPos] = instru
+  # instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end
