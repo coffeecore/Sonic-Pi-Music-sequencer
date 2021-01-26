@@ -8,11 +8,14 @@ live_loop :add_step do
   stepPos    = osc[2]
   note       = osc[3]
 
-  instrus = get(:instrus)[0..]
+  # instrus = get(:instrus)[0..]
+  instrus = get(:instrus).take(get(:instrus).length)
 
   instru  = (instrus[instruPos]).to_h
 
-  patterns = instru['patterns'][0..][patternPos]
+  # patterns = instru['patterns'][0..][patternPos]
+  patterns = instru['patterns'].take(get(:instrus).length)
+  patterns = patterns[patternPos]
 
   if patterns == nil then
     patterns = Array.new(get(:endBar)+1)
@@ -23,20 +26,25 @@ live_loop :add_step do
   end
   case stepPos
     when 0
-      patterns = [note]+patterns[1..-1]
+      # patterns = [note]+patterns[1..-1]
+      patterns = [note]+patterns.drop(1)
     when 1..(get(:endBar)-1)
-      patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
+      # patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
+      patterns = patterns.take(stepPos)+[note]+patterns.drop(stepPos+1)
     when get(:endBar)
-      patterns = patterns[0..-2]+[note]
+      # patterns = patterns[0..-2]+[note]
+      patterns = patterns.take(stepPos)+[note]
   end
 
-  ss = instru['patterns'][0..]
+  # ss = instru['patterns'][0..]
+  ss = instru['patterns'].take(instru['patterns'].length)
 
   ss[patternPos] = patterns
 
   instru['patterns'] = ss
 
-  instrus[instruPos] = instru
+  # instrus[instruPos] = instru
+  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
 
   set(:instrus, instrus)
 end
@@ -50,20 +58,34 @@ live_loop :remove_step do
   patternPos = osc[1]
   stepPos    = osc[2]
 
-  instrus = get(:instrus)[0..]
+  # instrus = get(:instrus)[0..]
+  instrus = get(:instrus).take(get(:instrus).length)
   instru  = (instrus[instruPos]).to_h
   patterns   = instru['patterns'][patternPos]
 
+  # case stepPos
+  #   when 0
+  #     patterns = [nil]+patterns[1..-1]
+  #   when 1..(get(:endBar)-1)
+  #     patterns = bts[0..(stepPos-1)] +[nil]+patterns[(stepPos+1)..-1]
+  #   when get(:endBar)
+  #     patterns = patterns[0..-2]+[nil]
+  # end
   case stepPos
     when 0
-      patterns = [nil]+patterns[1..-1]
+      # patterns = [note]+patterns[1..-1]
+      patterns = [nil]+patterns.drop(1)
     when 1..(get(:endBar)-1)
-      patterns = bts[0..(stepPos-1)] +[nil]+patterns[(stepPos+1)..-1]
+      # patterns = patterns[0..(stepPos-1)] +[note]+patterns[(stepPos+1)..-1]
+      patterns = patterns.take(stepPos)+[nil]+patterns.drop(stepPos+1)
     when get(:endBar)
-      patterns = patterns[0..-2]+[nil]
+      # patterns = patterns[0..-2]+[note]
+      patterns = patterns.take(stepPos)+[nil]
   end
+
   instru['patterns'][patternPos] = patterns
 
-  instrus[instruPos] = instru
+  # instrus[instruPos] = instru
+  instrus = instrus.take(instruPos)+[instru]+instrus.drop(instruPos+1)
   set(:instrus, instrus)
 end

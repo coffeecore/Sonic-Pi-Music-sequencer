@@ -15,7 +15,8 @@ live_loop :play do
   puts "Step #{n}"
 
   if p != nil then
-    instrus = get(:instrus)[0..]
+    # instrus = get(:instrus)[0..]
+    instrus = get(:instrus).take(get(:instrus).length)
 
     instrus.each do |instru|
       if instru['patterns'] != nil then
@@ -29,6 +30,7 @@ live_loop :play do
           instruName = instru['name']
           toEval = ''
           fxs.reverse.each do |fx|
+            puts "#{fx['name']}"
             toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
           end
           case instru['type']

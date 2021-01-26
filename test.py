@@ -5,16 +5,19 @@ import json
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-sender.send_message('/debug', [0])
+sender.send_message('/debug', [1])
 time.sleep(0.2)
 
-sender.send_message('/metronome', [0])
+sender.send_message('/metronome', [1])
 time.sleep(0.2)
 
-sender.send_message('/bpm', [150])
+sender.send_message('/bpm', [60])
 time.sleep(0.2)
 
 sender.send_message('/start', [1])
+time.sleep(0.2)
+
+sender.send_message('/pattern/max', [1])
 time.sleep(0.2)
 
 instrus = [
@@ -38,93 +41,93 @@ instrus = [
         },
         'patterns': [
             [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None],
-            [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
+            # [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
         ]
     },
-    {
-        'type': 'sample',
-        'name': 'drum_cymbal_closed',
-        'fxs': [],
-        'opts': {
-            'release': 1,
-            'amp': 5,
-            'attack': 1,
-            'res': 0
-        },
-        'patterns': [
-            [
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None
-            ],
-            [
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None
-            ]
-        ]
-    },
-    {
-        'type': 'sample',
-        'name': 'drum_bass_hard',
-        'fxs':[],
-        'opts': {
-            # 'release': 1,
-            # 'amp': 5,
-            # 'attack': 1,
-            # 'res': 0
-        },
-        'patterns': [
-            [
-                1, None, None, None, 
-                None, None, None, None, 
-                1, None, None, None, 
-                None, None, 1, None
-            ],
-            [
-                1, None, None, None, 
-                None, None, None, None, 
-                1, None, None, None, 
-                None, None, 1, None
-            ]
-        ]
-    },
-    {
-        'type': 'sample',
-        'name': 'sn_dub',
-        'fxs': [
-            # {
-            #     'name': 'reverb',
-            #     'opts' : {
-            #         'mix': 0.5,
-            #         'room': 0.5
-            #     }
-            # }
-        ],
-        'opts': {
-            # 'release': 1,
-            # 'amp': 5,
-            # 'attack': 1,
-            # 'res': 0,
-            # 'pan': -1
-        },
-        'patterns': [
-            [
-                None, None, None, None, 
-                1, None, None, None, 
-                None, None, None, None, 
-                1, None, None, None
-            ],
-            [
-                None, None, None, None, 
-                1, None, None, None, 
-                None, None, None, None, 
-                1, None, None, None
-            ]
-        ]
-    }
+    # {
+    #     'type': 'sample',
+    #     'name': 'drum_cymbal_closed',
+    #     'fxs': [],
+    #     'opts': {
+    #         'release': 1,
+    #         'amp': 5,
+    #         'attack': 1,
+    #         'res': 0
+    #     },
+    #     'patterns': [
+    #         [
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None
+    #         ],
+    #         [
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None, 
+    #             1, None, 1, None
+    #         ]
+    #     ]
+    # },
+    # {
+    #     'type': 'sample',
+    #     'name': 'drum_bass_hard',
+    #     'fxs':[],
+    #     'opts': {
+    #         # 'release': 1,
+    #         # 'amp': 5,
+    #         # 'attack': 1,
+    #         # 'res': 0
+    #     },
+    #     'patterns': [
+    #         [
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, 1, None
+    #         ],
+    #         [
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, 1, None
+    #         ]
+    #     ]
+    # },
+    # {
+    #     'type': 'sample',
+    #     'name': 'sn_dub',
+    #     'fxs': [
+    #         # {
+    #         #     'name': 'reverb',
+    #         #     'opts' : {
+    #         #         'mix': 0.5,
+    #         #         'room': 0.5
+    #         #     }
+    #         # }
+    #     ],
+    #     'opts': {
+    #         # 'release': 1,
+    #         # 'amp': 5,
+    #         # 'attack': 1,
+    #         # 'res': 0,
+    #         # 'pan': -1
+    #     },
+    #     'patterns': [
+    #         [
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None
+    #         ],
+    #         [
+    #             None, None, None, None, 
+    #             1, None, None, None, 
+    #             None, None, None, None, 
+    #             1, None, None, None
+    #         ]
+    #     ]
+    # }
 ]
 
 for k in range(len(instrus)) :
@@ -144,6 +147,13 @@ for k in range(len(instrus)) :
     #             print([k, kk, kkk, instrus[k]['patterns'][kk][kkk]])
     #             sender.send_message('/instru/step/add', [k, kk, kkk, instrus[k]['patterns'][kk][kkk]])
     #             time.sleep(0.2)
+
+time.sleep(10)
+print('REMOVE fxs')
+sender.send_message('/instru/fx/remove/all', [0])
+time.sleep(5)
+print('ADD step')
+sender.send_message('/instru/step/add', [0, 0, 2, ':g1'])
 
 exit()
 # time.sleep(5)
