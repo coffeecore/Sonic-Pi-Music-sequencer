@@ -80,7 +80,7 @@ live_loop :set_pattern do
   osc = sync "/osc*/pattern"
   set :p, osc[0]
 end
-
+run_file "#{FILE_PATH}/sonic-pi/functions.rb"
 run_file "#{FILE_PATH}/sonic-pi/FXs.rb"
 run_file "#{FILE_PATH}/sonic-pi/Instruments.rb"
 run_file "#{FILE_PATH}/sonic-pi/Loop.rb"

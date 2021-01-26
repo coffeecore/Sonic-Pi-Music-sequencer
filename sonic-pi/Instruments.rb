@@ -6,10 +6,12 @@ live_loop :add_instru do
   instru     = JSON.parse osc[0]
 
   # instrus = get(:instrus)[0..]
-  instrus = get(:instrus).take(get(:instrus).length)
+  # instrus = get(:instrus).take(get(:instrus).length)
+  instrus = ring_clone(get(:instrus))
 
   # instrus.push(instru)
-  instrus = instrus+[instru]
+  # instrus = instrus+[instru]
+  instrus = ring_add_at(instrus, instrus.length, instru)
 
   set(:instrus, instrus)
 end
