@@ -20,6 +20,7 @@ time.sleep(0.2)
 sender.send_message('/pattern/max', [1])
 time.sleep(0.2)
 
+# exit()
 instrus = [
     {
         'type': 'synth',
@@ -44,31 +45,31 @@ instrus = [
             # [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
         ]
     },
-    # {
-    #     'type': 'sample',
-    #     'name': 'drum_cymbal_closed',
-    #     'fxs': [],
-    #     'opts': {
-    #         'release': 1,
-    #         'amp': 5,
-    #         'attack': 1,
-    #         'res': 0
-    #     },
-    #     'patterns': [
-    #         [
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None
-    #         ],
-    #         [
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None, 
-    #             1, None, 1, None
-    #         ]
-    #     ]
-    # },
+    {
+        'type': 'sample',
+        'name': 'drum_cymbal_closed',
+        'fxs': [],
+        'opts': {
+            'release': 1,
+            'amp': 5,
+            'attack': 1,
+            'res': 0
+        },
+        'patterns': [
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ],
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ]
+        ]
+    },
     # {
     #     'type': 'sample',
     #     'name': 'drum_bass_hard',
@@ -129,6 +130,120 @@ instrus = [
     #     ]
     # }
 ]
+
+sender.send_message('/instru/add/complete', [json.dumps(instrus)])
+
+time.sleep(4)
+
+instrus = [
+    {
+        'type': 'synth',
+        'name': 'fm',
+        'fxs': [
+            {
+                'name': 'reverb',
+                'opts' : {
+                    'mix': 0,
+                    'room': 1
+                }
+            }
+        ],
+        'opts': {
+            # 'release': 0.01,
+            # 'amp': 0.75,
+            # 'attack': 0.1,
+            # 'res': 0
+        },
+        'patterns': [
+            [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None],
+            # [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': 'drum_cymbal_closed',
+        'fxs': [],
+        'opts': {
+            'release': 1,
+            'amp': 5,
+            'attack': 1,
+            'res': 0
+        },
+        'patterns': [
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ],
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ]
+        ]
+    },
+]
+instrus2 = [
+    {
+        'type': 'synth',
+        'name': 'fm',
+        'fxs': [
+            {
+                'name': 'reverb',
+                'opts' : {
+                    'mix': 1,
+                    'room': 1
+                }
+            }
+        ],
+        'opts': {
+            # 'release': 0.01,
+            # 'amp': 0.75,
+            # 'attack': 0.1,
+            # 'res': 0
+        },
+        'patterns': [
+            [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None],
+            # [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': 'drum_cymbal_closed',
+        'fxs': [],
+        'opts': {
+            'release': 1,
+            'amp': 5,
+            'attack': 1,
+            'res': 0
+        },
+        'patterns': [
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ],
+            [
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None, 
+                1, None, 1, None
+            ]
+        ]
+    },
+]
+
+while True :
+    sender.send_message('/instru/add/complete', [json.dumps(instrus)])
+    time.sleep(2)
+    sender.send_message('/instru/add/complete', [json.dumps(instrus2)])
+    time.sleep(2)
+
+
+exit()
 
 for k in range(len(instrus)) :
     print([instrus[k]['type'], instrus[k]['name']])
