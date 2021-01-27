@@ -159,6 +159,7 @@ time.sleep(0.2)
     # print(i)
 while True:
     for kk in range(8) :
+        print(kk)
         instruOne = instrus[0];
         instruOne['opts']['cutoff'] = 70+((130-70)/8)*kk
         instruTwo = instrus[1]
