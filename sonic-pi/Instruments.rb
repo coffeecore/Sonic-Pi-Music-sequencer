@@ -1,7 +1,7 @@
 live_loop :add_instru do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc        = sync '/osc*/instru/add/complete'
   instru     = JSON.parse osc[0]
 
@@ -14,8 +14,8 @@ end
 
 live_loop :change_instru do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc        = sync '/osc*/instru/change/complete'
   instru     = JSON.parse osc[0]
   position   = osc[1]
@@ -29,8 +29,8 @@ end
 
 live_loop :remove_instru do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc       = sync '/osc*/instru/remove'
   instruPos = osc[0]
 
@@ -43,8 +43,8 @@ end
 
 live_loop :change_instru do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc        = sync '/osc*/instru/change'
   instruType = osc[0]
   instruPos  = osc[1]
@@ -63,8 +63,8 @@ end
 
 live_loop :change_instru_options do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc       = sync '/osc*/instru/options/change'
   instruPos = osc[0]
   options   = osc[1..-1]
@@ -88,8 +88,8 @@ end
 
 live_loop :remove_instru_options do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc       = sync '/osc*/instru/options/remove'
   instruPos = osc[0]
   options   = osc[1..-1]
@@ -111,8 +111,8 @@ end
 
 live_loop :remove_all_instru_options do
   use_real_time
-  use_cue_logging get(:cue_logging)
-  use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
   osc       = sync '/osc*/instru/options/remove/all'
   instruPos = osc[0]
 
