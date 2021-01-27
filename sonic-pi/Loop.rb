@@ -30,11 +30,13 @@ live_loop :play do
 
           instruName = instru['name']
           toEval = ''
-          fxs.reverse.each do |fx|
-            puts "#{fx['name']}"
-            toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+          if fxs != nil then
+            fxs.reverse.each do |fx|
+              puts "#{fx['name']}"
+              toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+            end
           end
-          puts patterns[n]
+          # puts patterns[n]
           case instru['type']
             when 'synth'
               opts[:note] = eval(patterns[n].to_s)
