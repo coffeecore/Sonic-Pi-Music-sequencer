@@ -62,6 +62,7 @@ end
 live_loop :step do
     use_real_time
     use_bpm get(:bpm)
+    cue :stepcue
     # use_debug get(:debug)
     # use_cue_logging get(:cue_logging)
 

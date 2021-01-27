@@ -15,7 +15,9 @@ live_loop :play do
   puts "Step #{n}"
 
   if p != nil then
-    instrus = get(:instrus)[0..-1]
+    # instrus = get(:instrus)[0..]
+    # instrus = get(:instrus).take(get(:instrus).length)
+    instrus = ring_clone(get(:instrus))
 
     instrus.each do |instru|
       if instru['patterns'] != nil then
@@ -28,26 +30,32 @@ live_loop :play do
 
           instruName = instru['name']
           toEval = ''
-          fxs.reverse.each do |fx|
-            toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+          if fxs != nil then
+            fxs.reverse.each do |fx|
+              puts "#{fx['name']}"
+              toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do "
+            end
           end
+          # puts patterns[n]
+          lo = "l#{p}#{n}"
           case instru['type']
             when 'synth'
               opts[:note] = eval(patterns[n].to_s)
-              toEval += "synth instruName.to_sym, opts "
+              toEval += "live_loop lo.to_sym do \n sync :stepcue \n synth instruName.to_sym, opts \nend \n "
             when 'external_synth'
               # opts[:note] = patterns[n].to_sym
               # toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
               # toEval += "use_synth \"#{instruName}\" \n play 60"
             when 'sample'
-              toEval += "sample instruName.to_sym, opts "
+              toEval += "live_loop lo.to_sym do \n sync :stepcue \n sample instruName.to_sym, opts \nend \n"
             when 'external_sample'
-              toEval += "sample \"#{instruName}\", opts "
+              toEval += "live_loop lo.to_sym do \n sync :stepcue \n sample \"#{instruName}\", opts \nend \n"
           end
 
           fxs.reverse.each do |fx|
             toEval += "end "
           end
+          # puts "EVAAAAAAAL #{toEval}"
           eval toEval
         end
       end
