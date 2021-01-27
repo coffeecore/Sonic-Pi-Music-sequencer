@@ -8,7 +8,7 @@ live_loop :add_fx do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   # fxs = instru['fxs'][0..]
@@ -38,7 +38,7 @@ live_loop :change_options_fx do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   # fxs = instru['fxs'][0..]
@@ -69,7 +69,7 @@ live_loop :remove_fx do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   # fxs = instru['fxs'][0..]
@@ -94,7 +94,7 @@ live_loop :remove_all_fx do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   instru['fxs'] = []

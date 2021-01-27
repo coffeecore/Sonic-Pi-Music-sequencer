@@ -10,7 +10,7 @@ live_loop :add_step do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
 
   instru  = (instrus[instruPos]).to_h
 
@@ -62,7 +62,7 @@ live_loop :remove_step do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
   patterns   = instru['patterns'][patternPos]
 

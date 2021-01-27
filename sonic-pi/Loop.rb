@@ -17,7 +17,7 @@ live_loop :play do
   if p != nil then
     # instrus = get(:instrus)[0..]
     # instrus = get(:instrus).take(get(:instrus).length)
-    instrus = ring_clone(get(:instrus))
+    instrus = get(:instrus).drop(0)
 
     instrus.each do |instru|
       if instru['patterns'] != nil then

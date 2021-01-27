@@ -7,7 +7,7 @@ live_loop :add_instru do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
 
   instrus.push(instru)
   # instrus = instrus+[instru]
@@ -24,7 +24,7 @@ live_loop :change_instru do
   instru     = JSON.parse osc[0]
   position   = osc[1]
 
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
@@ -43,7 +43,7 @@ live_loop :remove_instru do
   osc       = sync '/osc*/instru/remove'
   instruPos = osc[0]
 
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
 
@@ -66,7 +66,7 @@ live_loop :change_instru do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   instru['type'] = instruType
@@ -88,7 +88,7 @@ live_loop :change_instru_options do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   opts = instru['opts'].to_h
@@ -115,7 +115,7 @@ live_loop :remove_instru_options do
   instruPos = osc[0]
   # options   = osc[1..]
   options   = osc.drop(1)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
   instru  = (instrus[instruPos]).to_h
@@ -142,7 +142,7 @@ live_loop :remove_all_instru_options do
 
   # instrus = get(:instrus)[0..]
   # instrus = get(:instrus).take(get(:instrus).length)
-  instrus = ring_clone(get(:instrus))
+  instrus = get(:instrus).drop(0)
   instru  = (instrus[instruPos]).to_h
 
   instru['opts'] = {}
