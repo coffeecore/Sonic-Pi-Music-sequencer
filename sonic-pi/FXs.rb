@@ -1,5 +1,5 @@
 live_loop :add_fx do
-  # use_real_time
+  use_real_time
   osc       = sync "/osc*/instru/fx/add"
   instruPos = osc[0]
   fxName    = osc[1]
@@ -29,7 +29,7 @@ live_loop :add_fx do
 end
 
 live_loop :change_options_fx do
-  # use_real_time
+  use_real_time
   osc        = sync '/osc*/instru/fx/change'
   instruPos  = osc[0]
   fxPosition = osc[1]
@@ -61,7 +61,7 @@ live_loop :change_options_fx do
 end
 
 live_loop :remove_fx do
-  # use_real_time
+  use_real_time
   osc       = sync '/osc*/instru/fx/remove'
   instruPos = osc[0]
   # fxOpts    = osc[1..]
@@ -88,7 +88,7 @@ live_loop :remove_fx do
 end
 
 live_loop :remove_all_fx do
-  # use_real_time
+  use_real_time
   osc       = sync '/osc*/instru/fx/remove/all'
   instruPos = osc[0]
 

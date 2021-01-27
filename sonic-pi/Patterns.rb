@@ -1,5 +1,5 @@
 live_loop :add_pattern do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/pattern/add'
@@ -26,7 +26,7 @@ live_loop :add_pattern do
 end
 
 live_loop :remove_pattern do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/pattern/remove'

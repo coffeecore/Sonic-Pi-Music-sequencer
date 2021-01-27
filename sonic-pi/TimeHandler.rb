@@ -20,7 +20,7 @@ live_loop :metronome do
 end
 
 live_loop :set_eighth do
-  # use_real_time
+  use_real_time
   # use_debug get(:debug)
   # use_cue_logging get(:cue_logging)
   osc = sync "/osc*/eighth"
@@ -30,7 +30,7 @@ live_loop :set_eighth do
 end
 
 live_loop :set_bar do
-  # use_real_time
+  use_real_time
   # use_debug get(:debug)
   # use_cue_logging get(:cue_logging)
   osc = sync "/osc*/bar"

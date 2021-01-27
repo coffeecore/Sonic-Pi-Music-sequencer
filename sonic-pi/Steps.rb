@@ -1,5 +1,5 @@
 live_loop :add_step do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/step/add'
@@ -52,7 +52,7 @@ live_loop :add_step do
 end
 
 live_loop :remove_step do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/step/remove'

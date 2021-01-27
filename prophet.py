@@ -147,8 +147,8 @@ time.sleep(0.2)
 # print("REMOEdsdsd")
 # sender.send_message('/instru/pattern/remove', [0, 1])
 
-sender.send_message('/instru/step/add', [0, 0, 1, ':g1'])
-time.sleep(10)
+# sender.send_message('/instru/step/add', [0, 0, 1, ':g1'])
+# time.sleep(10)
 
 
 # print("ENDPATTERN")

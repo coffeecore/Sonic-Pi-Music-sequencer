@@ -1,5 +1,5 @@
 live_loop :add_instru do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/add/complete'
@@ -17,7 +17,7 @@ live_loop :add_instru do
 end
 
 live_loop :change_instru do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/change/complete'
@@ -37,7 +37,7 @@ live_loop :change_instru do
 end
 
 live_loop :remove_instru do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc       = sync '/osc*/instru/remove'
@@ -56,7 +56,7 @@ live_loop :remove_instru do
 end
 
 live_loop :change_instru do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc        = sync '/osc*/instru/change'
@@ -78,7 +78,7 @@ live_loop :change_instru do
 end
 
 live_loop :change_instru_options do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc       = sync '/osc*/instru/options/change'
@@ -108,7 +108,7 @@ live_loop :change_instru_options do
 end
 
 live_loop :remove_instru_options do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc       = sync '/osc*/instru/options/remove'
@@ -134,7 +134,7 @@ live_loop :remove_instru_options do
 end
 
 live_loop :remove_all_instru_options do
-  # use_real_time
+  use_real_time
   # use_cue_logging get(:cue_logging)
   # use_debug get(:debug)
   osc       = sync '/osc*/instru/options/remove/all'
