@@ -18,7 +18,7 @@ define :reset_f do
   set :volume, 5
   set :debug, false
   set :cue_logging, false
-  set :metronome_state, true
+  set :metronome_state, false
   set :play_state, 0 #stop
   set :sequencer_mod, 0 #sequencer
   set :metronome_options, {
