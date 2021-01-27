@@ -5,7 +5,7 @@ live_loop :add_instru do
   osc        = sync '/osc*/instru/add/complete'
   instru     = JSON.parse osc[0]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
 
   instrus.push(instru)
 
@@ -20,7 +20,7 @@ live_loop :change_instru do
   instru     = JSON.parse osc[0]
   position   = osc[1]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
 
   instrus[position] = instru
 
@@ -34,7 +34,7 @@ live_loop :remove_instru do
   osc       = sync '/osc*/instru/remove'
   instruPos = osc[0]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
 
   instrus.delete_at(instruPos)
 
@@ -50,7 +50,7 @@ live_loop :change_instru do
   instruPos  = osc[1]
   instruName = osc[2]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
   instru  = (instrus[instruPos]).to_h
 
   instru['type'] = instruType
@@ -67,9 +67,9 @@ live_loop :change_instru_options do
   use_debug get(:debug)
   osc       = sync '/osc*/instru/options/change'
   instruPos = osc[0]
-  options   = osc[1..]
+  options   = osc[1..-1]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
   instru  = (instrus[instruPos]).to_h
 
   opts = instru['opts'].to_h
@@ -92,9 +92,9 @@ live_loop :remove_instru_options do
   use_debug get(:debug)
   osc       = sync '/osc*/instru/options/remove'
   instruPos = osc[0]
-  options   = osc[1..]
+  options   = osc[1..-1]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
   instru  = (instrus[instruPos]).to_h
 
   opts = instru['opts'].to_h
@@ -116,7 +116,7 @@ live_loop :remove_all_instru_options do
   osc       = sync '/osc*/instru/options/remove/all'
   instruPos = osc[0]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
   instru  = (instrus[instruPos]).to_h
 
   instru['opts'] = {}

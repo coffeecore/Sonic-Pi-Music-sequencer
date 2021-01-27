@@ -5,11 +5,11 @@ live_loop :add_pattern do
   osc        = sync '/osc*/instru/pattern/add'
   instruPos  = osc[0]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
 
   instru  = (instrus[instruPos]).to_h
 
-  patterns = instru['patterns'][0..]
+  patterns = instru['patterns'][0..-1]
 
   patterns.push(Array.new(get(:endBar)+1))
 
@@ -28,9 +28,9 @@ live_loop :remove_pattern do
   instruPos  = osc[0]
   patternPos = osc[1]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
   instru  = (instrus[instruPos]).to_h
-  patterns   = instru['patterns'][0..]
+  patterns   = instru['patterns'][0..-1]
 
   patterns.delete_at(patternPos)
 

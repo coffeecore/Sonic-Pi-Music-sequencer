@@ -8,11 +8,11 @@ live_loop :add_step do
   stepPos    = osc[2]
   note       = osc[3]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
 
   instru  = (instrus[instruPos]).to_h
 
-  patterns = instru['patterns'][0..][patternPos]
+  patterns = instru['patterns'][0..-1][patternPos]
 
   if patterns == nil then
     patterns = Array.new(get(:endBar)+1)
@@ -30,7 +30,7 @@ live_loop :add_step do
       patterns = patterns[0..-2]+[note]
   end
 
-  ss = instru['patterns'][0..]
+  ss = instru['patterns'][0..-1]
 
   ss[patternPos] = patterns
 
@@ -50,7 +50,7 @@ live_loop :remove_step do
   patternPos = osc[1]
   stepPos    = osc[2]
 
-  instrus = get(:instrus)[0..]
+  instrus = get(:instrus)[0..-1]
   instru  = (instrus[instruPos]).to_h
   patterns   = instru['patterns'][patternPos]
 

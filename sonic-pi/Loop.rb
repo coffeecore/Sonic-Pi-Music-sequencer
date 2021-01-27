@@ -15,7 +15,7 @@ live_loop :play do
   puts "Step #{n}"
 
   if p != nil then
-    instrus = get(:instrus)[0..]
+    instrus = get(:instrus)[0..-1]
 
     instrus.each do |instru|
       if instru['patterns'] != nil then
