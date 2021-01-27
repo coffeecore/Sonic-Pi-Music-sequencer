@@ -160,8 +160,8 @@ time.sleep(0.2)
 while True:
     for kk in range(8) :
         instruOne = instrus[0];
-        isntruOne['opts']['cutoff'] = 70+((130-70)/8)*kk
-        instruTwo = instrus[1];
+        instruOne['opts']['cutoff'] = 70+((130-70)/8)*kk
+        instruTwo = instrus[1]
         instruTwo['fxs'][0]['opts']['phase'] = random.choice([0.125, 0.25])
         # print(kk)
         # opts = [0]
