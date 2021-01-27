@@ -1,6 +1,6 @@
 live_loop :start_play do
-  use_real_time
-  use_debug get(:debug)
+  # use_real_time
+  # use_debug get(:debug)
   use_cue_logging get(:cue_logging)
   osc = sync "/osc*/start"
 
@@ -14,8 +14,8 @@ live_loop :start_play do
 end
 
 live_loop :stop_play do
-  use_real_time
-  use_debug get(:debug)
+  # use_real_time
+  # use_debug get(:debug)
   use_cue_logging get(:cue_logging)
   osc = sync "/osc*/stop"
 
@@ -24,8 +24,8 @@ live_loop :stop_play do
 end
 
 live_loop :pause_play do
-  use_real_time
-  use_debug get(:debug)
+  # use_real_time
+  # use_debug get(:debug)
   use_cue_logging get(:cue_logging)
   osc = sync "/osc*/pause"
 

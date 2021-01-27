@@ -1,7 +1,7 @@
 live_loop :play do
   use_real_time
-  use_debug get(:debug)
-  use_cue_logging get(:cue_logging)
+  # use_debug get(:debug)
+  # use_cue_logging get(:cue_logging)
   use_bpm get(:bpm)
 
   while PLAY_STATE[get(:play_state).to_i] != 'play' do
