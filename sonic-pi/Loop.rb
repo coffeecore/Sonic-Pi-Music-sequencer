@@ -40,7 +40,7 @@ live_loop :play do
           case instru['type']
             when 'synth'
               opts[:note] = eval(patterns[n].to_s)
-              toEval += "synth instruName.to_sym, opts "
+              toEval += "live_loop n.to_sym do \n synth instruName.to_sym, opts \nend"
             when 'external_synth'
               # opts[:note] = patterns[n].to_sym
               # toEval += "load_synthdefs \"/Users/antoine/Music/Sonic Pi/synths/SonicPiSuperColliderSynthDefs\" \n"
