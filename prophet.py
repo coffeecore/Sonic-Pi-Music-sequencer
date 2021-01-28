@@ -16,7 +16,7 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 # # time.sleep(0.2)
 # exit()
 
-# sender.send_message('/debug', [1])
+# sender.send_message('/debug', [0])
 # time.sleep(0.2)
 
 # sender.send_message('/metronome', [1])
@@ -147,8 +147,8 @@ time.sleep(0.2)
 # print("REMOEdsdsd")
 # sender.send_message('/instru/pattern/remove', [0, 1])
 
-
-
+# sender.send_message('/instru/step/add', [0, 0, 1, ':g1'])
+# time.sleep(10)
 
 
 # print("ENDPATTERN")
@@ -159,6 +159,11 @@ time.sleep(0.2)
     # print(i)
 while True:
     for kk in range(8) :
+        # print(kk)
+        # instruOne = instrus[0];
+        # instruOne['opts']['cutoff'] = 70+((130-70)/8)*kk
+        # instruTwo = instrus[1]
+        # instruTwo['fxs'][0]['opts']['phase'] = random.choice([0.125, 0.25])
         print(kk)
         opts = [0]
         opts.append('cutoff')
@@ -169,6 +174,9 @@ while True:
         opts.append(random.choice([0.125, 0.25]))
         sender.send_message('/instru/fxs/change', opts)
         time.sleep(2)
+        # sender.send_message('/instru/change/complete', [json.dumps(instruOne)])
+        # sender.send_message('/instru/change/complete', [json.dumps(instruTwo)])
+        # time.sleep(2)
 
 # print("METRONOME")
 # sender.send_message('/metronome', [0])

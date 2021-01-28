@@ -16,9 +16,9 @@ define :reset_f do
   set :p, 0 # Pattern to play in single mod
   set :bpm, 60
   set :volume, 5
-  set :debug, false
-  set :cue_logging, false
-  set :metronome_state, true
+  # set :debug, false
+  # set :cue_logging, false
+  set :metronome_state, false
   set :play_state, 0 #stop
   set :sequencer_mod, 0 #sequencer
   set :metronome_options, {
@@ -47,20 +47,20 @@ live_loop :global_volume do
   set_volume! get(:volume)
 end
 
-live_loop :set_debug do
-  use_real_time
-  osc = sync "/osc*/debug"
+# live_loop :set_debug do
+#   use_real_time
+#   osc = sync "/osc*/debug"
 
-  if osc[0] == 1 then
-    puts "DEBUG MODE ENABLING..."
-    set :debug, true
-    puts "DEBUG MODE ENABLED"
-  else
-    puts "DEBUG MODE DISABLING..."
-    set :debug, false
-    puts "DEBUG MODE DISABLED"
-  end
-end
+#   if osc[0] == 1 then
+#     puts "DEBUG MODE ENABLING..."
+#     set :debug, true
+#     puts "DEBUG MODE ENABLED"
+#   else
+#     puts "DEBUG MODE DISABLING..."
+#     set :debug, false
+#     puts "DEBUG MODE DISABLED"
+#   end
+# end
 
 live_loop :set_sequencer_mod do
   use_real_time
@@ -80,12 +80,13 @@ live_loop :set_pattern do
   osc = sync "/osc*/pattern"
   set :p, osc[0]
 end
-
-run_file "#{FILE_PATH}/sonic-pi/FXs.rb"
-run_file "#{FILE_PATH}/sonic-pi/Instruments.rb"
+run_file "#{FILE_PATH}/sonic-pi/functions.rb"
+# run_file "#{FILE_PATH}/sonic-pi/FXs.rb"
+# run_file "#{FILE_PATH}/sonic-pi/Instruments.rb"
+run_file "#{FILE_PATH}/sonic-pi/Json.rb"
 run_file "#{FILE_PATH}/sonic-pi/Loop.rb"
 run_file "#{FILE_PATH}/sonic-pi/PlayState.rb"
 # run_file "#{FILE_PATH}/sonic-pi/Record.rb"
-run_file "#{FILE_PATH}/sonic-pi/Steps.rb"
-run_file "#{FILE_PATH}/sonic-pi/Patterns.rb"
+# run_file "#{FILE_PATH}/sonic-pi/Steps.rb"
+# run_file "#{FILE_PATH}/sonic-pi/Patterns.rb"
 run_file "#{FILE_PATH}/sonic-pi/TimeHandler.rb"
