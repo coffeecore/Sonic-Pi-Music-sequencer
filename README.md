@@ -1,5 +1,9 @@
 # :musical_keyboard: Sonic Pi Music step sequencer OSC driven
 
+## DISCLAIMER
+
+After tests on Rpi 3, I change add methods to a simple JSON. So, Sonic Pi just plays, it doesn't manage add/remove/change operations. If new tests are successful, next step is Python part.
+
 ## Intro
 
 Goal is to build a music box with Raspberry Pi, E-ink screen, somes buttons and potards.
