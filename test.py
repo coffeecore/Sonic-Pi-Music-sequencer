@@ -11,7 +11,7 @@ time.sleep(0.2)
 sender.send_message('/metronome', [1])
 time.sleep(0.2)
 
-sender.send_message('/bpm', [60])
+sender.send_message('/bpm', [150])
 time.sleep(0.2)
 
 sender.send_message('/start', [1])
@@ -31,6 +31,13 @@ instrus = [
                 'opts' : {
                     'mix': 1,
                     'room': 1
+                }
+            },
+            {
+                'name': 'slicer',
+                'opts': {
+                    'wave': 0,
+                    'phase': 0.25
                 }
             }
         ],
@@ -131,7 +138,7 @@ instrus = [
     # }
 ]
 
-sender.send_message('/instru/add/complete', [json.dumps(instrus)])
+sender.send_message('/json', [json.dumps(instrus)])
 
 time.sleep(4)
 
@@ -143,8 +150,15 @@ instrus = [
             {
                 'name': 'reverb',
                 'opts' : {
-                    'mix': 0,
+                    'mix': 0.5,
                     'room': 1
+                }
+            },
+            {
+                'name': 'slicer',
+                'opts': {
+                    'wave': 0,
+                    'phase': 0.5
                 }
             }
         ],
@@ -196,6 +210,13 @@ instrus2 = [
                     'mix': 1,
                     'room': 1
                 }
+            },
+            {
+                'name': 'slicer',
+                'opts': {
+                    'wave': 0,
+                    'phase': 0.25
+                }
             }
         ],
         'opts': {
@@ -237,10 +258,10 @@ instrus2 = [
 ]
 
 while True :
-    sender.send_message('/instru/add/complete', [json.dumps(instrus)])
-    time.sleep(2)
-    sender.send_message('/instru/add/complete', [json.dumps(instrus2)])
-    time.sleep(2)
+    sender.send_message('/json', [json.dumps(instrus)])
+    time.sleep(0.5)
+    sender.send_message('/json', [json.dumps(instrus2)])
+    time.sleep(0.5)
 
 
 exit()

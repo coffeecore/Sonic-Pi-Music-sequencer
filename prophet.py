@@ -160,23 +160,24 @@ time.sleep(0.2)
 while True:
     for kk in range(8) :
         # print(kk)
-        # instruOne = instrus[0];
-        # instruOne['opts']['cutoff'] = 70+((130-70)/8)*kk
+        instrus[0]['opts']['cutoff'] = 70+((130-70)/8)*kk
         # instruTwo = instrus[1]
-        # instruTwo['fxs'][0]['opts']['phase'] = random.choice([0.125, 0.25])
+        instrus[1]['fxs'][0]['opts']['phase'] = random.choice([0.125, 0.25])
         print(kk)
-        opts = [0]
-        opts.append('cutoff')
-        opts.append(70+((130-70)/8)*kk)
-        sender.send_message('/instru/options/change', opts)
-        opts = [1]
-        opts.append('phase')
-        opts.append(random.choice([0.125, 0.25]))
-        sender.send_message('/instru/fxs/change', opts)
-        time.sleep(2)
+        # opts = [0]
+        # opts.append('cutoff')
+        # opts.append(70+((130-70)/8)*kk)
+        # sender.send_message('/instru/options/change', opts)
+        # opts = [1]
+        # opts.append('phase')
+        # opts.append(random.choice([0.125, 0.25]))
+        # sender.send_message('/instru/fxs/change', opts)
+        # time.sleep(2)
         # sender.send_message('/instru/change/complete', [json.dumps(instruOne)])
         # sender.send_message('/instru/change/complete', [json.dumps(instruTwo)])
-        # time.sleep(2)
+        sender.send_message('/json', [json.dumps(instrus)])
+        # sender.send_message('/instru/change/complete', [json.dumps(instruTwo)])
+        time.sleep(8)
 
 # print("METRONOME")
 # sender.send_message('/metronome', [0])
