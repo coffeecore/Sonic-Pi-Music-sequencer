@@ -52,9 +52,10 @@ live_loop :play do
               toEval += "sample \"#{instruName}\", opts \n"
 
           end
-
-          fxs.reverse.each do |fx|
-            toEval += "end "
+          if fxs != nil then
+            fxs.reverse.each do |fx|
+              toEval += "end \n"
+            end
           end
           # puts "EVAAAAAAAL #{toEval}"
           eval toEval

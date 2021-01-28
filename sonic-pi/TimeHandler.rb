@@ -53,12 +53,12 @@ live_loop :set_metronome do
   # use_cue_logging get(:cue_logging)
   osc = sync "/osc*/metronome"
 
-#   if osc[0] == 1 then
-#     set :metronome_state, true
-#   else
-#     set :metronome_state, false
-#   end
-# end
+  if osc[0] == 1 then
+    set :metronome_state, true
+  else
+    set :metronome_state, false
+  end
+end
 
 live_loop :step do
     use_real_time

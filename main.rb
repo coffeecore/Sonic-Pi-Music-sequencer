@@ -81,12 +81,12 @@ live_loop :set_pattern do
   set :p, osc[0]
 end
 run_file "#{FILE_PATH}/sonic-pi/functions.rb"
-# run_file "#{FILE_PATH}/sonic-pi/FXs.rb"
-# run_file "#{FILE_PATH}/sonic-pi/Instruments.rb"
+run_file "#{FILE_PATH}/sonic-pi/FXs.rb"
+run_file "#{FILE_PATH}/sonic-pi/Instruments.rb"
 run_file "#{FILE_PATH}/sonic-pi/Json.rb"
 run_file "#{FILE_PATH}/sonic-pi/Loop.rb"
 run_file "#{FILE_PATH}/sonic-pi/PlayState.rb"
 # run_file "#{FILE_PATH}/sonic-pi/Record.rb"
-# run_file "#{FILE_PATH}/sonic-pi/Steps.rb"
-# run_file "#{FILE_PATH}/sonic-pi/Patterns.rb"
+run_file "#{FILE_PATH}/sonic-pi/Steps.rb"
+run_file "#{FILE_PATH}/sonic-pi/Patterns.rb"
 run_file "#{FILE_PATH}/sonic-pi/TimeHandler.rb"
