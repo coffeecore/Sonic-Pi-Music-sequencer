@@ -8,7 +8,7 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 sender.send_message('/debug', [1])
 time.sleep(0.2)
 
-sender.send_message('/metronome', [1])
+sender.send_message('/metronome', [0])
 time.sleep(0.2)
 
 sender.send_message('/bpm', [150])
@@ -17,129 +17,205 @@ time.sleep(0.2)
 sender.send_message('/start', [1])
 time.sleep(0.2)
 
-sender.send_message('/pattern/max', [1])
+sender.send_message('/pattern/max', [2])
 time.sleep(0.2)
 
 # exit()
+# instrus = [
+#     {
+#         'type': 'synth',
+#         'name': 'fm',
+#         'fxs': [
+#             # {
+#             #     'name': 'reverb',
+#             #     'opts' : {
+#             #         'mix': 1,
+#             #         'room': 1
+#             #     }
+#             # },
+#             # {
+#             #     'name': 'slicer',
+#             #     'opts': {
+#             #         'wave': 0,
+#             #         'phase': 0.25
+#             #     }
+#             # }
+#         ],
+#         'opts': {
+#             # 'release': 0.01,
+#             # 'amp': 0.75,
+#             # 'attack': 0.1,
+#             # 'res': 0
+#         },
+#         'patterns': [
+#             [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None],
+#             # [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
+#         ]
+#     },
+#     {
+#         'type': 'sample',
+#         'name': 'drum_cymbal_closed',
+#         'fxs': [],
+#         'opts': {
+#             'release': 1,
+#             'amp': 5,
+#             'attack': 1,
+#             'res': 0
+#         },
+#         'patterns': [
+#             [
+#                 1, None, 1, None, 
+#                 1, None, 1, None, 
+#                 1, None, 1, None, 
+#                 1, None, 1, None
+#             ],
+#             [
+#                 1, None, 1, None, 
+#                 1, None, 1, None, 
+#                 1, None, 1, None, 
+#                 1, None, 1, None
+#             ]
+#         ]
+#     },
+#     # {
+#     #     'type': 'sample',
+#     #     'name': 'drum_bass_hard',
+#     #     'fxs':[],
+#     #     'opts': {
+#     #         # 'release': 1,
+#     #         # 'amp': 5,
+#     #         # 'attack': 1,
+#     #         # 'res': 0
+#     #     },
+#     #     'patterns': [
+#     #         [
+#     #             1, None, None, None, 
+#     #             None, None, None, None, 
+#     #             1, None, None, None, 
+#     #             None, None, 1, None
+#     #         ],
+#     #         [
+#     #             1, None, None, None, 
+#     #             None, None, None, None, 
+#     #             1, None, None, None, 
+#     #             None, None, 1, None
+#     #         ]
+#     #     ]
+#     # },
+#     # {
+#     #     'type': 'sample',
+#     #     'name': 'sn_dub',
+#     #     'fxs': [
+#     #         # {
+#     #         #     'name': 'reverb',
+#     #         #     'opts' : {
+#     #         #         'mix': 0.5,
+#     #         #         'room': 0.5
+#     #         #     }
+#     #         # }
+#     #     ],
+#     #     'opts': {
+#     #         # 'release': 1,
+#     #         # 'amp': 5,
+#     #         # 'attack': 1,
+#     #         # 'res': 0,
+#     #         # 'pan': -1
+#     #     },
+#     #     'patterns': [
+#     #         [
+#     #             None, None, None, None, 
+#     #             1, None, None, None, 
+#     #             None, None, None, None, 
+#     #             1, None, None, None
+#     #         ],
+#     #         [
+#     #             None, None, None, None, 
+#     #             1, None, None, None, 
+#     #             None, None, None, None, 
+#     #             1, None, None, None
+#     #         ]
+#     #     ]
+#     # }
+# ]
 instrus = [
     {
         'type': 'synth',
-        'name': 'fm',
-        'fxs': [
-            # {
-            #     'name': 'reverb',
-            #     'opts' : {
-            #         'mix': 1,
-            #         'room': 1
-            #     }
-            # },
-            # {
-            #     'name': 'slicer',
-            #     'opts': {
-            #         'wave': 0,
-            #         'phase': 0.25
-            #     }
-            # }
-        ],
-        'opts': {
-            # 'release': 0.01,
-            # 'amp': 0.75,
-            # 'attack': 0.1,
-            # 'res': 0
-        },
-        'patterns': [
-            [None, None, ':c4', ':e4', None, None, ':g4', ':c4', None, ':e4', None, None, ':c4', None, ':g4', None],
-            # [None, None, ':c2', ':e2', None, None, ':g2', ':c2', None, [':e2', ':e4'], None, None, 'chord(:E3, :minor)', None, ':g2', None]
-        ]
-    },
-    {
-        'type': 'sample',
-        'name': 'drum_cymbal_closed',
-        'fxs': [],
+        'name': ':tb303',
         'opts': {
             'release': 1,
-            'amp': 5,
-            'attack': 1,
-            'res': 0
+            'cutoff': 100
+        },
+        'fxs': {
+            ':reverb': {
+                'mix': 0.5,
+                'room': 1
+            },
+            ':distortion': {
+                'distort': 0.999
+            }
         },
         'patterns': [
-            [
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None
-            ],
-            [
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None, 
-                1, None, 1, None
-            ]
+            [':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None],
+            # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
+            [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
         ]
-    },
-    # {
-    #     'type': 'sample',
-    #     'name': 'drum_bass_hard',
-    #     'fxs':[],
-    #     'opts': {
-    #         # 'release': 1,
-    #         # 'amp': 5,
-    #         # 'attack': 1,
-    #         # 'res': 0
-    #     },
-    #     'patterns': [
-    #         [
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, 1, None
-    #         ],
-    #         [
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, 1, None
-    #         ]
-    #     ]
-    # },
-    # {
-    #     'type': 'sample',
-    #     'name': 'sn_dub',
-    #     'fxs': [
-    #         # {
-    #         #     'name': 'reverb',
-    #         #     'opts' : {
-    #         #         'mix': 0.5,
-    #         #         'room': 0.5
-    #         #     }
-    #         # }
-    #     ],
-    #     'opts': {
-    #         # 'release': 1,
-    #         # 'amp': 5,
-    #         # 'attack': 1,
-    #         # 'res': 0,
-    #         # 'pan': -1
-    #     },
-    #     'patterns': [
-    #         [
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None
-    #         ],
-    #         [
-    #             None, None, None, None, 
-    #             1, None, None, None, 
-    #             None, None, None, None, 
-    #             1, None, None, None
-    #         ]
-    #     ]
-    # }
+    }
 ]
-
+sender.send_message('/json', [json.dumps(instrus)])
+time.sleep(5)
+instrus = [
+    {
+        'type': 'synth',
+        'name': ':tb303',
+        'opts': {
+            'release': 1,
+            'cutoff': 130
+        },
+        'fxs': {
+            ':reverb': {
+                'mix': 1,
+                'room': 1
+            },
+            ':distortion': {
+                'distort': 0.1
+            }
+        },
+        'patterns': [
+            [':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None],
+            # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
+            [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
+        ]
+    }
+]
+sender.send_message('/json', [json.dumps(instrus)])
+time.sleep(5)
+instrus = [
+    {
+        'type': 'synth',
+        'name': ':tb303',
+        'opts': {
+            'release': 1,
+            'cutoff': 100
+        },
+        'fxs': {
+            ':reverb': {
+                'mix': 0.5,
+                'room': 1
+            },
+            ':distortion': {
+                'distort': 0.999
+            }
+        },
+        'patterns': [
+            [':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None],
+            # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
+            [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
+        ]
+    }
+]
 sender.send_message('/json', [json.dumps(instrus)])
 
+exit()
 time.sleep(4)
 
 instrus = [

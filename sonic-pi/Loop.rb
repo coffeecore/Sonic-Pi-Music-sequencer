@@ -14,44 +14,38 @@ live_loop :play do
 
   if p != nil then
     instrus = get(:instrus).drop(0)
-
+    puts instrus
     instrus.each do |instru|
-      # if instru['patterns'] != nil then
         patterns = instru['patterns'][p]
 
-        # if patterns != nil && patterns[n] != nil then
+        if patterns != nil && patterns[n] != nil then
           opts = instru['opts'].to_h
 
           fxs = instru['fxs']
 
           instruName = instru['name']
           toEval = ''
-          # if fxs != nil then
-            fxs.reverse.each do |fx|
-              puts "#{fx['name']}"
+            fxs.to_h.each do |fxName, fxOpts|
+              puts "#{fxName}"
 
-              toEval += "with_fx :#{fx['name']}, #{fx['opts'].to_h} do \n"
+              toEval += "with_fx #{fxName}, #{fxOpts.to_h} do \n"
             end
-          # end
           case instru['type']
             when 'synth'
               opts[:note] = eval(patterns[n].to_s)
-              toEval += "synth instruName.to_sym, opts \n"
+              toEval += "synth #{instruName}, opts \n"
             when 'external_synth'
             when 'sample'
-              toEval += "sample instruName.to_sym, opts \n"
+              toEval += "sample #{instruName}, #{opts.to_h} \n"
             when 'external_sample'
-              toEval += "sample \"#{instruName}\", opts \n"
+              toEval += "sample \"#{instruName}\", #{opts.to_h} \n"
 
           end
-          # if fxs != nil then
-            fxs.reverse.each do |fx|
+            fxs.to_h.each do |fx|
               toEval += "end \n"
             end
-          # end
           eval toEval
-        # end
-      # end
+        end
     end
   end
 

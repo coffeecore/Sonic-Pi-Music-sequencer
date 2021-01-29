@@ -82,7 +82,7 @@ live_loop :set_pattern do
 end
 run_file "#{FILE_PATH}/sonic-pi/functions.rb"
 run_file "#{FILE_PATH}/sonic-pi/Json.rb"
-run_file "#{FILE_PATH}/sonic-pi/Loop.rb"
 run_file "#{FILE_PATH}/sonic-pi/PlayState.rb"
 # run_file "#{FILE_PATH}/sonic-pi/Record.rb"
 run_file "#{FILE_PATH}/sonic-pi/TimeHandler.rb"
+run_file "#{FILE_PATH}/sonic-pi/Loop.rb"
