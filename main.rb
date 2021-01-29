@@ -1,6 +1,7 @@
 PLAY_STATE    = ['stop', 'play', 'pause']
 SEQUENCER_MOD = ['sequencer', 'single']
 FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
+# FILE_PATH     = "/home/pi/Desktop/sonic-pi-music-step-sequencer"
 
 define :reset_f do
   set :instrus, []
