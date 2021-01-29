@@ -12,13 +12,13 @@ live_loop :play do
   puts "Pattern #{p}"
   puts "Step #{n}"
 
-  if p != nil then
+  # if p != nil then
     instrus = get(:instrus).drop(0)
     puts instrus
     instrus.each do |instru|
         patterns = instru['patterns'][p]
 
-        if patterns != nil && patterns[n] != nil then
+        # if patterns[n] != nil then
           opts = instru['opts'].to_h
 
           fxs = instru['fxs']
@@ -45,9 +45,9 @@ live_loop :play do
               toEval += "end \n"
             end
           eval toEval
-        end
+        # end
     end
-  end
+  # end
 
   if SEQUENCER_MOD[get(:sequencer_mod).to_i] != 'single' then
     p = p+1 if n >= get(:endBar)

@@ -146,10 +146,10 @@ instrus = [
             'cutoff': 100
         },
         'fxs': {
-            ':reverb': {
-                'mix': 0.5,
-                'room': 1
-            },
+            # ':reverb': {
+            #     'mix': 0.5,
+            #     'room': 1
+            # },
             ':distortion': {
                 'distort': 0.999
             }
@@ -158,6 +158,28 @@ instrus = [
             [':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None],
             # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
             [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': ':bd_tek',
+        'opts': {
+            'release': 1,
+            'cutoff': 100
+        },
+        'fxs': {
+            # ':reverb': {
+            #     'mix': 0.5,
+            #     'room': 1
+            # },
+            ':distortion': {
+                'distort': 0.999
+            }
+        },
+        'patterns': [
+            [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
+            # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
+            [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
         ]
     }
 ]
@@ -172,10 +194,10 @@ instrus = [
             'cutoff': 130
         },
         'fxs': {
-            ':reverb': {
-                'mix': 1,
-                'room': 1
-            },
+            # ':reverb': {
+            #     'mix': 1,
+            #     'room': 1
+            # },
             ':distortion': {
                 'distort': 0.1
             }
@@ -198,10 +220,10 @@ instrus = [
             'cutoff': 100
         },
         'fxs': {
-            ':reverb': {
-                'mix': 0.5,
-                'room': 1
-            },
+            # ':reverb': {
+            #     'mix': 0.5,
+            #     'room': 1
+            # },
             ':distortion': {
                 'distort': 0.999
             }
@@ -210,6 +232,28 @@ instrus = [
             [':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None, ':e1', None, ':e3', None],
             # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
             [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
+        ]
+    },
+    {
+        'type': 'sample',
+        'name': ':bd_tek',
+        'opts': {
+            'release': 1,
+            'cutoff': 100
+        },
+        'fxs': {
+            # ':reverb': {
+            #     'mix': 0.5,
+            #     'room': 1
+            # },
+            ':distortion': {
+                'distort': 0.999
+            }
+        },
+        'patterns': [
+            [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
+            # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
+            [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
         ]
     }
 ]

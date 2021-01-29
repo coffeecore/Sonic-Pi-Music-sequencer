@@ -10,7 +10,7 @@ live_loop :metronome do
   if get(:metronome_state) && PLAY_STATE[get(:play_state).to_i] == 'play' && get(:n) % get(:eighth) == 0 then
     play 60, release: 0.001
   end
-  sleep 1
+  sleep (1.0/get(:eighth))
 end
 
 live_loop :set_eighth do
