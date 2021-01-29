@@ -26,20 +26,20 @@ instrus = [
         'type': 'synth',
         'name': 'fm',
         'fxs': [
-            {
-                'name': 'reverb',
-                'opts' : {
-                    'mix': 1,
-                    'room': 1
-                }
-            },
-            {
-                'name': 'slicer',
-                'opts': {
-                    'wave': 0,
-                    'phase': 0.25
-                }
-            }
+            # {
+            #     'name': 'reverb',
+            #     'opts' : {
+            #         'mix': 1,
+            #         'room': 1
+            #     }
+            # },
+            # {
+            #     'name': 'slicer',
+            #     'opts': {
+            #         'wave': 0,
+            #         'phase': 0.25
+            #     }
+            # }
         ],
         'opts': {
             # 'release': 0.01,
@@ -148,19 +148,25 @@ instrus = [
         'name': 'fm',
         'fxs': [
             {
-                'name': 'reverb',
-                'opts' : {
-                    'mix': 0.5,
-                    'room': 1
-                }
-            },
-            {
-                'name': 'slicer',
+                'name': 'distortion',
                 'opts': {
-                    'wave': 0,
-                    'phase': 0.5
+                    'distort': 0.999
                 }
             }
+            # {
+            #     'name': 'reverb',
+            #     'opts' : {
+            #         'mix': 0.5,
+            #         'room': 1
+            #     }
+            # },
+            # {
+            #     'name': 'slicer',
+            #     'opts': {
+            #         'wave': 0,
+            #         'phase': 0.5
+            #     }
+            # }
         ],
         'opts': {
             # 'release': 0.01,
@@ -181,7 +187,7 @@ instrus = [
             'release': 1,
             'amp': 5,
             'attack': 1,
-            'res': 0
+            'res': 0.9
         },
         'patterns': [
             [
@@ -204,20 +210,20 @@ instrus2 = [
         'type': 'synth',
         'name': 'fm',
         'fxs': [
-            {
-                'name': 'reverb',
-                'opts' : {
-                    'mix': 1,
-                    'room': 1
-                }
-            },
-            {
-                'name': 'slicer',
-                'opts': {
-                    'wave': 0,
-                    'phase': 0.25
-                }
-            }
+            # {
+            #     'name': 'reverb',
+            #     'opts' : {
+            #         'mix': 1,
+            #         'room': 1
+            #     }
+            # },
+            # {
+            #     'name': 'slicer',
+            #     'opts': {
+            #         'wave': 0,
+            #         'phase': 0.25
+            #     }
+            # }
         ],
         'opts': {
             # 'release': 0.01,
@@ -258,10 +264,16 @@ instrus2 = [
 ]
 
 while True :
-    sender.send_message('/json', [json.dumps(instrus)])
+    print('ONE')
+    sender.send_message('/json/channel', [0, json.dumps(instrus[0])])
     time.sleep(0.5)
-    sender.send_message('/json', [json.dumps(instrus2)])
+    sender.send_message('/json/channel', [1, json.dumps(instrus2[1])])
+    time.sleep(10)
+    print('TOW')
+    sender.send_message('/json/channel', [0, json.dumps(instrus2[0])])
     time.sleep(0.5)
+    sender.send_message('/json/channel', [1, json.dumps(instrus[1])])
+    time.sleep(10)
 
 
 exit()
