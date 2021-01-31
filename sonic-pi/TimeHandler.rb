@@ -13,38 +13,39 @@ live_loop :metronome do
   sleep (1.0/get(:eighth))
 end
 
-live_loop :set_eighth do
-  use_real_time
-  osc = sync "/osc*/eighth"
-  set :eighth, osc[0]
 
-  set(:endBar, ((osc[0]*get(:bar))-1))
-end
+# live_loop :set_eighth do
+#   use_real_time
+#   osc = sync "/osc*/eighth"
+#   set :eighth, osc[0]
 
-live_loop :set_bar do
-  use_real_time
-  osc = sync "/osc*/bar"
-  set :bar, osc[0]
+#   set(:endBar, ((osc[0]*get(:bar))-1))
+# end
 
-  set(:endBar, ((get(:eighth)*osc[0])-1))
-end
+# live_loop :set_bar do
+#   use_real_time
+#   osc = sync "/osc*/bar"
+#   set :bar, osc[0]
 
-live_loop :set_bpm do
-  osc = sync '/osc*/bpm'
-  set :bpm, osc[0]
-end
+#   set(:endBar, ((get(:eighth)*osc[0])-1))
+# end
+
+# live_loop :set_bpm do
+#   osc = sync '/osc*/bpm'
+#   set :bpm, osc[0]
+# end
 
 
-live_loop :set_metronome do
-  use_real_time
-  osc = sync "/osc*/metronome"
+# live_loop :set_metronome do
+#   use_real_time
+#   osc = sync "/osc*/metronome"
 
-  if osc[0] == 1 then
-    set :metronome_state, true
-  else
-    set :metronome_state, false
-  end
-end
+#   if osc[0] == 1 then
+#     set :metronome_state, true
+#   else
+#     set :metronome_state, false
+#   end
+# end
 
 live_loop :step do
     use_real_time

@@ -33,20 +33,20 @@ use_osc "127.0.0.1", 7000
 
 set_volume! get(:volume)
 
-live_loop :reset do
-  use_real_time
-  osc    = sync "/osc*/reset"
-  reset_f
-end
+# live_loop :reset do
+#   use_real_time
+#   osc    = sync "/osc*/reset"
+#   reset_f
+# end
 
-live_loop :global_volume do
-  use_real_time
-  osc    = sync "/osc*/volume"
-  volume = osc[0]
-  set :volume, volume
+# live_loop :global_volume do
+#   use_real_time
+#   osc    = sync "/osc*/volume"
+#   volume = osc[0]
+#   set :volume, volume
 
-  set_volume! get(:volume)
-end
+#   set_volume! get(:volume)
+# end
 
 # live_loop :set_debug do
 #   use_real_time
@@ -63,23 +63,56 @@ end
 #   end
 # end
 
-live_loop :set_sequencer_mod do
-  use_real_time
-  osc = sync "/osc*/sequencer_mod"
-  set :sequencer_mod, osc[0]
-  puts "SEQUENCER MODE : #{SEQUENCER_MOD[osc[0]]}"
-end
+# live_loop :set_sequencer_mod do
+#   use_real_time
+#   osc = sync "/osc*/sequencer_mod"
+#   set :sequencer_mod, osc[0]
+#   puts "SEQUENCER MODE : #{SEQUENCER_MOD[osc[0]]}"
+# end
 
-live_loop :set_max_pattern do
-  use_real_time
-  osc = sync "/osc*/pattern/max"
-  set :pmax, osc[0]
-end
+# live_loop :set_max_pattern do
+#   use_real_time
+#   osc = sync "/osc*/pattern/max"
+#   set :pmax, osc[0]
+# end
 
-live_loop :set_pattern do
+# live_loop :set_pattern do
+#   use_real_time
+#   osc = sync "/osc*/pattern"
+#   set :p, osc[0]
+# end
+
+live_loop :set do
   use_real_time
-  osc = sync "/osc*/pattern"
-  set :p, osc[0]
+  osc = sync "/osc*/set"
+  name = osc[0]
+
+  case name
+  when 'eighth'
+    set :eighth, osc[1]
+    set(:endBar, ((osc[1]*get(:bar))-1))
+  when 'bar'
+    set :bar, osc[1]
+    set(:endBar, ((get(:eighth)*osc[1])-1))
+  when 'bpm'
+    set :bpm, osc[1]
+  when 'metronome_state'
+    if osc[1] == 1 then
+      set :metronome_state, true
+    else
+      set :metronome_state, false
+    end
+  when 'pattern'
+    set :p, osc[0]
+  when 'max_pattern'
+    set :pmax, osc[0]
+  when 'volume'
+    set :volume, volume
+    set_volume! get(:volume)
+  when 'sequencer_mod'
+    set :sequencer_mod, osc[0]
+    puts "SEQUENCER MODE : #{SEQUENCER_MOD[osc[0]]}"
+  end
 end
 
 run_file "#{FILE_PATH}/sonic-pi/Json.rb"

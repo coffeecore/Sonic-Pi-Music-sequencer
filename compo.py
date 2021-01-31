@@ -5,19 +5,19 @@ import json
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-sender.send_message('/debug', [1])
+# sender.send_message('/debug', [1])
+# time.sleep(0.2)
+
+sender.send_message('/set', ['metronome_state', 1])
 time.sleep(0.2)
 
-sender.send_message('/metronome', [0])
-time.sleep(0.2)
-
-sender.send_message('/bpm', [60])
+sender.send_message('/set', ['bpm', 100])
 time.sleep(0.2)
 
 sender.send_message('/start', [1])
 time.sleep(0.2)
 
-sender.send_message('/pattern/max', [2])
+sender.send_message('/set', ['pattern_max', 2])
 time.sleep(0.2)
 
 instrus = [
