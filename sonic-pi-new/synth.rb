@@ -1,17 +1,16 @@
-# synthNumber = 0
-
 define :play_synth do |i|
   n = (sync :n)[0]
   i[:opts][:note] = i[:patterns][n]
-  i[:opts][:note] = eval(i[:opts][:note].to_s) if i[:opts][:note] != nil
-
-  synth i[:synth].to_sym, i[:opts] if i[:opts][:note] != nil
+  if i[:opts][:note] != nil then
+    i[:opts][:note] = eval(i[:opts][:note].to_s)
+    synth i[:synth].to_sym, i[:opts]
+  end
 end
 
-define :create_loop_synth do |instru|
-  name = instru[:name]
+define :create_loop_synth do |position, instru|
+  name = "#{instru[:type]}_#{position}"
   live_loop name.to_sym do
-    use_bpm get :bpm
+    use_bpm get(:bpm)
     s = ""
     instru[:fxs].each do |key, value|
       value[:reps] = get(:max)

@@ -12,7 +12,6 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 # for i in range(0, 50):
 i = [
   {
-    "name": "synth_0",
     "type": "synth",
     "synth": "tb303",
     "opts": {
@@ -29,14 +28,13 @@ i = [
       # }
     },
     "patterns": [
-        "chord(:e3, :minor)", ":g3", None, ":e3", ":c3", ":c3", ":d3", None,
+        "(chord :e3, :minor)", ":g3", None, ":e3", ":c3", ":c3", ":d3", None,
         ":f4", ":f4", None, ":d4", ":d4", ":d4", None, "chord(:f4, :major)"
         # "50", "51", "52",
         # ["53", "54", "55"],
     ]
   },
   {
-    "name": "synth_1",
     "type": "synth",
     "synth": "zawa",
     "opts": {
@@ -60,7 +58,6 @@ i = [
     ]
   },
   {
-    "name": "ext_sample_0",
     "type": "external_sample",
     "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
     "opts": {
@@ -83,7 +80,6 @@ i = [
     ]
   },
   {
-    "name": "ext_sample_1",
     "type": "external_sample",
     "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
     "opts": {
@@ -107,7 +103,6 @@ i = [
     ]
   },
   {
-    "name": "ext_sample_2",
     "type": "external_sample",
     "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/ST/ST0T0SA.WAV",
     "opts": {
@@ -141,8 +136,10 @@ sender.send_message('/patterns', [json.dumps(i)])
 time.sleep(0.1)
 sender.send_message('/state', ['play'])
 time.sleep(2)
+# sender.send_message('/volume', [0])
 # sender.send_message('/state', ['synthfm0_state', 'pause'])
-# time.sleep(6)
+time.sleep(6)
+# sender.send_message('/volume', [3])
 # sender.send_message('/state', ['stop'])
 # time.sleep(3)
 # time.sleep(4)

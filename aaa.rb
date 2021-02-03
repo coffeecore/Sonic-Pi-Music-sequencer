@@ -9,15 +9,22 @@ set :max, (get(:bar)*get(:eighth))
 set :bpm, 60
 set :sleep, 1.0/get(:eighth)
 
+set_volume! 1
+
+live_loop :set_volume do
+  osc = sync "/osc*/volume"
+  set_volume! osc[0]
+end
+
 live_loop :metronome do
   use_real_time
-  use_bpm get :bpm
-  while get(:state) === STATE[:pause] or get(:state) === STATE[:stop]
-      sleep get :sleep
+  use_bpm get(:bpm)
+  while get(:state) != STATE[:play]
+      sleep get(:sleep)
   end
   t = tick
   cue :n, (t % get(:max))
-  sleep get :sleep
+  sleep get(:sleep)
 end
 
 live_loop :set_measure_settings do
@@ -44,27 +51,28 @@ end
 live_loop :patterns do
   osc = sync "/osc*/patterns"
   instrus     = JSON.parse(osc[0], :symbolize_names => true)
-  instrus.each do |i|
-    create_loop i
+  instrus.each_with_index do |i, p|
+    create_loop p, i
   end
 end
 
 live_loop :pattern do
   osc = sync "/osc*/pattern"
-  instru     = JSON.parse(osc[0], :symbolize_names => true)
+  position = osc[0]
+  instru     = JSON.parse(osc[1], :symbolize_names => true)
 
-  create_loop instru
+  create_loop position, instru
 end
 
-define :create_loop do |i|
-  create_loop_synth(i) if i[:type] === 'synth'
-  create_loop_external_sample i if i[:type] === 'external_sample'
-  create_loop_sample i if i[:type] === 'sample'
+define :create_loop do |p, i|
+  create_loop_synth p, i if i[:type] === 'synth'
+  create_loop_external_sample p, i if i[:type] === 'external_sample'
+  create_loop_sample p, i if i[:type] === 'sample'
 end
 
 live_loop :set_state do
   osc = sync "/osc*/state"
-  state = get :state
+  state = get(:state)
   set :state, STATE[osc[0].to_sym]
   if state ===  STATE[:stop] and osc[0] === 'play' then
     cue :n, 0

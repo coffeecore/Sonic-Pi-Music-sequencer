@@ -1,15 +1,14 @@
-sampleNumber = 0
-
 define :play_sample do |i|
   n = (sync :n)[0]
 
   sample i[:name].to_sym, i[:opts] if i[:patterns][n] != nil
 end
 
-define :create_loop_sample do |instru|
-  name = instru[:name]
+define :create_loop_sample do |position, instru|
+  # name = instru[:name]
+  name = "#{instru[:type]}_#{position}"
   live_loop name.to_sym do
-    use_bpm get :bpm
+    use_bpm get(:bpm)
     s = ""
     instru[:fxs].each do |key, value|
       value[:reps] = get(:max)
