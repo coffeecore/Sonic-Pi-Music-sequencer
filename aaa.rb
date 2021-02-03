@@ -1,3 +1,4 @@
+FILE_PATH = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
 use_debug false
@@ -14,6 +15,21 @@ set_volume! 1
 live_loop :set_volume do
   osc = sync "/osc*/volume"
   set_volume! osc[0]
+end
+
+live_loop :set_bpm do
+  osc = sync "/osc*/bpm"
+
+  set :bpm, osc[0]
+end
+
+live_loop :set_state do
+  osc = sync "/osc*/state"
+  state = get(:state)
+  set :state, STATE[osc[0].to_sym]
+  if state ===  STATE[:stop] and osc[0] === 'play' then
+    cue :n, 0
+  end
 end
 
 live_loop :metronome do
@@ -33,12 +49,6 @@ live_loop :set_measure_settings do
   set osc[0].to_sym, osc[1]
   set :sleep, 1.0/get(:eighth)
   set :max, (get(:bar)*get(:eighth))
-end
-
-live_loop :set_bpm do
-  osc = sync "/osc*/bpm"
-
-  set :bpm, osc[0]
 end
 
 live_loop :kill_loop do
@@ -65,20 +75,120 @@ live_loop :pattern do
 end
 
 define :create_loop do |p, i|
-  create_loop_synth p, i if i[:type] === 'synth'
-  create_loop_external_sample p, i if i[:type] === 'external_sample'
-  create_loop_sample p, i if i[:type] === 'sample'
-end
+  name = "#{i[:type]}_#{p}"
+  live_loop name.to_sym do
+    use_bpm get(:bpm)
+    s = ""
+    i[:fxs].each do |key, value|
+      value[:reps] = get(:max)
+      s += "with_fx :#{key}, #{value} do \n"
+    end
 
-live_loop :set_state do
-  osc = sync "/osc*/state"
-  state = get(:state)
-  set :state, STATE[osc[0].to_sym]
-  if state ===  STATE[:stop] and osc[0] === 'play' then
-    cue :n, 0
+    s += "play_#{i[:type]} i \n"
+
+    i[:fxs].each do |key, value|
+      s += "end \n"
+    end
+
+    eval s
   end
 end
 
-run_file "/Users/antoine/Music/Sonic Pi/sonic-pi-new/synth.rb"
-run_file "/Users/antoine/Music/Sonic Pi/sonic-pi-new/external-sample.rb"
-run_file "/Users/antoine/Music/Sonic Pi/sonic-pi-new/sample.rb"
+define :play_synth do |i|
+  n = (sync :n)[0]
+  i[:opts][:note] = i[:patterns][n]
+  if i[:opts][:note] != nil then
+    i[:opts][:note] = eval(i[:opts][:note].to_s)
+    synth i[:synth].to_sym, i[:opts]
+  end
+end
+
+define :play_external_sample do |i|
+  n = (sync :n)[0]
+  sample i[:sample], i[:opts] if i[:patterns][n] != nil
+end
+
+define :play_sample do |i|
+  n = (sync :n)[0]
+  sample i[:name].to_sym, i[:opts] if i[:patterns][n] != nil
+end
+
+
+
+
+
+
+
+
+
+
+##
+# RECORD #
+##
+# Author : robin.newman
+# URI : https://in-thread.sonic-pi.net/t/recording-is-not-happening-with-osc-commands/4710/6
+
+define :pvalue do #get current listen port for Sonic Pi from log file
+  value = 51243 #pre new logfile format port was always 4557
+  File.open(ENV['HOME']+'/.sonic-pi/log/server-output.log','r') do |f1|
+    while l = f1.gets
+      if l.include?"Listen port:"
+        value = l.split(" ").last.to_i
+        break
+      end
+    end
+    f1.close
+  end
+  # puts "PORt #{value}"
+  return value
+end
+set :pvalue, pvalue
+
+define :record_start do #this command is equivalent to pushing the start recording button
+  use_real_time
+  pvalue = get(:pvalue)
+  osc_send "localhost", pvalue, "/start-recording","guid-rbn"
+
+  sleep 1# make sure recording running before creating any audio to save
+end
+
+define :record_stop do #this command stops a currently recording process
+  use_real_time
+  pvalue = get(:pvalue)
+  osc_send "localhost", pvalue, "/stop-recording","guid-rbn"
+end
+
+define :save_audio do |file|  #this command saves the recorded audio file
+  pvalue = get(:pvalue)
+  osc_send "localhost", pvalue, "/save-recording","guid-rbn",file
+end
+
+
+live_loop :start_record do
+    # use_real_time
+    use_cue_logging get(:cue_logging)
+    use_debug get(:debug)
+    osc = sync '/osc*/record/start'
+
+    record_start()
+end
+
+live_loop :stop_record do
+    # use_real_time
+    use_cue_logging get(:cue_logging)
+    use_debug get(:debug)
+    osc = sync '/osc*/record/stop'
+    record_stop()
+end
+
+live_loop :save_record_audio_file do
+    # use_real_time
+    use_cue_logging get(:cue_logging)
+    use_debug get(:debug)
+    osc = sync '/osc*/record/save'
+
+    sleep 1
+    save_audio(FILE_PATH+'/records/'+(Time.new).strftime("%Y%m%d_%H%M%S")+'.wav')
+
+    stop
+end
