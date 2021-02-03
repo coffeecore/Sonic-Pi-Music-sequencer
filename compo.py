@@ -2,22 +2,171 @@ from pythonosc import osc_message_builder
 from pythonosc import udp_client
 import time
 import json
+import sys
 
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
-# sender.send_message('/debug', [1])
+# sender.send_message('/measure', ['bar', 4])
 # time.sleep(0.2)
 
-sender.send_message('/set', ['metronome_state', 1])
+# for i in range(0, 50):
+i = [
+  {
+    "name": "synth_0",
+    "type": "synth",
+    "synth": "tb303",
+    "opts": {
+      "release": 0.125,
+      "cutoff": 120,
+      "res": 0.5,
+      # "slide": 0.25
+      # "amp": 0.5
+    },
+    "fxs": {
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+        "chord(:e3, :minor)", ":g3", None, ":e3", ":c3", ":c3", ":d3", None,
+        ":f4", ":f4", None, ":d4", ":d4", ":d4", None, "chord(:f4, :major)"
+        # "50", "51", "52",
+        # ["53", "54", "55"],
+    ]
+  },
+  {
+    "name": "synth_1",
+    "type": "synth",
+    "synth": "zawa",
+    "opts": {
+      "release": 0.5,
+      "cutoff": 100,
+      "res": 0.5,
+      # "slide": 0.25
+      # "amp": 0.5
+    },
+    "fxs": {
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+        # "60", "61", "62",
+        # ["63", "64", "65"]
+         ":e5", ":c5", ":c5", ":d5", None,
+        ":f4", ":f5", None, ":d5", ":d5", ":d5", None, ":f5"
+    ]
+  },
+  {
+    "name": "ext_sample_0",
+    "type": "external_sample",
+    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
+    "opts": {
+      ##| "release": 0.125,
+      ##| "cutoff": 120,
+        "res": 0.5,
+    },
+    "fxs": {
+      # "distortion": {
+      #   "distort": 0.99
+      # },
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+        1, None, None, None, 1, None, None, 1,
+        1, None, None, None, 1, None, None, 1,
+    ]
+  },
+  {
+    "name": "ext_sample_1",
+    "type": "external_sample",
+    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
+    "opts": {
+      ##| "release": 0.125,
+      ##| "cutoff": 120,
+        # "res": 0.5,
+        "amp": 0.5
+    },
+    "fxs": {
+      # "distortion": {
+      #   "distort": 0.99
+      # },
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+    ]
+  },
+  {
+    "name": "ext_sample_2",
+    "type": "external_sample",
+    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/ST/ST0T0SA.WAV",
+    "opts": {
+      ##| "release": 0.125,
+      ##| "cutoff": 120,
+        # "res": 0.5,
+    },
+    "fxs": {
+      # "distortion": {
+      #   "distort": 0.99
+      # },
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+        None, None, 1, None, None, None, 1, None,
+        None, None, 1, None, None, None, 1, None,
+    ]
+  }
+]
+sender.send_message('/bpm', [100])
+# time.sleep(0.25)
+# sender.send_message('/bpm', [110])
+# time.sleep(0.25)
+# sender.send_message('/bpm', [120])
+# time.sleep(0.25)
+
+sender.send_message('/patterns', [json.dumps(i)])
+time.sleep(0.1)
+sender.send_message('/state', ['play'])
+time.sleep(2)
+# sender.send_message('/state', ['synthfm0_state', 'pause'])
+# time.sleep(6)
+# sender.send_message('/state', ['stop'])
+# time.sleep(3)
+# time.sleep(4)
+sender.send_message('/kill', ['synth_1'])
+sender.send_message('/kill', ['synth_0'])
+sender.send_message('/kill', ['ext_sample_1'])
+# sender.send_message('/kill', ['synth_0'])
+
+# sender.send_message('/measure', ['bar', 2])
+
+# sender.send_message('/state', ['play'])
+
+
+exit();
+sender.send_message('/set', ['metronome_state', 0])
 time.sleep(0.2)
 
-sender.send_message('/set', ['bpm', 100])
+sender.send_message('/set', ['bpm', 150])
 time.sleep(0.2)
 
 sender.send_message('/start', [1])
 time.sleep(0.2)
 
-sender.send_message('/set', ['pattern_max', 2])
+sender.send_message('/set', ['pattern_max', 4])
 time.sleep(0.2)
 
 instrus = [
@@ -25,17 +174,26 @@ instrus = [
         'type': 'synth',
         'name': ':tb303',
         'opts': {
-            'cutoff': 75,
-            'res': 0.99999999,
+            # 'cutoff': 70,
+            # 'res': 0.999,
             # 'attack': 2,
             # 'release': 1
+            'release': 0.125,
+            'cutoff': 100,
+            'res': 0.7,
+            # 'wave': 2,
+            # 'slide': 2
         },
         'fxs': {
         },
         'patterns': [
-            [':e1', None, ':g3', None, ':g4', ':f4', ':g3', None, ':e1', None, ':e3', ':g4', ':e1', None, ':e3', None],
+            # [':e1', None, ':g3', None, ':g4', ':f4', ':g3', None, ':e1', None, ':e3', ':g4', ':e1', None, ':e3', None],
             # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
-            [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
+            # [[':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None, [':f2', ':f4'], None, 'chord(:E3, :major)', None]
+            [':f3', ':e3', ':c3', ':cs3'],
+            [':f3', ':e3', ':c3', ':cs3'],
+            [':f3', ':e3', ':c3', ':cs3'],
+            [':f3', ':e3', ':c3', ':cs3']
         ]
     },
     {
@@ -55,9 +213,37 @@ instrus = [
             }
         },
         'patterns': [
-            [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
+            # [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
             # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, None, 1],
+            [1, 1, None, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+        ]
+    },
+    {
+        'type': 'external_sample',
+        'name': '/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD0.WAV',
+        'opts': {
+            # 'release': 2,
+            # 'cutoff': 100
+        },
+        'fxs': {
+            # ':reverb': {
+            #     'mix': 0.5,
+            #     'room': 1
+            # },
+            # ':distortion': {
+            #     'distort': 0.999
+            # }
+        },
+        'patterns': [
+            # [1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None, 1, None],
+            # ['[:f2, :f4]', None, 'chord(:e, :major)', None]
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
         ]
     }
 ]

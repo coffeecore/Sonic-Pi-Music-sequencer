@@ -8,7 +8,7 @@ define :reset_f do
   # Result 4/4 with sixteenth note.
   # To have 3/4 with eighth note set "eighth" to 2 and "bar" to 3
   set :startBar, 0
-  set :eighth, 4
+  set :eighth, 1
   set :bar, 4
   set :endBar, ((get(:eighth)*get(:bar))-1)
   #
