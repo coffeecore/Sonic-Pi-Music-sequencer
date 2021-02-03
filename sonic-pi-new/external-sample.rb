@@ -11,7 +11,7 @@ define :create_loop_external_sample do |instru|
     use_bpm get :bpm
     s = ""
     instru[:fxs].each do |key, value|
-      value[:reps] = (get(:bar)*get(:eighth))
+      value[:reps] = get(:max)
 
       s += "with_fx :#{key}, #{value} do \n"
     end

@@ -9,10 +9,10 @@ end
 define :create_loop_sample do |instru|
   name = instru[:name]
   live_loop name.to_sym do
-    puts get((name+"_state").to_sym)
     use_bpm get :bpm
     s = ""
     instru[:fxs].each do |key, value|
+      value[:reps] = get(:max)
       s += "with_fx :#{key}, #{value} do \n"
     end
 

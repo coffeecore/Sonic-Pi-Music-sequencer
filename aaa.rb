@@ -5,6 +5,7 @@ use_cue_logging false
 set :state, STATE[:stop]
 set :eighth, 4
 set :bar, 4
+set :max, (get(:bar)*get(:eighth))
 set :bpm, 60
 set :sleep, 1.0/get(:eighth)
 
@@ -12,10 +13,10 @@ live_loop :metronome do
   use_real_time
   use_bpm get :bpm
   while get(:state) === STATE[:pause] or get(:state) === STATE[:stop]
-      sleep (1.0/get(:eighth))
+      sleep get :sleep
   end
   t = tick
-  cue :n, (t % (get(:bar)*get(:eighth)))
+  cue :n, (t % get(:max))
   sleep get :sleep
 end
 
@@ -24,6 +25,7 @@ live_loop :set_measure_settings do
 
   set osc[0].to_sym, osc[1]
   set :sleep, 1.0/get(:eighth)
+  set :max, (get(:bar)*get(:eighth))
 end
 
 live_loop :set_bpm do
