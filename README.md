@@ -70,10 +70,10 @@ See begin of `compo.py` for example.
 | Feature                 | OSC URI              | Parameters                                                  |
 | ----------------------- | -------------------- | ----------------------------------------------------------- |
 | Set global volume       | /volume              | Number between `0` and `5`                                  |
-| Set bpm                 | /bpm                 | Integer                                                     |
 | Set playback state      | /state               | String `stop`, `play` or `pause`                            |
-| Set eighth              | /measure             | ['eighth', integer]                                         |
-| Set bar                 | /measure             | ['bar', integer]                                            |
+| Set bpm                 | /settings            | ['bpm', Integer]                                            |
+| Set eighth              | /settings            | ['eighth', Integer]                                         |
+| Set max step to play    | /settings            | ['pmax', Integer]                                           |
 | Kill a loop             | /kill                | String `live_loop` name                                     |
 | Set patterns            | /patterns            | Json                                                        |
 | Set pattern             | /pattern             | [Integer `position`, Json]                                  |

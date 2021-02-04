@@ -4,15 +4,12 @@ STATE = (map stop: 0, play: 1, pause: 2)
 use_debug false
 use_cue_logging false
 
-set :bar, 4
 set :bpm, 60
 set :eighth, 4
-set :pmax, 2
+set :pmax, 16
 set :state, STATE[:stop]
 
-set :max, (get(:bar)*get(:eighth))
 set :sleep, 1.0/get(:eighth)
-set :psleep, 1.0*get(:eighth)
 set_volume! 5
 
 live_loop :set_volume do
@@ -24,8 +21,6 @@ live_loop :set_settings do
   osc = sync "/osc*/settings"
   set osc[0].to_sym, osc[1]
   set :sleep, 1.0/get(:eighth)
-  set :psleep, 1.0*get(:eighth)
-  set :max, (get(:bar)*get(:eighth))
 end
 
 live_loop :set_state do
@@ -42,13 +37,13 @@ live_loop :metronome do
       tick_reset
       set :state, STATE[:pause]
     end
-    sleep get(:psleep)
+    sleep get(:sleep)
   end
   p = (look % get(:pmax))
   cue :p, p
-  tick_reset if tick != 0 and p == 0
-  sleep get(:psleep)
-  #sleep 1
+  tick_reset if look != 0 and p == 0
+  tick
+  sleep get(:sleep)
 end
 
 live_loop :kill_loop do
@@ -91,34 +86,27 @@ define :create_loop do |p, i|
 end
 
 define :play_synth do |i|
-  # n = (sync :n)[0]
   p = (sync :p)[0]
-  get(:max).times do
-    #i[:opts][:note] = i[:patterns][n]
-    i[:opts][:note] = i[:patterns][p][tick]
+    i[:opts][:note] = i[:patterns][p]
     if i[:opts][:note] != nil then
       i[:opts][:note] = eval(i[:opts][:note].to_s)
-      puts "Synth #{n} #{i[:synth]} #{i[:opts][:note]}"
+      puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
       synth i[:synth].to_sym, i[:opts]
     end
-    sleep get :sleep
-  end
 end
 
 define :play_external_sample do |i|
-  # n = (sync :n)[0]
   p = (sync :p)[0]
-  if i[:patterns][n] == true then
-    puts "Ext sample #{n} #{i[:sample]}"
+  if i[:patterns][p] == true then
+    puts "Ext sample #{p} #{i[:sample]}"
     sample i[:sample], i[:opts]
   end
 end
 
 define :play_sample do |i|
-  # n = (sync :n)[0]
   p = (sync :p)[0]
-  if i[:patterns][n] == true then
-    puts "Sample #{n} #{i[:sample]}"
+  if i[:patterns][p] == true then
+    puts "Sample #{p} #{i[:sample]}"
     sample i[:name].to_sym, i[:opts]
   end
 end
