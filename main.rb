@@ -99,18 +99,25 @@ define :play_synth do |i|
   i[:opts][:note] = i[:patterns][n]
   if i[:opts][:note] != nil then
     i[:opts][:note] = eval(i[:opts][:note].to_s)
+    puts "SYNTH #{n} #{i[:synth]} #{i[:opts][:note]}"
     synth i[:synth].to_sym, i[:opts]
   end
 end
 
 define :play_external_sample do |i|
   n = (sync :n)[0]
-  sample i[:sample], i[:opts] if i[:patterns][n] == true
+  if i[:patterns][n] == true then
+    puts "EXT SAMPLE #{n} #{i[:sample]}"
+    sample i[:sample], i[:opts]
+  end
 end
 
 define :play_sample do |i|
   n = (sync :n)[0]
-  sample i[:name].to_sym, i[:opts] if i[:patterns][n] == true
+  if i[:patterns][n] == true then
+    puts "SAMPLE #{n} #{i[:sample]}"
+    sample i[:name].to_sym, i[:opts]
+  end
 end
 
 

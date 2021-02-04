@@ -2,6 +2,10 @@
 
 Launch `live_loop` with Json.
 
+## Todo
+
+[ ] Fix stop state
+
 ```
 [
     {
