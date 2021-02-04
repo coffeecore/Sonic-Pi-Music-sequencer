@@ -66,9 +66,9 @@ i = [
         "res": 0.5,
     },
     "fxs": {
-      # "distortion": {
-      #   "distort": 0.99
-      # },
+      "distortion": {
+        "distort": 0.99
+      },
       # "reverb": {
       #   "room": 0.9,
       #   "mix": 1
@@ -111,9 +111,9 @@ i = [
         # "res": 0.5,
     },
     "fxs": {
-      # "distortion": {
-      #   "distort": 0.99
-      # },
+      "distortion": {
+        "distort": 0.99
+      },
       # "reverb": {
       #   "room": 0.9,
       #   "mix": 1
@@ -134,7 +134,8 @@ sender.send_message('/bpm', [100])
 # time.sleep(0.25)
 
 sender.send_message('/patterns', [json.dumps(i)])
-time.sleep(0.1)
+time.sleep(1)
+print("PLAY")
 sender.send_message('/state', ['play'])
 time.sleep(2)
 # sender.send_message('/volume', [0])
@@ -144,9 +145,9 @@ time.sleep(6)
 # sender.send_message('/state', ['stop'])
 # time.sleep(3)
 # time.sleep(4)
-sender.send_message('/kill', ['synth_1'])
-sender.send_message('/kill', ['synth_0'])
-sender.send_message('/kill', ['ext_sample_1'])
+# sender.send_message('/kill', ['synth_1'])
+# sender.send_message('/kill', ['synth_0'])
+# sender.send_message('/kill', ['ext_sample_1'])
 # sender.send_message('/kill', ['synth_0'])
 
 # sender.send_message('/measure', ['bar', 2])

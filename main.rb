@@ -27,19 +27,23 @@ live_loop :set_state do
   osc = sync "/osc*/state"
   state = get(:state)
   set :state, STATE[osc[0].to_sym]
-  if state ===  STATE[:stop] and osc[0] === 'play' then
-    cue :n, 0
-  end
+  # if state ==  STATE[:stop] and osc[0] == 'play' then
+  #   cue :n, 0
+  # end
 end
 
 live_loop :metronome do
   use_real_time
   use_bpm get(:bpm)
   while get(:state) != STATE[:play]
-      sleep get(:sleep)
+    if get(:state) == STATE[:stop] then
+      tick_reset :b
+    end
+    sleep get(:sleep)
   end
-  t = tick
+  t = tick :b
   cue :n, (t % get(:max))
+  tick_reset :b if t != 0 and (t % get(:max)) == 0
   sleep get(:sleep)
 end
 
