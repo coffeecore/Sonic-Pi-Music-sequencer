@@ -95,7 +95,7 @@ define :play_synth do |i|
   p = (sync :p)[0]
   get(:max).times do
     #i[:opts][:note] = i[:patterns][n]
-    i[:opts][:note] = i[:patterns][p].tick
+    i[:opts][:note] = i[:patterns][p][tick]
     if i[:opts][:note] != nil then
       i[:opts][:note] = eval(i[:opts][:note].to_s)
       puts "Synth #{n} #{i[:synth]} #{i[:opts][:note]}"
