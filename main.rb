@@ -11,8 +11,8 @@ set :pmax, 2
 set :state, STATE[:stop]
 
 set :max, (get(:bar)*get(:eighth))
-# set :sleep, 1.0/get(:eighth)
-set :sleep, 1.0*get(:eighth)
+set :sleep, 1.0/get(:eighth)
+set :psleep, 1.0*get(:eighth)
 set_volume! 5
 
 live_loop :set_volume do
@@ -23,8 +23,8 @@ end
 live_loop :set_settings do
   osc = sync "/osc*/settings"
   set osc[0].to_sym, osc[1]
-  # set :sleep, 1.0/get(:eighth)
-  set :sleep, 1.0*get(:eighth)
+  set :sleep, 1.0/get(:eighth)
+  set :psleep, 1.0*get(:eighth)
   set :max, (get(:bar)*get(:eighth))
 end
 
@@ -42,12 +42,12 @@ live_loop :metronome do
       tick_reset
       set :state, STATE[:pause]
     end
-    sleep get(:sleep)
+    sleep get(:psleep)
   end
   p = (look % get(:pmax))
   cue :p, p
   tick_reset if tick != 0 and p == 0
-  sleep get(:sleep)
+  sleep get(:psleep)
   #sleep 1
 end
 
@@ -101,6 +101,7 @@ define :play_synth do |i|
       puts "Synth #{n} #{i[:synth]} #{i[:opts][:note]}"
       synth i[:synth].to_sym, i[:opts]
     end
+    sleep get :sleep
   end
 end
 
