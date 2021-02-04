@@ -1,4 +1,4 @@
-# :musical_keyboard: Sonic Pi Json
+# :musical_keyboard: Sonic Pi Json Sequencer
 
 Launch `live_loop` with Json.
 
