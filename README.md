@@ -2,9 +2,13 @@
 
 Launch `live_loop` with Json.
 
+:warning: Not work on Rpi3. Must try on Rpi4
+
 ## Todo
 
-[ ] Fix stop state
+[ ] Run on RPi...
+
+## Json
 
 ```
 [
@@ -53,16 +57,22 @@ Launch `live_loop` with Json.
 ]
 ```
 
-| Feature                                  | OSC URI              | Parameters                           |
-| ---------------------------------------- | -------------------- | ------------------------------------ |
-| Set global volume                        | /volume              | Number between `0` and `5`           |
-| Set bpm                                  | /bpm                 | Integer                              |
-| Set playback state                       | /state               | String `stop`, `play` or `pause`     |
-| Set eighth                               | /measure             | ['eighth', integer]                  |
-| Set bar                                  | /measure             | ['bar', integer]                     |
-| Kill a loop                              | /kill                | String loop name                     |
-| Set patterns                             | /patterns            | Json                                 |
-| Set pattern                              | /pattern             | [Integer `position`, Json]           |
+## OSC commands
 
+| Feature                 | OSC URI              | Parameters                                                  |
+| ----------------------- | -------------------- | ----------------------------------------------------------- |
+| Set global volume       | /volume              | Number between `0` and `5`                                  |
+| Set bpm                 | /bpm                 | Integer                                                     |
+| Set playback state      | /state               | String `stop`, `play` or `pause`                            |
+| Set eighth              | /measure             | ['eighth', integer]                                         |
+| Set bar                 | /measure             | ['bar', integer]                                            |
+| Kill a loop             | /kill                | String loop name                                            |
+| Set patterns            | /patterns            | Json                                                        |
+| Set pattern             | /pattern             | [Integer `position`, Json]                                  |
+| Start record            | /record/start        | Start to record                                             |
+| Stop record             | /record/stop         | Stop record                                                 |
+| Save record             | /record/save         | Save record (Change `FILE_PATH` constant in `main.rb` file) |
+
+## Run
 
 `run_file "/absolute/path/to/main.rb"`

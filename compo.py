@@ -8,6 +8,8 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
 # sender.send_message('/measure', ['bar', 4])
 # time.sleep(0.2)
+sender.send_message('/state', ['play'])
+time.sleep(0.2)
 
 # for i in range(0, 50):
 i = [
@@ -135,12 +137,17 @@ sender.send_message('/bpm', [100])
 
 sender.send_message('/patterns', [json.dumps(i)])
 time.sleep(1)
-print("PLAY")
-sender.send_message('/state', ['play'])
+# print("PLAY")
+# sender.send_message('/state', ['play'])
 time.sleep(2)
-# sender.send_message('/volume', [0])
-# sender.send_message('/state', ['synthfm0_state', 'pause'])
-time.sleep(6)
+# sender.send_message('/record/start', [1])
+# # sender.send_message('/volume', [0])
+# # sender.send_message('/state', ['synthfm0_state', 'pause'])
+# time.sleep(8)
+# sender.send_message('/record/stop', [1])
+# time.sleep(0.2)
+# sender.send_message('/record/save', [1])
+
 # sender.send_message('/volume', [3])
 # sender.send_message('/state', ['stop'])
 # time.sleep(3)
