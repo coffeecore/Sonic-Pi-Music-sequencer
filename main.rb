@@ -62,25 +62,21 @@ end
 #   end
 # end
 
-live_loop :patterns do
-  osc = sync "/osc*/patterns"
-  instrus     = JSON.parse(osc[0], :symbolize_names => true)
-  instrus.each_with_index do |i, p|
-    create_loop p, i
-  end
-end
+# live_loop :patterns do
+#   osc = sync "/osc*/patterns"
+#   instrus     = JSON.parse(osc[0], :symbolize_names => true)
+#   instrus.each_with_index do |i, p|
+#     create_loop p, i
+#   end
+# end
 
-sleep 1
+# live_loop :pattern do
+#   osc = sync "/osc*/pattern"
+#   position = osc[0]
+#   instru     = JSON.parse(osc[1], :symbolize_names => true)
 
-live_loop :pattern do
-  osc = sync "/osc*/pattern"
-  position = osc[0]
-  instru     = JSON.parse(osc[1], :symbolize_names => true)
-
-  create_loop position, instru
-end
-
-sleep 1
+#   create_loop position, instru
+# end
 
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
