@@ -143,7 +143,7 @@ i = [
   }
 ]
 print(json.dumps(i))
-sender.send_message('/settings', ['bpm', 90])
+sender.send_message('/settings', ['bpm', 100])
 # time.sleep(0.25)
 # sender.send_message('/bpm', [110])
 # time.sleep(0.25)
