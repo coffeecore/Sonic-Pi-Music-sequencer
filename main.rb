@@ -17,11 +17,15 @@ live_loop :set_volume do
   set_volume! osc[0]
 end
 
+sleep 1
+
 live_loop :set_bpm do
   osc = sync "/osc*/bpm"
 
   set :bpm, osc[0]
 end
+
+sleep 1
 
 live_loop :set_state do
   osc = sync "/osc*/state"
@@ -31,6 +35,8 @@ live_loop :set_state do
   #   cue :n, 0
   # end
 end
+
+sleep 1
 
 live_loop :metronome do
   use_real_time
@@ -47,6 +53,8 @@ live_loop :metronome do
   sleep get(:sleep)
 end
 
+sleep 1
+
 live_loop :set_measure_settings do
   osc = sync "/osc*/measure"
 
@@ -62,6 +70,8 @@ live_loop :kill_loop do
   end
 end
 
+sleep 1
+
 live_loop :patterns do
   osc = sync "/osc*/patterns"
   instrus     = JSON.parse(osc[0], :symbolize_names => true)
@@ -70,6 +80,8 @@ live_loop :patterns do
   end
 end
 
+sleep 1
+
 live_loop :pattern do
   osc = sync "/osc*/pattern"
   position = osc[0]
@@ -77,6 +89,8 @@ live_loop :pattern do
 
   create_loop position, instru
 end
+
+sleep 1
 
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
