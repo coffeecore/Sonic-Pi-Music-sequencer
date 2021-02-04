@@ -12,31 +12,25 @@ set :sleep, 1.0/get(:eighth)
 
 set_volume! 1
 
-live_loop :set_volume do
-  osc = sync "/osc*/volume"
-  set_volume! osc[0]
-end
+# live_loop :set_volume do
+#   osc = sync "/osc*/volume"
+#   set_volume! osc[0]
+# end
 
-sleep 1
+# live_loop :set_bpm do
+#   osc = sync "/osc*/bpm"
 
-live_loop :set_bpm do
-  osc = sync "/osc*/bpm"
+#   set :bpm, osc[0]
+# end
 
-  set :bpm, osc[0]
-end
-
-sleep 1
-
-live_loop :set_state do
-  osc = sync "/osc*/state"
-  state = get(:state)
-  set :state, STATE[osc[0].to_sym]
-  # if state ==  STATE[:stop] and osc[0] == 'play' then
-  #   cue :n, 0
-  # end
-end
-
-sleep 1
+# live_loop :set_state do
+#   osc = sync "/osc*/state"
+#   state = get(:state)
+#   set :state, STATE[osc[0].to_sym]
+#   # if state ==  STATE[:stop] and osc[0] == 'play' then
+#   #   cue :n, 0
+#   # end
+# end
 
 live_loop :metronome do
   use_real_time
@@ -53,24 +47,20 @@ live_loop :metronome do
   sleep get(:sleep)
 end
 
-sleep 1
+# live_loop :set_measure_settings do
+#   osc = sync "/osc*/measure"
 
-live_loop :set_measure_settings do
-  osc = sync "/osc*/measure"
+#   set osc[0].to_sym, osc[1]
+#   set :sleep, 1.0/get(:eighth)
+#   set :max, (get(:bar)*get(:eighth))
+# end
 
-  set osc[0].to_sym, osc[1]
-  set :sleep, 1.0/get(:eighth)
-  set :max, (get(:bar)*get(:eighth))
-end
-
-live_loop :kill_loop do
-  osc = sync "/osc*/kill"
-  live_loop (osc[0]).to_sym do
-    stop
-  end
-end
-
-sleep 1
+# live_loop :kill_loop do
+#   osc = sync "/osc*/kill"
+#   live_loop (osc[0]).to_sym do
+#     stop
+#   end
+# end
 
 live_loop :patterns do
   osc = sync "/osc*/patterns"
