@@ -20,9 +20,12 @@ live_loop :set_volume do
   set_volume! osc[0]
 end
 
-live_loop :set_bpm do
-  osc = sync "/osc*/bpm"
-  set :bpm, osc[0]
+live_loop :set_settings do
+  osc = sync "/osc*/settings"
+  set osc[0].to_sym, osc[1]
+  # set :sleep, 1.0/get(:eighth)
+  set :sleep, 1.0*get(:eighth)
+  set :max, (get(:bar)*get(:eighth))
 end
 
 live_loop :set_state do
@@ -42,17 +45,10 @@ live_loop :metronome do
     sleep get(:sleep)
   end
   p = (tick % get(:pmax))
-  cue :n, p
+  cue :p, p
   tick_reset if t != 0 and p == 0
   sleep get(:sleep)
   #sleep 1
-end
-
-live_loop :set_measure_settings do
-  osc = sync "/osc*/measure"
-  set osc[0].to_sym, osc[1]
-  set :sleep, 1.0/get(:eighth)
-  set :max, (get(:bar)*get(:eighth))
 end
 
 live_loop :kill_loop do
@@ -83,7 +79,7 @@ define :create_loop do |p, i|
     use_bpm get(:bpm)
     s = ""
     i[:fxs].each do |key, value|
-      value[:reps] = get(:max)
+      # value[:reps] = get(:max)
       s += "with_fx :#{key}, #{value} do \n"
     end
         s += "play_#{i[:type]} i \n"
@@ -109,7 +105,8 @@ define :play_synth do |i|
 end
 
 define :play_external_sample do |i|
-  n = (sync :n)[0]
+  # n = (sync :n)[0]
+  p = (sync :p)[0]
   if i[:patterns][n] == true then
     puts "Ext sample #{n} #{i[:sample]}"
     sample i[:sample], i[:opts]
@@ -117,7 +114,8 @@ define :play_external_sample do |i|
 end
 
 define :play_sample do |i|
-  n = (sync :n)[0]
+  # n = (sync :n)[0]
+  p = (sync :p)[0]
   if i[:patterns][n] == true then
     puts "Sample #{n} #{i[:sample]}"
     sample i[:name].to_sym, i[:opts]
