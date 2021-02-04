@@ -7,11 +7,12 @@ use_cue_logging false
 set :bar, 4
 set :bpm, 60
 set :eighth, 4
+set :pmax, 2
 set :state, STATE[:stop]
 
 set :max, (get(:bar)*get(:eighth))
-set :sleep, 1.0/get(:eighth)
-
+# set :sleep, 1.0/get(:eighth)
+set :sleep, 1.0*get(:eighth)
 set_volume! 5
 
 live_loop :set_volume do
@@ -35,16 +36,16 @@ live_loop :metronome do
   use_bpm get(:bpm)
   while get(:state) != STATE[:play]
     if get(:state) == STATE[:stop] then
-      tick_reset :b
+      tick_reset
       set :state, STATE[:pause]
     end
     sleep get(:sleep)
   end
-  t = tick
-  b = (t % get(:max))
-  cue :n, b
-  tick_reset if t != 0 and b == 0
+  p = (tick % get(:pmax))
+  cue :n, p
+  tick_reset if t != 0 and p == 0
   sleep get(:sleep)
+  #sleep 1
 end
 
 live_loop :set_measure_settings do
@@ -94,12 +95,16 @@ define :create_loop do |p, i|
 end
 
 define :play_synth do |i|
-  n = (sync :n)[0]
-  i[:opts][:note] = i[:patterns][n]
-  if i[:opts][:note] != nil then
-    i[:opts][:note] = eval(i[:opts][:note].to_s)
-    puts "Synth #{n} #{i[:synth]} #{i[:opts][:note]}"
-    synth i[:synth].to_sym, i[:opts]
+  # n = (sync :n)[0]
+  p = (sync :p)[0]
+  get(:max).times do
+    #i[:opts][:note] = i[:patterns][n]
+    i[:opts][:note] = i[:patterns][p].tick
+    if i[:opts][:note] != nil then
+      i[:opts][:note] = eval(i[:opts][:note].to_s)
+      puts "Synth #{n} #{i[:synth]} #{i[:opts][:note]}"
+      synth i[:synth].to_sym, i[:opts]
+    end
   end
 end
 
