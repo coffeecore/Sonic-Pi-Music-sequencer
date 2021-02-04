@@ -1,19 +1,24 @@
 # :musical_keyboard: Sonic Pi Json Sequencer
 
-Launch `live_loop` with Json.
+Launch Sonic Pi `live_loop` from json.
 
-:warning: Not work on Rpi3. Must try on Rpi4
+:warning: Not work on Rpi3.
 
 ## Todo
 
-[ ] Run on RPi...
+- [ ] Run on RPi...
+    - [x] Test with Rpi3 : __Not work__
+    - [ ] Test with RPi4
+- [ ] Python part :
+    - [ ] Piano HAT
+    - [ ] Potards
+    - [ ] E-ink display
 
 ## Json
 
-```
+```json
 [
     {
-        // Loop name : synth_0
         "type": "synth",
         "synth": "", // synth name (ex: tb303)
         "opts": {
@@ -31,7 +36,6 @@ Launch `live_loop` with Json.
         ]
     },
     {
-        // Loop name : sample_1
         "type": "sample",
         "sample": "", // sample name (ex: drum_cymbal_closed)
         "opts": {
@@ -43,7 +47,6 @@ Launch `live_loop` with Json.
         ]
     },
     {
-        // Loop name : external_sample_2
         "type": "external_sample",
         "sample": "", // path to external sample (ex: /home/pi/mysample.ext)
         "opts": {
@@ -57,6 +60,11 @@ Launch `live_loop` with Json.
 ]
 ```
 
+Will result `live_loop` name to :
+- synth_0
+- sample_1
+- external_sample_2
+
 ## OSC commands
 
 | Feature                 | OSC URI              | Parameters                                                  |
@@ -66,7 +74,7 @@ Launch `live_loop` with Json.
 | Set playback state      | /state               | String `stop`, `play` or `pause`                            |
 | Set eighth              | /measure             | ['eighth', integer]                                         |
 | Set bar                 | /measure             | ['bar', integer]                                            |
-| Kill a loop             | /kill                | String loop name                                            |
+| Kill a loop             | /kill                | String `live_loop` name                                     |
 | Set patterns            | /patterns            | Json                                                        |
 | Set pattern             | /pattern             | [Integer `position`, Json]                                  |
 | Start record            | /record/start        | Start to record                                             |
