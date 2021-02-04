@@ -63,6 +63,8 @@ Will result `live_loop` name to :
 - sample_1
 - external_sample_2
 
+See begin of `compo.py` for example.
+
 ## OSC commands
 
 | Feature                 | OSC URI              | Parameters                                                  |
