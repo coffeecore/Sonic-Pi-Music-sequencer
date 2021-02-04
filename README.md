@@ -2,8 +2,6 @@
 
 Launch Sonic Pi `live_loop` from json.
 
-:warning: Not work on Rpi3.
-
 ## Todo
 
 - [ ] Run on RPi...
