@@ -18,7 +18,7 @@ Launch Sonic Pi `live_loop` from json.
 [
     {
         "type": "synth",
-        "synth": "", // synth name (ex: tb303)
+        "synth": "tb303",
         "opts": {
             "release": 0.125,
             "cutoff": 120,
@@ -35,7 +35,7 @@ Launch Sonic Pi `live_loop` from json.
     },
     {
         "type": "sample",
-        "sample": "", // sample name (ex: drum_cymbal_closed)
+        "sample": "drum_cymbal_closed",
         "opts": {
         },
         "fxs": {
@@ -46,7 +46,7 @@ Launch Sonic Pi `live_loop` from json.
     },
     {
         "type": "external_sample",
-        "sample": "", // path to external sample (ex: /home/pi/mysample.ext)
+        "sample": "/home/pi/mysample.ext",
         "opts": {
         },
         "fxs": {
