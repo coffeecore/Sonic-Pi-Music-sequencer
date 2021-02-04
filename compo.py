@@ -28,7 +28,7 @@ i = [
       # }
     },
     "patterns": [
-        "(chord :e3, :minor)", ":g3", None, ":e3", ":c3", ":c3", ":d3", None,
+        "(chord :e3, :minor)", ":g3", None, [":e3", ":c3"], None, ":c3", ":d3", None,
         ":f4", ":f4", None, ":d4", ":d4", ":d4", None, "chord(:f4, :major)"
         # "50", "51", "52",
         # ["53", "54", "55"],
@@ -75,8 +75,8 @@ i = [
       # }
     },
     "patterns": [
-        1, None, None, None, 1, None, None, 1,
-        1, None, None, None, 1, None, None, 1,
+        True, None, None, None, True, None, None, True,
+        True, None, None, None, True, None, None, True,
     ]
   },
   {
@@ -98,8 +98,8 @@ i = [
       # }
     },
     "patterns": [
-        1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1,
+        True, True, True, True, True, True, True, True,
+        True, True, True, True, True, True, True, True,
     ]
   },
   {
@@ -120,11 +120,12 @@ i = [
       # }
     },
     "patterns": [
-        None, None, 1, None, None, None, 1, None,
-        None, None, 1, None, None, None, 1, None,
+        None, None, True, None, None, None, True, None,
+        None, None, True, None, None, None, True, None,
     ]
   }
 ]
+print(json.dumps(i))
 sender.send_message('/bpm', [100])
 # time.sleep(0.25)
 # sender.send_message('/bpm', [110])
