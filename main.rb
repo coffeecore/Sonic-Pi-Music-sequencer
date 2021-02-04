@@ -36,9 +36,9 @@ live_loop :metronome do
   use_real_time
   use_bpm get(:bpm)
   while get(:state) != STATE[:play]
-    if get(:state) == STATE[:stop] then
-      tick_reset :b
-    end
+    # if get(:state) == STATE[:stop] then
+    #   tick_reset :b
+    # end
     sleep get(:sleep)
   end
   t = tick :b
