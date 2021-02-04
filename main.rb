@@ -44,9 +44,9 @@ live_loop :metronome do
     end
     sleep get(:sleep)
   end
-  p = (tick % get(:pmax))
+  p = (look % get(:pmax))
   cue :p, p
-  tick_reset if t != 0 and p == 0
+  tick_reset if tick != 0 and p == 0
   sleep get(:sleep)
   #sleep 1
 end
