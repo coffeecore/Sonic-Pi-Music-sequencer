@@ -60,7 +60,7 @@ define :create_loop do |p, i|
     i[:fxs].each do |key, value|
       s += "with_fx :#{key}, #{value} do \n"
     end
-        s += "play_#{i[:type]} i \n"
+        s += "play_#{i[:type]} i, name \n"
     i[:fxs].each do |key, value|
       s += "end \n"
     end
@@ -68,22 +68,31 @@ define :create_loop do |p, i|
   end
 end
 
-define :play_synth do |i|
+live_loop :channel_options do
+  osc = sync "/osc*/channel/options"
+  name = osc[0]
+  set name.to_sym, JSON.parse(osc[1], :symbolize_names => true)
+end
+
+define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
       i[:opts][:note] = i[:patterns][p][tick]
+      if get((name+"_opts").to_sym) == nil then
+        set((name+"_opts").to_sym) i[:opts]
+      end
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        synth i[:synth].to_sym, i[:opts]
+        synth i[:synth].to_sym, get((name+"_opts").to_sym)
       end
       sleep get(:sleep)
     end
   end
 end
 
-define :play_external_sample do |i|
+define :play_external_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
@@ -96,7 +105,7 @@ define :play_external_sample do |i|
   end
 end
 
-define :play_sample do |i|
+define :play_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
