@@ -58,7 +58,6 @@ define :create_loop do |p, i|
     use_bpm get(:bpm)
     s = ""
     i[:fxs].each do |key, value|
-      # value[:reps] = get(:pmax)
       s += "with_fx :#{key}, #{value} do \n"
     end
         s += "play_#{i[:type]} i \n"
@@ -71,7 +70,6 @@ end
 
 define :play_synth do |i|
   p = (sync :p)[0]
-  puts "PPP #{p}"
   in_thread do
     i[:patterns][p].length.times do
       i[:opts][:note] = i[:patterns][p][tick]
@@ -115,7 +113,7 @@ end
 
 
 live_loop :metronome do
-  use_real_time
+  # use_real_time
   use_bpm get(:bpm)
   l = tick
   cue :p, l
