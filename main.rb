@@ -102,8 +102,7 @@ define :play_sample do |i|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-      puts i[:patterns][p][look]
-  if i[:patterns][tick] == true then
+  if i[:patterns][p][tick] == true then
     puts "Sample #{p} #{i[:sample]}"
     sample i[:name].to_sym, i[:opts]
   end
