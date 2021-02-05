@@ -8,8 +8,8 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 
 # sender.send_message('/measure', ['bar', 4])
 # time.sleep(0.2)
-sender.send_message('/state', ['play'])
-time.sleep(0.2)
+# sender.send_message('/state', ['play'])
+# time.sleep(0.2)
 
 # for i in range(0, 50):
 i = [
@@ -147,8 +147,98 @@ i = [
     ]
   }
 ]
+
+i = [
+  {
+    "type": "synth",
+    "synth": "prophet",
+    "opts": {
+      "release": 8,
+      "cutoff": 70
+    },
+    "fxs": {
+      "slicer": {
+        "probability": 0.7,
+        "prob_pos": 1
+      }
+    },
+    "patterns": [
+        [":e1", None, None, None],
+        [None, None, None, None],
+    ]
+  },
+  {
+    "type": "sample",
+    "sample": "guit_em9",
+    "opts": {
+      "rate": 0.5,
+    },
+    "fxs": {
+      "slicer": {
+        "phase": 0.125,
+      }
+    },
+    "patterns": [
+        [True, None, None, None],
+        [None, None, None, None],
+    ]
+  },
+  {
+    "type": "synth",
+    "synth": "prophet",
+    "opts": {
+      "release": 8,
+      "cutoff": 100
+    },
+    "fxs": {
+      "slicer": {
+        "probability": 0.7,
+        "prob_pos": 1
+      }
+    },
+    "patterns": [
+        [None, None, None, None],
+        [":e1", None, None, None],
+    ]
+  },
+  {
+    "type": "sample",
+    "sample": "guit_em9",
+    "opts": {
+      "rate": 0.5,
+    },
+    "fxs": {
+      "slicer": {
+        "phase": 0.25,
+      }
+    },
+    "patterns": [
+        [None, None, None, None],
+        [True, None, None, None],
+    ]
+  },
+  {
+    "type": "sample",
+    "sample": "loop_mika",
+    "opts": {
+        "rate": 0.5
+    },
+    "fxs": {
+        "slicer": {
+            "wave": 0,
+            "phase": 0.25
+        },
+    },
+    "patterns": [
+        [True, None, None, None],
+        [None, None, None, None],
+    ]
+  }
+]
+
 print(json.dumps(i))
-sender.send_message('/settings', ['bpm', 100])
+# sender.send_message('/settings', ['pmax', 2])
+# sender.send_message('/settings', ['bpm', 100])
 # time.sleep(0.25)
 # sender.send_message('/bpm', [110])
 # time.sleep(0.25)
@@ -156,10 +246,51 @@ sender.send_message('/settings', ['bpm', 100])
 # time.sleep(0.25)
 
 sender.send_message('/channels', [json.dumps(i)])
-time.sleep(1)
-# print("PLAY")
-# sender.send_message('/state', ['play'])
-time.sleep(2)
+sender.send_message('/state', ['play'])
+time.sleep(0.2)
+# time.sleep(8)
+# # print("PLAY")
+# # sender.send_message('/state', ['play'])
+# # time.sleep(2)
+# i = [
+#   {
+#     "type": "synth",
+#     "synth": "prophet",
+#     "opts": {
+#       "release": 8,
+#       "cutoff": 100
+#     },
+#     "fxs": {
+#       "slicer": {
+#         "probability": 0.7,
+#         "prob_pos": 1
+#       }
+#     },
+#     "patterns": [
+#         [":e1", None, None, None],
+#         # [None, None, None, None],
+#     ]
+#   },
+#   {
+#     "type": "sample",
+#     "sample": "guit_em9",
+#     "opts": {
+#       "rate": 0.5,
+#     },
+#     "fxs": {
+#       "slicer": {
+#         "phase": 0.25,
+#       }
+#     },
+#     "patterns": [
+#         [True, None, None, None],
+#         # [None, None, None, None],
+#     ]
+#   }
+# ]
+# print(json.dumps(i))
+# sender.send_message('/channels', [json.dumps(i)])
+
 # sender.send_message('/record/start', [1])
 # # sender.send_message('/volume', [0])
 # # sender.send_message('/state', ['synthfm0_state', 'pause'])
