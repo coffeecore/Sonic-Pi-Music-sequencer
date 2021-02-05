@@ -115,17 +115,19 @@ end
 live_loop :metronome do
   # use_real_time
   use_bpm get(:bpm)
-  l = tick
-  cue :p, l
-  if look == (get(:pmax)-1) then
-    tick_reset
-  end
   while get(:state) != STATE[:play]
     if get(:state) == STATE[:stop] then
       tick_reset
+      tick # you must tick to avoid repeat first pattern
       set :state, STATE[:pause]
     end
-    sleep get(:bar)
+    sleep 1
+  end
+  l = look
+  tick
+  cue :p, l
+  if look > (get(:pmax)-1) then
+    tick_reset
   end
   sleep get(:bar)
 end
