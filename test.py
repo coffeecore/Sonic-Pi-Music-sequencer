@@ -64,8 +64,10 @@ i = [
     ]
   },
   {
-    "type": "external_sample",
-    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
+    # "type": "external_sample",
+    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
+    "type": "sample",
+    "sample": "bd_tek",
     "opts": {
       ##| "release": 0.125,
       ##| "cutoff": 120,
@@ -88,8 +90,10 @@ i = [
     ]
   },
   {
-    "type": "external_sample",
-    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
+    # "type": "external_sample",
+    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
+    "type": "sample",
+    "sample": "drum_cymbal_closed",
     "opts": {
       ##| "release": 0.125,
       ##| "cutoff": 120,
@@ -113,8 +117,10 @@ i = [
     ]
   },
   {
-    "type": "external_sample",
-    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/ST/ST0T0SA.WAV",
+    # "type": "external_sample",
+    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/ST/ST0T0SA.WAV",
+    "type": "sample",
+    "sample": "sn_dub",
     "opts": {
       ##| "release": 0.125,
       ##| "cutoff": 120,
