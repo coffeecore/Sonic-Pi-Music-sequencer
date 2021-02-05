@@ -82,6 +82,8 @@ See begin of `test.py` for example.
 | Stop record                        | /record/stop   | Stop record                                                 |
 | Save record                        | /record/save   | Save record (Change `FILE_PATH` constant in `main.rb` file) |
 
+Record features are commented in `main.rb`, some time issues on Rpi 3 for the moment.
+
 ## Run
 
 `run_file "/absolute/path/to/main.rb"`
