@@ -73,6 +73,7 @@ See begin of `compo.py` for example.
 | Set playback state      | /state               | String `stop`, `play` or `pause`                            |
 | Set bpm                 | /settings            | ['bpm', Integer]                                            |
 | Set eighth              | /settings            | ['eighth', Integer]                                         |
+| Set bar                 | /settings            | ['bar' Integer]                                             |
 | Set max pattern to play | /settings            | ['pmax', Integer] (default : 4)                             |
 | Kill a loop             | /kill                | String `live_loop` name                                     |
 | Set patterns            | /patterns            | Json                                                        |
