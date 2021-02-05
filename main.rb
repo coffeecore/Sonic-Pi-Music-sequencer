@@ -5,10 +5,10 @@ use_debug false
 use_cue_logging false
 
 set :bpm, 60
-set :eighth, 2
+set :eighth, 4
 set :bar, 1
 set :pmax, 4
-set :state, STATE[:stop]
+set :state, STATE[:pause]
 
 set :sleep, 1.0/get(:eighth)
 set_volume! 5
@@ -104,7 +104,7 @@ define :play_sample do |i|
     i[:patterns][p].length.times do
   if i[:patterns][p][tick] == true then
     puts "Sample #{p} #{i[:sample]}"
-    sample i[:name].to_sym, i[:opts]
+    sample i[:sample].to_sym, i[:opts]
   end
   sleep get(:sleep)
 end
