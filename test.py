@@ -249,7 +249,7 @@ sender.send_message('/channels', [json.dumps(i)])
 sender.send_message('/state', ['play'])
 time.sleep(0.2)
 time.sleep(8)
-sender.send_message('/channel/options', ["synth_0", json.dumps({"release": 0, "cutoff": 0})]
+sender.send_message('/channel/options', ["synth_0", json.dumps({"release": 0, "cutoff": 0})])
 # # print("PLAY")
 # # sender.send_message('/state', ['play'])
 # # time.sleep(2)
