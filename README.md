@@ -67,20 +67,21 @@ See begin of `test.py` for example.
 
 ## OSC commands
 
-| Feature                            | OSC URI        | Parameters                                                  |
-| ---------------------------------- | -------------- | ----------------------------------------------------------- |
-| Set global volume                  | /volume        | Number between `0` and `5`                                  |
-| Set playback state                 | /state         | String `stop`, `play` or `pause`                            |
-| Set bpm                            | /settings      | ['bpm', Integer] (default : 60)                             |
-| Set eighth                         | /settings      | ['eighth', Integer] (default : 4)                           |
-| Set bar (Sleep between patterns)   | /settings      | ['bar' Integer] (default : 1)                               |
-| Set max pattern to play            | /settings      | ['pmax', Integer] (default : 4)                             |
-| Kill a loop                        | /kill          | String `live_loop` name                                     |
-| Set channels                       | /channels      | Json                                                        |
-| Set channel                        | /channel       | [Integer `position`, Json]                                  |
-| Start record                       | /record/start  | Start to record                                             |
-| Stop record                        | /record/stop   | Stop record                                                 |
-| Save record                        | /record/save   | Save record (Change `FILE_PATH` constant in `main.rb` file) |
+| Feature                            | OSC URI          | Parameters                                                  |
+| ---------------------------------- | ---------------- | ----------------------------------------------------------- |
+| Set global volume                  | /volume          | Number between `0` and `5`                                  |
+| Set playback state                 | /state           | String `stop`, `play` or `pause`                            |
+| Set bpm                            | /settings        | ['bpm', Integer] (default : 60)                             |
+| Set eighth                         | /settings        | ['eighth', Integer] (default : 4)                           |
+| Set bar (Sleep between patterns)   | /settings        | ['bar', Integer] (default : 1)                              |
+| Set max pattern to play            | /settings        | ['pmax', Integer] (default : 4)                             |
+| Kill a loop                        | /kill            | String `live_loop` name                                     |
+| Set channels                       | /channels        | Json                                                        |
+| Set channel                        | /channel         | [Integer `position`, Json]                                  |
+| [WIP] Channel opts                 | /channel/options | [String `live_loop` name, Json]                             |
+| Start record                       | /record/start    | Start to record                                             |
+| Stop record                        | /record/stop     | Stop record                                                 |
+| Save record                        | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |
 
 Record features are commented in `main.rb`, some time issues on Rpi 3 for the moment.
 
