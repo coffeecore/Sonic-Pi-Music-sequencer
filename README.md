@@ -73,11 +73,11 @@ See begin of `compo.py` for example.
 | Set playback state      | /state               | String `stop`, `play` or `pause`                            |
 | Set bpm                 | /settings            | ['bpm', Integer]                                            |
 | Set eighth              | /settings            | ['eighth', Integer]                                         |
-| Set bar                 | /settings            | ['bar' Integer]                                             |
+| Set bar (Sleep between patterns)                 | /settings            | ['bar' Integer]                                             |
 | Set max pattern to play | /settings            | ['pmax', Integer] (default : 4)                             |
 | Kill a loop             | /kill                | String `live_loop` name                                     |
-| Set patterns            | /patterns            | Json                                                        |
-| Set pattern             | /pattern             | [Integer `position`, Json]                                  |
+| Set channels            | /channels            | Json                                                        |
+| Set channel             | /channel             | [Integer `position`, Json]                                  |
 | Start record            | /record/start        | Start to record                                             |
 | Stop record             | /record/stop         | Stop record                                                 |
 | Save record             | /record/save         | Save record (Change `FILE_PATH` constant in `main.rb` file) |

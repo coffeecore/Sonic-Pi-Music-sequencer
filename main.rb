@@ -37,16 +37,16 @@ live_loop :kill_loop do
   end
 end
 
-live_loop :patterns do
-  osc = sync "/osc*/patterns"
+live_loop :channels do
+  osc = sync "/osc*/channels"
   instrus     = JSON.parse(osc[0], :symbolize_names => true)
   instrus.each_with_index do |i, p|
     create_loop p, i
   end
 end
 
-live_loop :pattern do
-  osc = sync "/osc*/pattern"
+live_loop :channel do
+  osc = sync "/osc*/channel"
   position = osc[0]
   instru     = JSON.parse(osc[1], :symbolize_names => true)
   create_loop position, instru

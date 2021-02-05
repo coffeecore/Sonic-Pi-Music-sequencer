@@ -155,7 +155,7 @@ sender.send_message('/settings', ['bpm', 100])
 # sender.send_message('/bpm', [120])
 # time.sleep(0.25)
 
-sender.send_message('/patterns', [json.dumps(i)])
+sender.send_message('/channels', [json.dumps(i)])
 time.sleep(1)
 # print("PLAY")
 # sender.send_message('/state', ['play'])
