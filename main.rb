@@ -8,7 +8,7 @@ set :bpm, 60
 set :eighth, 4
 set :bar, 1
 set :pmax, 4
-set :state, STATE[:pause]
+set :state, STATE[:stop]
 
 set :sleep, 1.0/get(:eighth)
 set_volume! 5
@@ -122,7 +122,7 @@ live_loop :metronome do
       tick_reset
       set :state, STATE[:pause]
     end
-    sleep get(:sleep)
+    sleep get(:bar)
   end
   l = tick
   cue :p, l
