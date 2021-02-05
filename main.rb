@@ -71,7 +71,7 @@ end
 live_loop :channel_options do
   osc = sync "/osc*/channel/options"
   name = osc[0]
-  set name.to_sym, JSON.parse(osc[1], :symbolize_names => true)
+  set (name+"_opts").to_sym, JSON.parse(osc[1], :symbolize_names => true)
 end
 
 define :play_synth do |i, name|
@@ -79,14 +79,15 @@ define :play_synth do |i, name|
   in_thread do
     i[:patterns][p].length.times do
       i[:opts][:note] = i[:patterns][p][tick]
-      if get((name+"_opts").to_sym) == nil then
-        set((name+"_opts").to_sym) i[:opts]
+      name_opts = name+"_opts"
+      if get(name_opts.to_sym) == nil then
+        set(name_opts.to_sym) i[:opts]
       end
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        sy = synth i[:synth].to_sym, get((name+"_opts").to_sym)
-        control sy, get((name+"_opts").to_sym)
+        sy = synth i[:synth].to_sym, get(name_opts.to_sym)
+        control sy, get(name_opts.to_sym)
       end
       sleep get(:sleep)
     end
