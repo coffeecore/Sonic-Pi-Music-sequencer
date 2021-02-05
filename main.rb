@@ -74,41 +74,41 @@ define :play_synth do |i|
   puts "PPP #{p}"
   in_thread do
     i[:patterns][p].length.times do
-    i[:opts][:note] = i[:patterns][p][tick]
-    if i[:opts][:note] != nil then
-      i[:opts][:note] = eval(i[:opts][:note].to_s)
-      puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-      synth i[:synth].to_sym, i[:opts]
+      i[:opts][:note] = i[:patterns][p][tick]
+      if i[:opts][:note] != nil then
+        i[:opts][:note] = eval(i[:opts][:note].to_s)
+        puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
+        synth i[:synth].to_sym, i[:opts]
+      end
+      sleep get(:sleep)
     end
-    sleep get(:sleep)
   end
-end
 end
 
 define :play_external_sample do |i|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-  if i[:patterns][p][tick] == true then
-    puts "Ext sample #{p} #{i[:sample]}"
-    sample i[:sample], i[:opts]
+      if i[:patterns][p][tick] == true then
+        puts "Ext sample #{p} #{i[:sample]}"
+        sample i[:sample], i[:opts]
+      end
+      sleep get(:sleep)
+    end
   end
-  sleep get(:sleep)
-end
-end
 end
 
 define :play_sample do |i|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-  if i[:patterns][p][tick] == true then
-    puts "Sample #{p} #{i[:sample]}"
-    sample i[:sample].to_sym, i[:opts]
+      if i[:patterns][p][tick] == true then
+        puts "Sample #{p} #{i[:sample]}"
+        sample i[:sample].to_sym, i[:opts]
+      end
+      sleep get(:sleep)
+    end
   end
-  sleep get(:sleep)
-end
-end
 end
 
 
@@ -117,17 +117,17 @@ end
 live_loop :metronome do
   use_real_time
   use_bpm get(:bpm)
+  l = tick
+  cue :p, l
+  if look == (get(:pmax)-1) then
+    tick_reset
+  end
   while get(:state) != STATE[:play]
     if get(:state) == STATE[:stop] then
       tick_reset
       set :state, STATE[:pause]
     end
     sleep get(:bar)
-  end
-  l = tick
-  cue :p, l
-  if look == (get(:pmax)-1) then
-    tick_reset
   end
   sleep get(:bar)
 end
