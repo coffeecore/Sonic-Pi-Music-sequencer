@@ -85,7 +85,8 @@ define :play_synth do |i, name|
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        synth i[:synth].to_sym, get((name+"_opts").to_sym)
+        sy = synth i[:synth].to_sym, get((name+"_opts").to_sym)
+        control sy, get((name+"_opts").to_sym)
       end
       sleep get(:sleep)
     end
