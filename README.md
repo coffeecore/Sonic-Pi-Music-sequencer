@@ -5,7 +5,7 @@ Launch Sonic Pi `live_loop` from json.
 ## Todo
 
 - [ ] Run on RPi...
-    - [x] Test with Rpi3 : __Not work__
+    - [x] Test with Rpi3 : `test.py` file works. Must try more heavy file
     - [ ] Test with RPi4
 - [ ] Python part :
     - [ ] Piano HAT
