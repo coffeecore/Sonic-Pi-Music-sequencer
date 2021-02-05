@@ -24,10 +24,10 @@ i = [
       # "amp": 0.5
     },
     "fxs": {
-      # "reverb": {
-      #   "room": 0.9,
-      #   "mix": 1
-      # }
+      "reverb": {
+        "room": 0.9,
+        "mix": 1
+      }
     },
     "patterns": [
           [":a3", ":b3", ":c3"],
@@ -74,9 +74,9 @@ i = [
         # "res": 0.5,
     },
     "fxs": {
-      # "distortion": {
-      #   "distort": 0.99
-      # },
+      "distortion": {
+        "distort": 0.99
+      },
       # "reverb": {
       #   "room": 0.9,
       #   "mix": 1
@@ -148,7 +148,7 @@ i = [
   }
 ]
 print(json.dumps(i))
-sender.send_message('/settings', ['bpm', 60])
+sender.send_message('/settings', ['bpm', 100])
 # time.sleep(0.25)
 # sender.send_message('/bpm', [110])
 # time.sleep(0.25)
