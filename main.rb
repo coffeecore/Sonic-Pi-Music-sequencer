@@ -5,8 +5,9 @@ use_debug false
 use_cue_logging false
 
 set :bpm, 60
-set :eighth, 4
-set :pmax, 16
+set :eighth, 2
+set :bar, 1
+set :pmax, 4
 set :state, STATE[:stop]
 
 set :sleep, 1.0/get(:eighth)
@@ -27,23 +28,6 @@ live_loop :set_state do
   osc = sync "/osc*/state"
   state = get(:state)
   set :state, STATE[osc[0].to_sym]
-end
-
-live_loop :metronome do
-  use_real_time
-  use_bpm get(:bpm)
-  while get(:state) != STATE[:play]
-    if get(:state) == STATE[:stop] then
-      tick_reset
-      set :state, STATE[:pause]
-    end
-    sleep get(:sleep)
-  end
-  l = tick
-  p = (l % get(:pmax))
-  cue :p, p
-  tick_reset if l != 0 and p == 0
-  sleep get(:sleep)
 end
 
 live_loop :kill_loop do
@@ -74,7 +58,7 @@ define :create_loop do |p, i|
     use_bpm get(:bpm)
     s = ""
     i[:fxs].each do |key, value|
-      # value[:reps] = get(:max)
+      # value[:reps] = get(:pmax)
       s += "with_fx :#{key}, #{value} do \n"
     end
         s += "play_#{i[:type]} i \n"
@@ -87,34 +71,66 @@ end
 
 define :play_synth do |i|
   p = (sync :p)[0]
-    i[:opts][:note] = i[:patterns][p]
+  puts "PPP #{p}"
+  in_thread do
+    i[:patterns][p].length.times do
+    i[:opts][:note] = i[:patterns][p][tick]
     if i[:opts][:note] != nil then
       i[:opts][:note] = eval(i[:opts][:note].to_s)
       puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
       synth i[:synth].to_sym, i[:opts]
     end
+    sleep get(:sleep)
+  end
+end
 end
 
 define :play_external_sample do |i|
   p = (sync :p)[0]
-  if i[:patterns][p] == true then
+  in_thread do
+    i[:patterns][p].length.times do
+  if i[:patterns][p][tick] == true then
     puts "Ext sample #{p} #{i[:sample]}"
     sample i[:sample], i[:opts]
   end
+  sleep get(:sleep)
+end
+end
 end
 
 define :play_sample do |i|
   p = (sync :p)[0]
-  if i[:patterns][p] == true then
+  in_thread do
+    i[:patterns][p].length.times do
+  if i[:patterns][tick] == true then
     puts "Sample #{p} #{i[:sample]}"
     sample i[:name].to_sym, i[:opts]
   end
+  sleep get(:sleep)
+end
+end
 end
 
 
 
 
-
+live_loop :metronome do
+  use_real_time
+  use_bpm get(:bpm)
+  while get(:state) != STATE[:play]
+    if get(:state) == STATE[:stop] then
+      tick_reset
+      set :state, STATE[:pause]
+    end
+    sleep get(:sleep)
+  end
+  l = tick
+  cue :p, l
+  if look == (get(:pmax)-1) then
+    tick_reset
+  end
+  sleep get(:bar)
+end
 
 
 

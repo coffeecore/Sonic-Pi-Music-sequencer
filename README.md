@@ -30,7 +30,7 @@ Launch Sonic Pi `live_loop` from json.
             }
         },
         "patterns": [
-            "(chord :e3, :minor)", ":g3", [":g3", ":g4"], null
+            []
         ]
     },
     {
@@ -41,7 +41,7 @@ Launch Sonic Pi `live_loop` from json.
         "fxs": {
         },
         "patterns": [
-            true, false, null
+            []
         ]
     },
     {
@@ -52,7 +52,7 @@ Launch Sonic Pi `live_loop` from json.
         "fxs": {
         },
         "patterns": [
-            true, false, null
+            []
         ]
     }
 ]
@@ -73,7 +73,7 @@ See begin of `compo.py` for example.
 | Set playback state      | /state               | String `stop`, `play` or `pause`                            |
 | Set bpm                 | /settings            | ['bpm', Integer]                                            |
 | Set eighth              | /settings            | ['eighth', Integer]                                         |
-| Set max step to play    | /settings            | ['pmax', Integer]                                           |
+| Set max pattern to play | /settings            | ['pmax', Integer] (default : 4)                             |
 | Kill a loop             | /kill                | String `live_loop` name                                     |
 | Set patterns            | /patterns            | Json                                                        |
 | Set pattern             | /pattern             | [Integer `position`, Json]                                  |

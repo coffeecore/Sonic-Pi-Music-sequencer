@@ -30,11 +30,10 @@ i = [
       # }
     },
     "patterns": [
-          "(chord :e3, :minor)", ":g3", None, [":e3", ":c3"],
-          None, ":c3", ":d3", None,
-
-          ":f4", ":f4", None, ":d4",
-          ":d4", ":d4", None, "chord(:f4, :major)"
+          [":a3", ":b3", ":c3"],
+          [":a4", ":b4", ":c4", ":d4"],
+          [":a5", ":b5", ":c5", ":d5"],
+          [":a6", ":b6", ":c6", ":d6"],
         # "50", "51", "52",
         # ["53", "54", "55"],
     ]
@@ -58,10 +57,10 @@ i = [
     "patterns": [
         # "60", "61", "62",
         # ["63", "64", "65"]
-          ":e5", ":c5", ":c5", ":d5",
-          ":e5", ":c5", ":c5", ":d5",
-          ":f4", ":f5", None, ":d5",
-          ":d5", ":d5", None, ":f5"
+          [":e5", ":c5", ":c5", ":d5"],
+          [":e5", ":c5", ":c5", ":d5"],
+          [":f4", ":f5", None, ":d5"],
+          [":d5", ":d5", None, ":f5"]
     ]
   },
   {
@@ -70,32 +69,7 @@ i = [
     "opts": {
       ##| "release": 0.125,
       ##| "cutoff": 120,
-        "res": 0.5,
-    },
-    "fxs": {
-      "distortion": {
-        "distort": 0.99
-      },
-      # "reverb": {
-      #   "room": 0.9,
-      #   "mix": 1
-      # }
-    },
-    "patterns": [
-          True, None, None, None,
-          True, None, None, None,
-          True, None, None, None,
-          True, None, None, None,
-    ]
-  },
-  {
-    "type": "external_sample",
-    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
-    "opts": {
-      ##| "release": 0.125,
-      ##| "cutoff": 120,
         # "res": 0.5,
-        "amp": 0.5
     },
     "fxs": {
       # "distortion": {
@@ -107,10 +81,35 @@ i = [
       # }
     },
     "patterns": [
-          True, True, True, True,
-          True, True, True, True,
-          True, True, True, True,
-          True, True, True, True,
+          [True, None, None, None],
+          [True, None, None, True],
+          [True, None, None, None],
+          [True, None, None, True],
+    ]
+  },
+  {
+    "type": "external_sample",
+    "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
+    "opts": {
+      ##| "release": 0.125,
+      ##| "cutoff": 120,
+        # "res": 0.5,
+        "amp": 0.3
+    },
+    "fxs": {
+      # "distortion": {
+      #   "distort": 0.99
+      # },
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+          [True, True, True, True],
+          [True, True, True, True],
+          [True, True, True, True],
+          [True, True, True, True],
     ]
   },
   {
@@ -122,9 +121,9 @@ i = [
         # "res": 0.5,
     },
     "fxs": {
-      "distortion": {
-        "distort": 0.99
-      },
+      # "distortion": {
+      #   "distort": 0.99
+      # },
       # "reverb": {
       #   "room": 0.9,
       #   "mix": 1
@@ -132,18 +131,18 @@ i = [
     },
     "patterns": [
         [
-          None, None, True, None,
-          None, None, True, None
+          None, None, True, None],
+          [None, None, True, None
         ],
         [
-          None, None, True, None,
-          None, None, True, None
+          None, None, True, None],
+          [None, None, True, None
         ],
     ]
   }
 ]
 print(json.dumps(i))
-sender.send_message('/settings', ['bpm', 100])
+sender.send_message('/settings', ['bpm', 60])
 # time.sleep(0.25)
 # sender.send_message('/bpm', [110])
 # time.sleep(0.25)
