@@ -1,7 +1,7 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug false
+use_debug true
 use_cue_logging false
 
 set :bpm, 60
@@ -60,7 +60,7 @@ define :create_loop do |p, i|
     i[:fxs].each do |key, value|
       s += "with_fx :#{key}, #{value} do \n"
     end
-        s += "play_#{i[:type]} i, name \n"
+    s += "play_#{i[:type]} i, name \n"
     i[:fxs].each do |key, value|
       s += "end \n"
     end
@@ -68,26 +68,15 @@ define :create_loop do |p, i|
   end
 end
 
-live_loop :channel_options do
-  osc = sync "/osc*/channel/options"
-  name = osc[0]
-  set (name+"_opts").to_sym, JSON.parse(osc[1], :symbolize_names => true)
-end
-
 define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
       i[:opts][:note] = i[:patterns][p][tick]
-      name_opts = name+"_opts"
-      if get(name_opts.to_sym) == nil then
-        set(name_opts.to_sym) i[:opts]
-      end
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        sy = synth i[:synth].to_sym, get(name_opts.to_sym)
-        control sy, get(name_opts.to_sym)
+        synth i[:synth].to_sym, i[:opts]
       end
       sleep get(:sleep)
     end
