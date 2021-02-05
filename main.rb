@@ -8,7 +8,7 @@ set :bpm, 60
 set :eighth, 4
 set :bar, 1
 set :pmax, 4
-set :state, STATE[:stop]
+set :state, STATE[:pause]
 
 set :sleep, 1.0/get(:eighth)
 set_volume! 5
@@ -118,10 +118,10 @@ live_loop :metronome do
   use_real_time
   use_bpm get(:bpm)
   while get(:state) != STATE[:play]
-    if get(:state) == STATE[:stop] then
-      tick_reset
-      set :state, STATE[:pause]
-    end
+    # if get(:state) == STATE[:stop] then
+    #   tick_reset
+    #   set :state, STATE[:pause]
+    # end
     sleep get(:bar)
   end
   l = tick
