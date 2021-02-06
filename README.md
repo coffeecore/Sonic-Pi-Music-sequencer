@@ -80,9 +80,9 @@ See begin of `test.py` for example.
 | Set channel                        | /channel         | [Integer `position`, Json]                                  |
 | Channel opts                       | /channel/options | [String `live_loop` name, Json]                             |
 | Channel FXs                        | /channel/fxs     | [String `live_loop` name, String FX name, Json]             |
-| Start record *Experimental*        | /record/start    | Start to record                                             |
-| Stop record *Experimental*         | /record/stop     | Stop record                                                 |
-| Save record *Experimental*         | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |
+| Start record (*Experimental*)      | /record/start    | Start to record                                             |
+| Stop record (*Experimental*)       | /record/stop     | Stop record                                                 |
+| Save record (*Experimental*)       | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |
 
 Record features are commented in `main.rb`, some time issues on Rpi 3 for the moment.
 
