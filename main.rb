@@ -1,16 +1,16 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug true
+use_debug false
 use_cue_logging false
 
 set :bpm, 60
-set :eighth, 1
-set :bar, 8
-set :pmax, 2
+set :eighth, 4
+set :bar, 1
+set :pmax, 4
 set :state, STATE[:stop]
 
-set :sleep, 1.0/get(:eighth)
+set :sleep, (1.0/get(:eighth))
 set_volume! 5
 
 live_loop :set_volume do
@@ -21,7 +21,7 @@ end
 live_loop :set_settings do
   osc = sync "/osc*/settings"
   set osc[0].to_sym, osc[1]
-  set :sleep, 1.0/get(:eighth)
+  set :sleep, (1.0/get(:eighth))
 end
 
 live_loop :set_state do
@@ -52,6 +52,12 @@ live_loop :channel do
   create_loop position, instru
 end
 
+live_loop :channel_options do
+  osc = sync "/osc*/channel/options"
+  name = osc[0]
+  control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
+end
+
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   live_loop name.to_sym do
@@ -68,12 +74,6 @@ define :create_loop do |p, i|
   end
 end
 
-live_loop :options do
-  osc = sync "/osc*/channel/options"
-  name = osc[0]
-  control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
-end
-
 define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
@@ -83,8 +83,7 @@ define :play_synth do |i, name|
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        sy = synth i[:synth].to_sym, i[:opts]
-        set (name+"_opts").to_sym, sy
+        set (name+"_opts").to_sym, (synth i[:synth].to_sym, i[:opts])
       end
       sleep get(:sleep)
     end
@@ -97,8 +96,7 @@ define :play_external_sample do |i, name|
     i[:patterns][p].length.times do
       if i[:patterns][p][tick] == true then
         puts "Ext sample #{p} #{i[:sample]}"
-        sa = sample i[:sample], i[:opts]
-        set (name+"_opts").to_sym, sa
+        set (name+"_opts").to_sym, (sample i[:sample], i[:opts])
       end
       sleep get(:sleep)
     end
@@ -111,8 +109,7 @@ define :play_sample do |i, name|
     i[:patterns][p].length.times do
       if i[:patterns][p][tick] == true then
         puts "Sample #{p} #{i[:sample]}"
-        sa = sample i[:sample].to_sym, i[:opts]
-        set (name+"_opts").to_sym, sa
+        set (name+"_opts").to_sym, (sample i[:sample].to_sym, i[:opts])
       end
       sleep get(:sleep)
     end

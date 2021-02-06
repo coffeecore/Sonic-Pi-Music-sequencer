@@ -148,25 +148,25 @@ i = [
   }
 ]
 
-i = [
-  {
-    "type": "synth",
-    "synth": "prophet",
-    "opts": {
-      "release": 8,
-      "cutoff": 70
-    },
-    "fxs": {
-      "slicer": {
-        "probability": 0.7,
-        "prob_pos": 1
-      }
-    },
-    "patterns": [
-        [":e1", None, None, None],
-        [None, None, None, None],
-    ]
-  },
+# i = [
+#   {
+#     "type": "synth",
+#     "synth": "prophet",
+#     "opts": {
+#       "release": 8,
+#       "cutoff": 70
+#     },
+#     "fxs": {
+#       "slicer": {
+#         "probability": 0.7,
+#         "prob_pos": 1
+#       }
+#     },
+#     "patterns": [
+#         [":e1", None, None, None],
+#         [None, None, None, None],
+#     ]
+#   },
   # {
   #   "type": "sample",
   #   "sample": "guit_em9",
@@ -234,7 +234,7 @@ i = [
   #       [None, None, None, None],
   #   ]
   # }
-]
+# ]
 
 print(json.dumps(i))
 # sender.send_message('/settings', ['pmax', 2])
@@ -254,29 +254,48 @@ time.sleep(0.2)
 for i in [1, 0.75, 0.5, 0.25, 0]:
   sender.send_message('/a', ["synth_0", json.dumps({"amp": i})])
   time.sleep(0.5)
-
-i = [
-  {
+i = {
     "type": "synth",
-    "synth": "prophet",
+    "synth": "tb303",
     "opts": {
-      "release": 8,
-      "cutoff": 70,
       "amp": 0
     },
     "fxs": {
-      "slicer": {
-        "probability": 0.7,
-        "prob_pos": 1
-      }
     },
     "patterns": [
-        [":e1", None, None, None],
-        [None, None, None, None],
+          [":a3", ":b3", ":c3"],
+          [":a4", ":b4", ":c4", ":d4"],
+          [":a5", ":b5", ":c5", ":d5"],
+          [":a6", ":b6", ":c6", ":d6"],
+        # "50", "51", "52",
+        # ["53", "54", "55"],
     ]
-  },
-]
-sender.send_message('/channels', [json.dumps(i)])
+  }
+sender.send_message('/channel', [0, json.dumps(i)])
+
+exit()
+# i = [
+#   {
+#     "type": "synth",
+#     "synth": "prophet",
+#     "opts": {
+#       "release": 8,
+#       "cutoff": 70,
+#       "amp": 0
+#     },
+#     "fxs": {
+#       "slicer": {
+#         "probability": 0.7,
+#         "prob_pos": 1
+#       }
+#     },
+#     "patterns": [
+#         [":e1", None, None, None],
+#         [None, None, None, None],
+#     ]
+#   },
+# ]
+# sender.send_message('/channels', [json.dumps(i)])
 
 # while True:
 #   sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
