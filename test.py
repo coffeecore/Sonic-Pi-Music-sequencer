@@ -253,10 +253,10 @@ time.sleep(0.2)
 # time.sleep(0.1)
 for i in [1, 0.75, 0.5, 0.25, 0]:
   print("opts")
-  sender.send_message('/chan/options', ["synth_0", json.dumps({"slide": i})])
+  sender.send_message('/channel/options', ["synth_0", json.dumps({"slide": i})])
   time.sleep(0.5)
   print("fxs")
-  sender.send_message('/chan/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
+  sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
   time.sleep(0.5)
 # i = {
 #     "type": "synth",

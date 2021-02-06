@@ -14,7 +14,7 @@ Launch Sonic Pi `live_loop` from json.
 
 ## Json
 
-```json
+```
 [
     {
         "type": "synth",
@@ -78,11 +78,11 @@ See begin of `test.py` for example.
 | Kill a loop                        | /kill            | String `live_loop` name                                     |
 | Set channels                       | /channels        | Json                                                        |
 | Set channel                        | /channel         | [Integer `position`, Json]                                  |
-| [WIP] Channel opts                 | /channel/options | [String `live_loop` name, Json]                             |
-| [WIP] Channel FXs                  | /channel/fxs     | [String `live_loop` name, String FX name, Json]             |
-| Start record                       | /record/start    | Start to record                                             |
-| Stop record                        | /record/stop     | Stop record                                                 |
-| Save record                        | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |
+| Channel opts                       | /channel/options | [String `live_loop` name, Json]                             |
+| Channel FXs                        | /channel/fxs     | [String `live_loop` name, String FX name, Json]             |
+| Start record *Experimental*        | /record/start    | Start to record                                             |
+| Stop record *Experimental*         | /record/stop     | Stop record                                                 |
+| Save record *Experimental*         | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |
 
 Record features are commented in `main.rb`, some time issues on Rpi 3 for the moment.
 

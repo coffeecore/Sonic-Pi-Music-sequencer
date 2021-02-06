@@ -55,13 +55,15 @@ end
 live_loop :channel_options do
   osc = sync "/osc*/channel/options"
   name = osc[0]
-  control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
+  with_arg_checks false do
+    control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
+  end
 end
 
 live_loop :channel_fxs do
   osc = sync "/osc*/channel/fxs"
   name = osc[0]
-  fxName = osx[1]
+  fxName = osc[1]
   control (get (name+"_fxs_"+fxName).to_sym), JSON.parse(osc[2], :symbolize_names => true)
 end
 
@@ -90,14 +92,13 @@ define :play_synth do |i, name|
       i[:opts][:note] = i[:patterns][p][tick]
       if i[:opts][:note] != nil then
         if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN/2
-        end
-        if i[:opts][:attack] == nil then
-          i[:opts][:attack] = sleepN/2
+          i[:opts][:release] = sleepN
         end
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        set (name+"_opts").to_sym, (synth i[:synth].to_sym, i[:opts])
+        with_arg_checks false do
+          set (name+"_opts").to_sym, (synth i[:synth].to_sym, i[:opts])
+        end
       end
       sleep sleepN
     end
@@ -111,13 +112,12 @@ define :play_external_sample do |i, name|
       sleepN = get(:sleep)
       if i[:patterns][p][tick] == true then
         if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN/2
-        end
-        if i[:opts][:attack] == nil then
-          i[:opts][:attack] = sleepN/2
+          i[:opts][:release] = sleepN
         end
         puts "Ext sample #{p} #{i[:sample]}"
-        set (name+"_opts").to_sym, (sample i[:sample], i[:opts])
+        with_arg_checks false do
+          set (name+"_opts").to_sym, (sample i[:sample], i[:opts])
+        end
       end
       sleep sleepN
     end
@@ -131,13 +131,12 @@ define :play_sample do |i, name|
       sleepN = get(:sleep)
       if i[:patterns][p][tick] == true then
         if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN/2
-        end
-        if i[:opts][:attack] == nil then
-          i[:opts][:attack] = sleepN/2
+          i[:opts][:release] = sleepN
         end
         puts "Sample #{p} #{i[:sample]}"
-        set (name+"_opts").to_sym, (sample i[:sample].to_sym, i[:opts])
+        with_arg_checks false do
+          set (name+"_opts").to_sym, (sample i[:sample].to_sym, i[:opts])
+        end
       end
       sleep sleepN
     end
