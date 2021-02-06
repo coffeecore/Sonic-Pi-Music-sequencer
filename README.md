@@ -72,8 +72,8 @@ See begin of `test.py` for example.
 | Set global volume                  | /volume          | Number between `0` and `5`                                  |
 | Set playback state                 | /state           | String `stop`, `play` or `pause`                            |
 | Set bpm                            | /settings        | ['bpm', Integer] (default : 60)                             |
-| Set eighth                         | /settings        | ['eighth', Integer] (default : 4)                           |
-| Set bar (Sleep between patterns)   | /settings        | ['bar', Integer] (default : 1)                              |
+| Set eighth (One sleep divided by)  | /settings        | ['eighth', Integer] (default : 4)                           |
+| Set bar (Sleeps between patterns)  | /settings        | ['bar', Integer] (default : 1)                              |
 | Set max pattern to play            | /settings        | ['pmax', Integer] (default : 4)                             |
 | Kill a loop                        | /kill            | String `live_loop` name                                     |
 | Set channels                       | /channels        | Json                                                        |
