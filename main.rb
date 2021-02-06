@@ -1,7 +1,7 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug false
+use_debug true
 use_cue_logging false
 
 set :bpm, 60
@@ -72,7 +72,7 @@ define :create_loop do |p, i|
     s = ""
     i[:fxs].each do |key, value|
       s += "with_fx :#{key}, #{value} do |f_#{key}| \n"
-      s += "set :#{(name+"_fxs_"+key)}, f_#{key}"
+      s += "set :#{name}_fxs_#{key}, f_#{key} \n"
     end
     s += "play_#{i[:type]} i, name \n"
     i[:fxs].each do |key, value|
@@ -86,13 +86,20 @@ define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
+      sleepN = get(:sleep)
       i[:opts][:note] = i[:patterns][p][tick]
       if i[:opts][:note] != nil then
+        if i[:opts][:release] == nil then
+          i[:opts][:release] = sleepN/2
+        end
+        if i[:opts][:attack] == nil then
+          i[:opts][:attack] = sleepN/2
+        end
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
         set (name+"_opts").to_sym, (synth i[:synth].to_sym, i[:opts])
       end
-      sleep get(:sleep)
+      sleep sleepN
     end
   end
 end
@@ -101,11 +108,18 @@ define :play_external_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
+      sleepN = get(:sleep)
       if i[:patterns][p][tick] == true then
+        if i[:opts][:release] == nil then
+          i[:opts][:release] = sleepN/2
+        end
+        if i[:opts][:attack] == nil then
+          i[:opts][:attack] = sleepN/2
+        end
         puts "Ext sample #{p} #{i[:sample]}"
         set (name+"_opts").to_sym, (sample i[:sample], i[:opts])
       end
-      sleep get(:sleep)
+      sleep sleepN
     end
   end
 end
@@ -114,11 +128,18 @@ define :play_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
+      sleepN = get(:sleep)
       if i[:patterns][p][tick] == true then
+        if i[:opts][:release] == nil then
+          i[:opts][:release] = sleepN/2
+        end
+        if i[:opts][:attack] == nil then
+          i[:opts][:attack] = sleepN/2
+        end
         puts "Sample #{p} #{i[:sample]}"
         set (name+"_opts").to_sym, (sample i[:sample].to_sym, i[:opts])
       end
-      sleep get(:sleep)
+      sleep sleepN
     end
   end
 end

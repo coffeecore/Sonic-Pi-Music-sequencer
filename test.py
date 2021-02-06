@@ -17,7 +17,7 @@ i = [
     "type": "synth",
     "synth": "tb303",
     "opts": {
-      "release": 0.125,
+      # "release": 0.125,
       "cutoff": 120,
       "res": 0.5,
       # "slide": 0.25
@@ -42,7 +42,7 @@ i = [
     "type": "synth",
     "synth": "zawa",
     "opts": {
-      "release": 0.5,
+      # "release": 0.5,
       "cutoff": 100,
       "res": 0.5,
       # "slide": 0.25
@@ -253,7 +253,7 @@ time.sleep(0.2)
 # time.sleep(0.1)
 for i in [1, 0.75, 0.5, 0.25, 0]:
   print("opts")
-  sender.send_message('/chan/options', ["synth_0", json.dumps({"amp": i})])
+  sender.send_message('/chan/options', ["synth_0", json.dumps({"slide": i})])
   time.sleep(0.5)
   print("fxs")
   sender.send_message('/chan/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
