@@ -7,3 +7,4 @@ records/*
 SonicPiSuperColliderSynthDefs
 synths/*
 !synths/.gitkeep
+dark_mist.rb
