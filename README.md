@@ -5,7 +5,7 @@ Launch Sonic Pi `live_loop` from json.
 ## Todo
 
 - [ ] Run on RPi...
-    - [x] Test with Rpi3 : `test.py` file works. Must try more heavy file
+    - [ ] Test with Rpi3 : Light files work
     - [ ] Test with RPi4
 - [ ] Python part :
     - [ ] Piano HAT
@@ -79,6 +79,7 @@ See begin of `test.py` for example.
 | Set channels                       | /channels        | Json                                                        |
 | Set channel                        | /channel         | [Integer `position`, Json]                                  |
 | [WIP] Channel opts                 | /channel/options | [String `live_loop` name, Json]                             |
+| [WIP] Channel FXs                  | /channel/fxs     | [String `live_loop` name, String FX name, Json]             |
 | Start record                       | /record/start    | Start to record                                             |
 | Stop record                        | /record/stop     | Stop record                                                 |
 | Save record                        | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |

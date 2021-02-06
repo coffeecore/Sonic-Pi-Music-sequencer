@@ -252,25 +252,29 @@ time.sleep(0.2)
 # sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
 # time.sleep(0.1)
 for i in [1, 0.75, 0.5, 0.25, 0]:
-  sender.send_message('/a', ["synth_0", json.dumps({"amp": i})])
+  print("opts")
+  sender.send_message('/chan/options', ["synth_0", json.dumps({"amp": i})])
   time.sleep(0.5)
-i = {
-    "type": "synth",
-    "synth": "tb303",
-    "opts": {
-      "amp": 0
-    },
-    "fxs": {
-    },
-    "patterns": [
-          [":a3", ":b3", ":c3"],
-          [":a4", ":b4", ":c4", ":d4"],
-          [":a5", ":b5", ":c5", ":d5"],
-          [":a6", ":b6", ":c6", ":d6"],
-        # "50", "51", "52",
-        # ["53", "54", "55"],
-    ]
-  }
-sender.send_message('/channel', [0, json.dumps(i)])
+  print("fxs")
+  sender.send_message('/chan/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
+  time.sleep(0.5)
+# i = {
+#     "type": "synth",
+#     "synth": "tb303",
+#     "opts": {
+#       "amp": 0
+#     },
+#     "fxs": {
+#     },
+#     "patterns": [
+#           [":a3", ":b3", ":c3"],
+#           [":a4", ":b4", ":c4", ":d4"],
+#           [":a5", ":b5", ":c5", ":d5"],
+#           [":a6", ":b6", ":c6", ":d6"],
+#         # "50", "51", "52",
+#         # ["53", "54", "55"],
+#     ]
+#   }
+# sender.send_message('/channel', [0, json.dumps(i)])
 
 exit()
