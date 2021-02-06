@@ -5,9 +5,9 @@ use_debug true
 use_cue_logging false
 
 set :bpm, 60
-set :eighth, 4
-set :bar, 1
-set :pmax, 4
+set :eighth, 1
+set :bar, 8
+set :pmax, 2
 set :state, STATE[:stop]
 
 set :sleep, 1.0/get(:eighth)
@@ -68,15 +68,23 @@ define :create_loop do |p, i|
   end
 end
 
+live_loop :options do
+  osc = sync "/osc*/channel/options"
+  name = osc[0]
+  control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
+end
+
 define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
+      use_synth i[:synth].to_sym
       i[:opts][:note] = i[:patterns][p][tick]
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        synth i[:synth].to_sym, i[:opts]
+        sy = synth i[:synth].to_sym, i[:opts]
+        set (name+"_opts").to_sym, sy
       end
       sleep get(:sleep)
     end
@@ -89,7 +97,8 @@ define :play_external_sample do |i, name|
     i[:patterns][p].length.times do
       if i[:patterns][p][tick] == true then
         puts "Ext sample #{p} #{i[:sample]}"
-        sample i[:sample], i[:opts]
+        sa = sample i[:sample], i[:opts]
+        set (name+"_opts").to_sym, sa
       end
       sleep get(:sleep)
     end
@@ -102,7 +111,8 @@ define :play_sample do |i, name|
     i[:patterns][p].length.times do
       if i[:patterns][p][tick] == true then
         puts "Sample #{p} #{i[:sample]}"
-        sample i[:sample].to_sym, i[:opts]
+        sa = sample i[:sample].to_sym, i[:opts]
+        set (name+"_opts").to_sym, sa
       end
       sleep get(:sleep)
     end

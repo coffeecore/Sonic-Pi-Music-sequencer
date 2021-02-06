@@ -167,78 +167,78 @@ i = [
         [None, None, None, None],
     ]
   },
-  {
-    "type": "sample",
-    "sample": "guit_em9",
-    "opts": {
-      "rate": 0.5,
-    },
-    "fxs": {
-      "slicer": {
-        "phase": 0.125,
-      }
-    },
-    "patterns": [
-        [True, None, None, None],
-        [None, None, None, None],
-    ]
-  },
-  {
-    "type": "synth",
-    "synth": "prophet",
-    "opts": {
-      "release": 8,
-      "cutoff": 100
-    },
-    "fxs": {
-      "slicer": {
-        "probability": 0.7,
-        "prob_pos": 1
-      }
-    },
-    "patterns": [
-        [None, None, None, None],
-        [":e1", None, None, None],
-    ]
-  },
-  {
-    "type": "sample",
-    "sample": "guit_em9",
-    "opts": {
-      "rate": 0.5,
-    },
-    "fxs": {
-      "slicer": {
-        "phase": 0.25,
-      }
-    },
-    "patterns": [
-        [None, None, None, None],
-        [True, None, None, None],
-    ]
-  },
-  {
-    "type": "sample",
-    "sample": "loop_mika",
-    "opts": {
-        "rate": 0.5
-    },
-    "fxs": {
-        "slicer": {
-            "wave": 0,
-            "phase": 0.25
-        },
-    },
-    "patterns": [
-        [True, None, None, None],
-        [None, None, None, None],
-    ]
-  }
+  # {
+  #   "type": "sample",
+  #   "sample": "guit_em9",
+  #   "opts": {
+  #     "rate": 0.5,
+  #   },
+  #   "fxs": {
+  #     "slicer": {
+  #       "phase": 0.125,
+  #     }
+  #   },
+  #   "patterns": [
+  #       [True, None, None, None],
+  #       [None, None, None, None],
+  #   ]
+  # },
+  # {
+  #   "type": "synth",
+  #   "synth": "prophet",
+  #   "opts": {
+  #     "release": 8,
+  #     "cutoff": 100
+  #   },
+  #   "fxs": {
+  #     "slicer": {
+  #       "probability": 0.7,
+  #       "prob_pos": 1
+  #     }
+  #   },
+  #   "patterns": [
+  #       [None, None, None, None],
+  #       [":e1", None, None, None],
+  #   ]
+  # },
+  # {
+  #   "type": "sample",
+  #   "sample": "guit_em9",
+  #   "opts": {
+  #     "rate": 0.5,
+  #   },
+  #   "fxs": {
+  #     "slicer": {
+  #       "phase": 0.25,
+  #     }
+  #   },
+  #   "patterns": [
+  #       [None, None, None, None],
+  #       [True, None, None, None],
+  #   ]
+  # },
+  # {
+  #   "type": "sample",
+  #   "sample": "loop_mika",
+  #   "opts": {
+  #       "rate": 0.5
+  #   },
+  #   "fxs": {
+  #       "slicer": {
+  #           "wave": 0,
+  #           "phase": 0.25
+  #       },
+  #   },
+  #   "patterns": [
+  #       [True, None, None, None],
+  #       [None, None, None, None],
+  #   ]
+  # }
 ]
 
 print(json.dumps(i))
 # sender.send_message('/settings', ['pmax', 2])
-# sender.send_message('/settings', ['bpm', 100])
+# sender.send_message('/settings', ['bpm', 1000])
 # time.sleep(0.25)
 # sender.send_message('/bpm', [110])
 # time.sleep(0.25)
@@ -248,8 +248,61 @@ print(json.dumps(i))
 sender.send_message('/channels', [json.dumps(i)])
 sender.send_message('/state', ['play'])
 time.sleep(0.2)
-time.sleep(8)
-sender.send_message('/channel/options', ["synth_0", json.dumps({"release": 0, "cutoff": 0})])
+# time.sleep(8)
+# sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
+# time.sleep(0.1)
+for i in [1, 0.75, 0.5, 0.25, 0]:
+  sender.send_message('/a', ["synth_0", json.dumps({"amp": i})])
+  time.sleep(0.5)
+
+i = [
+  {
+    "type": "synth",
+    "synth": "prophet",
+    "opts": {
+      "release": 8,
+      "cutoff": 70,
+      "amp": 0
+    },
+    "fxs": {
+      "slicer": {
+        "probability": 0.7,
+        "prob_pos": 1
+      }
+    },
+    "patterns": [
+        [":e1", None, None, None],
+        [None, None, None, None],
+    ]
+  },
+]
+sender.send_message('/channels', [json.dumps(i)])
+
+# while True:
+#   sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
+#   time.sleep(1)
+
+# sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
+# time.sleep(2)
+# sender.send_message('/a', ["synth_0", json.dumps({"amp": 1})])
+# time.sleep(0.05)
+# sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
+# time.sleep(0.05)
+
+# sender.send_message('/a', ["sample_4", json.dumps({"amp": 0})])
+# time.sleep(0.05)
+
+# sender.send_message('/a', ["sample_3", json.dumps({"amp": 0})])
+# time.sleep(0.05)
+
+# sender.send_message('/a', ["sample_1", json.dumps({"amp": 0})])
+# time.sleep(0.05)
+
+# sender.send_message('/a', ["synth_2", json.dumps({"amp": 0})])
+
+
+
+
 # # print("PLAY")
 # # sender.send_message('/state', ['play'])
 # # time.sleep(2)
