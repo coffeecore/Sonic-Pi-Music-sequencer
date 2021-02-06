@@ -78,7 +78,6 @@ define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-      use_synth i[:synth].to_sym
       i[:opts][:note] = i[:patterns][p][tick]
       if i[:opts][:note] != nil then
         i[:opts][:note] = eval(i[:opts][:note].to_s)
