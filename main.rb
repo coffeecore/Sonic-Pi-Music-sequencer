@@ -116,9 +116,6 @@ define :play_sample do |i, name|
   end
 end
 
-
-
-
 live_loop :metronome do
   # use_real_time
   use_bpm get(:bpm)
