@@ -58,13 +58,21 @@ live_loop :channel_options do
   control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
 end
 
+live_loop :channel_fxs do
+  osc = sync "/osc*/channel/fxs"
+  name = osc[0]
+  fxName = osx[1]
+  control (get (name+"_fxs_"+fxName).to_sym), JSON.parse(osc[2], :symbolize_names => true)
+end
+
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   live_loop name.to_sym do
     use_bpm get(:bpm)
     s = ""
     i[:fxs].each do |key, value|
-      s += "with_fx :#{key}, #{value} do \n"
+      s += "with_fx :#{key}, #{value} do |f_#{key}| \n"
+      s += "set :#{(name+"_fxs_"+key)}, f_#{key}"
     end
     s += "play_#{i[:type]} i, name \n"
     i[:fxs].each do |key, value|
