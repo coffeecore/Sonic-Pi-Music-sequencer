@@ -90,10 +90,7 @@ define :play_synth do |i, name|
       i[:opts][:note] = i[:patterns][p][tick]
       if i[:opts][:note] != nil then
         if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN/2
-        end
-        if i[:opts][:attack] == nil then
-          i[:opts][:attack] = sleepN/2
+          i[:opts][:release] = sleepN
         end
         i[:opts][:note] = eval(i[:opts][:note].to_s)
         puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
@@ -111,10 +108,7 @@ define :play_external_sample do |i, name|
       sleepN = get(:sleep)
       if i[:patterns][p][tick] == true then
         if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN/2
-        end
-        if i[:opts][:attack] == nil then
-          i[:opts][:attack] = sleepN/2
+          i[:opts][:release] = sleepN
         end
         puts "Ext sample #{p} #{i[:sample]}"
         set (name+"_opts").to_sym, (sample i[:sample], i[:opts])
@@ -131,10 +125,7 @@ define :play_sample do |i, name|
       sleepN = get(:sleep)
       if i[:patterns][p][tick] == true then
         if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN/2
-        end
-        if i[:opts][:attack] == nil then
-          i[:opts][:attack] = sleepN/2
+          i[:opts][:release] = sleepN
         end
         puts "Sample #{p} #{i[:sample]}"
         set (name+"_opts").to_sym, (sample i[:sample].to_sym, i[:opts])
