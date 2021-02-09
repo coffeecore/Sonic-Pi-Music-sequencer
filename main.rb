@@ -1,7 +1,7 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug true
+use_debug false
 use_cue_logging false
 
 set :bpm, 60
@@ -52,7 +52,7 @@ live_loop :channel do
   create_loop position, instru
 end
 
-live_loop :channel_options do
+live_loop :channel_options do 
   osc = sync "/osc*/channel/options"
   name = osc[0]
   with_arg_checks false do

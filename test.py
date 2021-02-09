@@ -247,17 +247,142 @@ print(json.dumps(i))
 
 sender.send_message('/channels', [json.dumps(i)])
 sender.send_message('/state', ['play'])
-time.sleep(0.2)
-# time.sleep(8)
+# time.sleep(0.2)
+time.sleep(8)
 # sender.send_message('/a', ["synth_0", json.dumps({"amp": 0})])
 # time.sleep(0.1)
-for i in [1, 0.75, 0.5, 0.25, 0]:
+for i in range(99, -1, -10):
   print("opts")
-  sender.send_message('/channel/options', ["synth_0", json.dumps({"slide": i})])
-  time.sleep(0.5)
-  print("fxs")
-  sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
-  time.sleep(0.5)
+#   print(i)
+  sender.send_message('/channel/options', ["synth_0", json.dumps({"amp": (i/100)})])
+# sender.send_message('/channel/options', ["synth_0", json.dumps({"amp": 0})])
+  sender.send_message('/channel', [0, json.dumps({
+      "type": "synth",
+      "synth": "tb303",
+      "opts": {
+        "amp": (i/100),
+        # "release": 0.125,
+        "cutoff": 120,
+        "res": 0.5,
+        # "slide": 0.25
+        # "amp": 0.5
+      },
+      "fxs": {
+        "reverb": {
+          "room": 0.9,
+          "mix": 1
+        }
+      },
+      "patterns": [
+            [":a3", ":b3", ":c3"],
+            [":a4", ":b4", ":c4", ":d4"],
+            [":a5", ":b5", ":c5", ":d5"],
+            [":a6", ":b6", ":c6", ":d6"],
+          # "50", "51", "52",
+          # ["53", "54", "55"],
+      ]
+    },)])
+  sender.send_message('/channel/fxs', ["sample_2", "distortion", json.dumps({"distort": (i/100)})])
+
+  sender.send_message('/channel', [2, json.dumps({
+    # "type": "external_sample",
+    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
+    "type": "sample",
+    "sample": "bd_tek",
+    "opts": {
+      ##| "release": 0.125,
+      ##| "cutoff": 120,
+        # "res": 0.5,
+    },
+    "fxs": {
+      "distortion": {
+        "distort": (i/1000)
+      },
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+      [True, None, None, None],
+      [True, None, None, True],
+      [True, None, None, None],
+      [True, None, None, True],
+    ]
+  })])
+  time.sleep(0.25)
+time.sleep(4.784365)
+for i in range(0, 101, 10):
+  print("opts")
+#   print(i)
+  sender.send_message('/channel/options', ["synth_0", json.dumps({"amp": (i/100)})])
+# sender.send_message('/channel/options', ["synth_0", json.dumps({"amp": 0})])
+  sender.send_message('/channel', [0, json.dumps({
+    "type": "synth",
+    "synth": "tb303",
+    "opts": {
+      "amp": (i/100),
+      # "release": 0.125,
+      "cutoff": 120,
+      "res": 0.5,
+      # "slide": 0.25
+      # "amp": 0.5
+    },
+    "fxs": {
+      "reverb": {
+        "room": 0.9,
+        "mix": 1
+      }
+    },
+    "patterns": [
+          [":a3", ":b3", ":c3"],
+          [":a4", ":b4", ":c4", ":d4"],
+          [":a5", ":b5", ":c5", ":d5"],
+          [":a6", ":b6", ":c6", ":d6"],
+        # "50", "51", "52",
+        # ["53", "54", "55"],
+    ]
+  },)])
+
+  sender.send_message('/channel/fxs', ["sample_2", "distortion", json.dumps({"distort": (i/1000)})])
+
+  sender.send_message('/channel', [2, json.dumps({
+    # "type": "external_sample",
+    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
+    "type": "sample",
+    "sample": "bd_tek",
+    "opts": {
+      ##| "release": 0.125,
+      ##| "cutoff": 120,
+        # "res": 0.5,
+    },
+    "fxs": {
+      "distortion": {
+        "distort": (i/1000)
+      },
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
+    },
+    "patterns": [
+      [True, None, None, None],
+      [True, None, None, True],
+      [True, None, None, None],
+      [True, None, None, True],
+    ]
+  })])
+  time.sleep(0.25)
+sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0,"mix": 0})])
+time.sleep(2)
+sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0.5,"mix": 0.5})])
+time.sleep(1)
+sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0.9,"mix": 1})])
+time.sleep(1)
+
+  # print("fxs")
+  # sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
+  # time.sleep(0.5)
 # i = {
 #     "type": "synth",
 #     "synth": "tb303",
