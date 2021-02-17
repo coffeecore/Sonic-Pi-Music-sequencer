@@ -5,7 +5,7 @@ Launch Sonic Pi `live_loop` from json.
 ## Todo
 
 - [ ] Run on RPi...
-    - [ ] Test with Rpi3 : Light files work
+    - [x] Test with Rpi3 : Reverb FX consumes too many resources
     - [ ] Test with RPi4
 - [ ] Python part :
     - [ ] Piano HAT
