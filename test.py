@@ -24,10 +24,10 @@ i = [
       # "amp": 0.5
     },
     "fxs": {
-      "reverb": {
-        "room": 0.9,
-        "mix": 1
-      }
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
     },
     "patterns": [
           [":a3", ":b3", ":c3"],
@@ -268,10 +268,10 @@ for i in range(99, -1, -10):
         # "amp": 0.5
       },
       "fxs": {
-        "reverb": {
-          "room": 0.9,
-          "mix": 1
-        }
+        # "reverb": {
+        #   "room": 0.9,
+        #   "mix": 1
+        # }
       },
       "patterns": [
             [":a3", ":b3", ":c3"],
@@ -329,10 +329,10 @@ for i in range(0, 101, 10):
       # "amp": 0.5
     },
     "fxs": {
-      "reverb": {
-        "room": 0.9,
-        "mix": 1
-      }
+      # "reverb": {
+      #   "room": 0.9,
+      #   "mix": 1
+      # }
     },
     "patterns": [
           [":a3", ":b3", ":c3"],
@@ -373,12 +373,12 @@ for i in range(0, 101, 10):
     ]
   })])
   time.sleep(0.25)
-sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0,"mix": 0})])
-time.sleep(2)
-sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0.5,"mix": 0.5})])
-time.sleep(1)
-sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0.9,"mix": 1})])
-time.sleep(1)
+# sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0,"mix": 0})])
+# time.sleep(2)
+# sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0.5,"mix": 0.5})])
+# time.sleep(1)
+# sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0.9,"mix": 1})])
+# time.sleep(1)
 
   # print("fxs")
   # sender.send_message('/channel/fxs', ["synth_0", "reverb", json.dumps({"room": 0})])
