@@ -13,15 +13,14 @@ set :state, STATE[:stop]
 set :sleep, (1.0/get(:eighth))
 set_volume! 5
 
-live_loop :set_volume do
-  osc = sync "/osc*/volume"
-  set_volume! osc[0]
-end
-
 live_loop :set_settings do
   osc = sync "/osc*/settings"
-  set osc[0].to_sym, osc[1]
-  set :sleep, (1.0/get(:eighth))
+  if osc[0] == 'volume' then
+    set_volume! osc[1]
+  else
+    set osc[0].to_sym, osc[1]
+    set :sleep, (1.0/get(:eighth))
+  end
 end
 
 live_loop :set_state do
