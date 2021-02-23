@@ -11,11 +11,11 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 i = [
   {
     "type": "synth",
-    "synth": "prophet",
-    "opts": {
-      "release": 8,
-      "cutoff": 70
-    },
+    "name": "prophet",
+    # "opts": {
+    #   "release": 8,
+    #   "cutoff": 70
+    # },
     "fxs": {
       "slicer": {
         "probability": 0.7,
@@ -23,40 +23,46 @@ i = [
       }
     },
     "patterns": [
-        [":e1", None, None, None],
+        [{"n": ":e1", "release": 8, "cutoff": 70}, None, None, None],
+    ],
+    "steps": [
+        [0.25, 0.25, 0.25, 0.25]
     ]
   },
   {
     "type": "sample",
-    "sample": "guit_em9",
-    "opts": {
-      "rate": 0.5,
-    },
+    "name": "guit_em9",
     "fxs": {
       "slicer": {
         "phase": 0.125,
       }
     },
     "patterns": [
-        [True, None, None, None],
+        [{"rate": 0.5}, None, None, None],
+    ],
+    "steps": [
+        [0.25, 0.25, 0.25, 0.25]
     ]
   },
-  {
-    "type": "sample",
-    "sample": "loop_mika",
-    "opts": {
-        "rate": 0.5
-    },
-    "fxs": {
-        "slicer": {
-            "wave": 0,
-            "phase": 0.25
-        },
-    },
-    "patterns": [
-        [True, None, None, None],
-    ]
-  }
+  # {
+  #   "type": "sample",
+  #   "sample": "loop_mika",
+  #   "opts": {
+  #       "rate": 0.5
+  #   },
+  #   "fxs": {
+  #       "slicer": {
+  #           "wave": 0,
+  #           "phase": 0.25
+  #       },
+  #   },
+  #   "patterns": [
+  #       [True, None, None, None],
+  #   ],
+  #   "steps": [
+  #       [0.25, 0.25, 0.25, 0.25]
+  #   ]
+  # }
 ]
 
 sender.send_message('/settings', ['eighth', 1])
@@ -80,11 +86,11 @@ while True:
 
       sender.send_message('/channel', [0, json.dumps({
         "type": "synth",
-        "synth": "prophet",
-        "opts": {
-          "release": 8,
-          "cutoff": i
-        },
+        "name": "prophet",
+        # "opts": {
+        #   "release": 8,
+        #   "cutoff": i
+        # },
         "fxs": {
           "slicer": {
             "probability": 0.7,
@@ -92,22 +98,22 @@ while True:
           }
         },
         "patterns": [
-            [":e1", None, None, None],
+            [{"n": ":e1", "release": 8, "cutoff": i}, None, None, None],
+        ],
+        "steps": [
+          [0.25, 0.25, 0.25, 0.25]
         ]
       })])
       sender.send_message('/channel', [1, json.dumps({
         "type": "sample",
-        "sample": "guit_em9",
-        "opts": {
-          "rate": 0.5,
-        },
+        "name": "guit_em9",
         "fxs": {
           "slicer": {
             "phase": p,
           }
         },
         "patterns": [
-            [True, None, None, None],
+            [{"rate": 0.5}, None, None, None],
         ]
       },)])
 

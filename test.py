@@ -10,12 +10,12 @@ sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 # time.sleep(0.2)
 # sender.send_message('/state', ['play'])
 # time.sleep(0.2)
-
+sender.send_message('/settings', ['bpm', 140])
 # for i in range(0, 50):
 i = [
   {
     "type": "synth",
-    "synth": "tb303",
+    "name": "tb303",
     "opts": {
       # "release": 0.125,
       "cutoff": 120,
@@ -36,11 +36,17 @@ i = [
           [":a6", ":b6", ":c6", ":d6"],
         # "50", "51", "52",
         # ["53", "54", "55"],
+        ],
+        "steps": [
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
     ]
   },
   {
     "type": "synth",
-    "synth": "zawa",
+    "name": "zawa",
     "opts": {
       # "release": 0.5,
       "cutoff": 100,
@@ -61,91 +67,97 @@ i = [
           [":e5", ":c5", ":c5", ":d5"],
           [":f4", ":f5", None, ":d5"],
           [":d5", ":d5", None, ":f5"]
+          ],
+          "steps": [
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
     ]
   },
-  {
-    # "type": "external_sample",
-    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
-    "type": "sample",
-    "sample": "bd_tek",
-    "opts": {
-      ##| "release": 0.125,
-      ##| "cutoff": 120,
-        # "res": 0.5,
-    },
-    "fxs": {
-      "distortion": {
-        "distort": 0.99
-      },
-      # "reverb": {
-      #   "room": 0.9,
-      #   "mix": 1
-      # }
-    },
-    "patterns": [
-          [True, None, None, None],
-          [True, None, None, True],
-          [True, None, None, None],
-          [True, None, None, True],
-    ]
-  },
-  {
-    # "type": "external_sample",
-    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
-    "type": "sample",
-    "sample": "drum_cymbal_closed",
-    "opts": {
-      ##| "release": 0.125,
-      ##| "cutoff": 120,
-        # "res": 0.5,
-        "amp": 0.3
-    },
-    "fxs": {
-      # "distortion": {
-      #   "distort": 0.99
-      # },
-      # "reverb": {
-      #   "room": 0.9,
-      #   "mix": 1
-      # }
-    },
-    "patterns": [
-          [True, True, True, True],
-          [True, True, True, True],
-          [True, True, True, True],
-          [True, True, True, True],
-    ]
-  },
-  {
-    # "type": "external_sample",
-    # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/ST/ST0T0SA.WAV",
-    "type": "sample",
-    "sample": "sn_dub",
-    "opts": {
-      ##| "release": 0.125,
-      ##| "cutoff": 120,
-        # "res": 0.5,
-    },
-    "fxs": {
-      # "distortion": {
-      #   "distort": 0.99
-      # },
-      # "reverb": {
-      #   "room": 0.9,
-      #   "mix": 1
-      # }
-    },
-    "patterns": [
-        [
-          None, None, True, None],
-          [None, None, True, None
-        ],
-        [
-          None, None, True, None],
-          [None, None, True, None
-        ],
-    ]
-  }
+  # {
+  #   # "type": "external_sample",
+  #   # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/BT/BT0A0A7.WAV",
+  #   "type": "sample",
+  #   "sample": "bd_tek",
+  #   "opts": {
+  #     ##| "release": 0.125,
+  #     ##| "cutoff": 120,
+  #       # "res": 0.5,
+  #   },
+  #   "fxs": {
+  #     "distortion": {
+  #       "distort": 0.99
+  #     },
+  #     # "reverb": {
+  #     #   "room": 0.9,
+  #     #   "mix": 1
+  #     # }
+  #   },
+  #   "patterns": [
+  #         [True, None, None, None],
+  #         [True, None, None, True],
+  #         [True, None, None, None],
+  #         [True, None, None, True],
+  #   ]
+  # },
+  # {
+  #   # "type": "external_sample",
+  #   # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/HHCD/HHCD6.WAV",
+  #   "type": "sample",
+  #   "sample": "drum_cymbal_closed",
+  #   "opts": {
+  #     ##| "release": 0.125,
+  #     ##| "cutoff": 120,
+  #       # "res": 0.5,
+  #       "amp": 0.3
+  #   },
+  #   "fxs": {
+  #     # "distortion": {
+  #     #   "distort": 0.99
+  #     # },
+  #     # "reverb": {
+  #     #   "room": 0.9,
+  #     #   "mix": 1
+  #     # }
+  #   },
+  #   "patterns": [
+  #         [True, True, True, True],
+  #         [True, True, True, True],
+  #         [True, True, True, True],
+  #         [True, True, True, True],
+  #   ]
+  # },
+  # {
+  #   # "type": "external_sample",
+  #   # "sample": "/Users/antoine/Music/Sonic Pi/samples/Roland TR-909/ST/ST0T0SA.WAV",
+  #   "type": "sample",
+  #   "sample": "sn_dub",
+  #   "opts": {
+  #     ##| "release": 0.125,
+  #     ##| "cutoff": 120,
+  #       # "res": 0.5,
+  #   },
+  #   "fxs": {
+  #     # "distortion": {
+  #     #   "distort": 0.99
+  #     # },
+  #     # "reverb": {
+  #     #   "room": 0.9,
+  #     #   "mix": 1
+  #     # }
+  #   },
+  #   "patterns": [
+  #       [
+  #         None, None, True, None],
+  #         [None, None, True, None
+  #       ],
+  #       [
+  #         None, None, True, None],
+  #         [None, None, True, None
+  #       ],
+  #   ]
+  # }
 ]
 
 # i = [
@@ -280,7 +292,13 @@ for i in range(99, -1, -10):
             [":a6", ":b6", ":c6", ":d6"],
           # "50", "51", "52",
           # ["53", "54", "55"],
-      ]
+      ],
+    "steps": [
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+    ]
     },)])
   sender.send_message('/channel/fxs', ["sample_2", "distortion", json.dumps({"distort": (i/100)})])
 
@@ -308,6 +326,12 @@ for i in range(99, -1, -10):
       [True, None, None, True],
       [True, None, None, None],
       [True, None, None, True],
+    ],
+    "steps": [
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25],
     ]
   })])
   time.sleep(0.25)

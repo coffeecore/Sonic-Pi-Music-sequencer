@@ -12,7 +12,7 @@ Launch Sonic Pi `live_loop` from json.
     - [ ] Potards
     - [ ] E-ink display
 
-## Json
+## Json (changed, see dark_mist.py)
 
 ```
 [

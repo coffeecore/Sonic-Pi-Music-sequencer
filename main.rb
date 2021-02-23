@@ -6,64 +6,60 @@ use_cue_logging false
 
 set :bpm, 60
 set :eighth, 4
-set :bar, 1
-set :pmax, 4
+set :bar, 4
+set :pmax, 1
 set :state, STATE[:stop]
 
-set :sleep, (1.0/get(:eighth))
+# set :sleep, (1.0/get(:eighth))
 set_volume! 5
 
 live_loop :set_settings do
-  osc = sync "/osc*/settings"
-  if osc[0] == 'volume' then
-    set_volume! osc[1]
+  name, value = sync "/osc*/settings"
+  if name == 'volume' then
+    set_volume! value
   else
-    set osc[0].to_sym, osc[1]
-    set :sleep, (1.0/get(:eighth))
+    set name.to_sym, value
+    # set :sleep, (1.0/get(:eighth))
   end
 end
 
 live_loop :set_state do
-  osc = sync "/osc*/state"
+  stateName, = sync "/osc*/state"
   state = get(:state)
-  set :state, STATE[osc[0].to_sym]
+  set :state, STATE[stateName.to_sym]
 end
 
 live_loop :kill_loop do
-  osc = sync "/osc*/kill"
-  live_loop (osc[0]).to_sym do
+  name, = sync "/osc*/kill"
+  live_loop (name).to_sym do
     stop
   end
 end
 
 live_loop :channels do
-  osc = sync "/osc*/channels"
-  instrus     = JSON.parse(osc[0], :symbolize_names => true)
+  json, = sync "/osc*/channels"
+  instrus     = JSON.parse(json, :symbolize_names => true)
   instrus.each_with_index do |i, p|
     create_loop p, i
   end
 end
 
 live_loop :channel do
-  osc = sync "/osc*/channel"
-  position = osc[0]
-  instru     = JSON.parse(osc[1], :symbolize_names => true)
+  position, json = sync "/osc*/channel"
+  instru     = JSON.parse(json, :symbolize_names => true)
   create_loop position, instru
 end
 
 live_loop :channel_options do 
-  osc = sync "/osc*/channel/options"
-  name = osc[0]
+  name, json = sync "/osc*/channel/options"
   with_arg_checks false do
-    control (get (name+"_opts").to_sym), JSON.parse(osc[1], :symbolize_names => true)
+    control (get (name+"_opts").to_sym), JSON.parse(json, :symbolize_names => true)
   end
 end
 
 live_loop :channel_fxs do
-  osc = sync "/osc*/channel/fxs"
-  name = osc[0]
-  fxName = osc[1]
-  control (get (name+"_fxs_"+fxName).to_sym), JSON.parse(osc[2], :symbolize_names => true)
+  name, fx, json = sync "/osc*/channel/fxs"
+  control (get (name+"_fxs_"+fx).to_sym), JSON.parse(json, :symbolize_names => true)
 end
 
 define :create_loop do |p, i|
@@ -87,17 +83,12 @@ define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-      sleepN = get(:sleep)
-      i[:opts][:note] = i[:patterns][p][tick]
-      if i[:opts][:note] != nil then
-        if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN
-        end
-        i[:opts][:note] = eval(i[:opts][:note].to_s)
-        puts "Synth #{p} #{i[:synth]} #{i[:opts][:note]}"
-        with_arg_checks false do
-          set (name+"_opts").to_sym, (synth i[:synth].to_sym, i[:opts])
-        end
+      sleepN = i[:steps][p].look
+      step = i[:patterns][p].tick
+      if step != nil then
+        note = eval(step[:n].to_s)
+        step[:note] = note
+        set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
       end
       sleep sleepN
     end
@@ -108,15 +99,10 @@ define :play_external_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-      sleepN = get(:sleep)
-      if i[:patterns][p][tick] == true then
-        if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN
-        end
-        puts "Ext sample #{p} #{i[:sample]}"
-        with_arg_checks false do
-          set (name+"_opts").to_sym, (sample i[:sample], i[:opts])
-        end
+      sleepN = i[:patterns][p].look
+      step = i[:patterns][p].tick
+      if step != nil then
+        set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
       end
       sleep sleepN
     end
@@ -127,15 +113,10 @@ define :play_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
     i[:patterns][p].length.times do
-      sleepN = get(:sleep)
-      if i[:patterns][p][tick] == true then
-        if i[:opts][:release] == nil then
-          i[:opts][:release] = sleepN
-        end
-        puts "Sample #{p} #{i[:sample]}"
-        with_arg_checks false do
-          set (name+"_opts").to_sym, (sample i[:sample].to_sym, i[:opts])
-        end
+      sleepN = i[:steps][p].look
+      step = i[:patterns][p].tick
+      if step != nil then
+        set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
       end
       sleep sleepN
     end
