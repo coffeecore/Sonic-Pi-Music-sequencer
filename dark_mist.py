@@ -25,8 +25,8 @@ i = [
     "patterns": [
         [{"n": ":e1", "release": 8, "cutoff": 70}, None, None, None],
     ],
-    "steps": [
-        [0.25, 0.25, 0.25, 0.25]
+    "sleeps": [
+        [1, 1, 1, 1]
     ]
   },
   {
@@ -40,8 +40,8 @@ i = [
     "patterns": [
         [{"rate": 0.5}, None, None, None],
     ],
-    "steps": [
-        [0.25, 0.25, 0.25, 0.25]
+    "sleeps": [
+        [1, 1, 1, 1]
     ]
   },
   # {
@@ -81,7 +81,7 @@ while True:
     for i in [100, 130, 70]:
       print("CHANGE")
       p = random.choice([0.125, 0.25])
-      sender.send_message('/channel/options', ["synth_0", json.dumps({"cutoff": i})])
+      sender.send_message('/channel/options', ["synth_0", json.dumps({"cutoff": i, "n": ":e1", "release": 8, "cutoff": 70})])
       sender.send_message('/channel/fxs', ["sample_1", "slicer", json.dumps({"phase": p})])
 
       sender.send_message('/channel', [0, json.dumps({
@@ -100,8 +100,8 @@ while True:
         "patterns": [
             [{"n": ":e1", "release": 8, "cutoff": i}, None, None, None],
         ],
-        "steps": [
-          [0.25, 0.25, 0.25, 0.25]
+        "sleeps": [
+          [1, 1, 1, 1]
         ]
       })])
       sender.send_message('/channel', [1, json.dumps({
@@ -114,7 +114,11 @@ while True:
         },
         "patterns": [
             [{"rate": 0.5}, None, None, None],
+        ],
+        "sleeps": [
+          [1, 1, 1, 1]
         ]
+    ]
       },)])
 
 
