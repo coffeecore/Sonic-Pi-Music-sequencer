@@ -12,10 +12,6 @@ i = [
   {
     "type": "synth",
     "name": "prophet",
-    # "opts": {
-    #   "release": 8,
-    #   "cutoff": 70
-    # },
     "fxs": {
       "slicer": {
         "probability": 0.7,
@@ -44,25 +40,6 @@ i = [
         [1, 1, 1, 1]
     ]
   },
-  # {
-  #   "type": "sample",
-  #   "sample": "loop_mika",
-  #   "opts": {
-  #       "rate": 0.5
-  #   },
-  #   "fxs": {
-  #       "slicer": {
-  #           "wave": 0,
-  #           "phase": 0.25
-  #       },
-  #   },
-  #   "patterns": [
-  #       [True, None, None, None],
-  #   ],
-  #   "steps": [
-  #       [0.25, 0.25, 0.25, 0.25]
-  #   ]
-  # }
 ]
 
 sender.send_message('/settings', ['eighth', 1])
@@ -87,10 +64,6 @@ while True:
       sender.send_message('/channel', [0, json.dumps({
         "type": "synth",
         "name": "prophet",
-        # "opts": {
-        #   "release": 8,
-        #   "cutoff": i
-        # },
         "fxs": {
           "slicer": {
             "probability": 0.7,
