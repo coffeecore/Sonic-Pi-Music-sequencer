@@ -18,7 +18,7 @@ Launch Sonic Pi `live_loop` from json.
 [
     {
         "type": "synth",
-        "synth": "tb303",
+        "name": "tb303",
         "opts": {
             "release": 0.125,
             "cutoff": 120,
@@ -30,29 +30,39 @@ Launch Sonic Pi `live_loop` from json.
             }
         },
         "patterns": [
-            []
+            [
+                {"n": ":e1", "release": 0.125, "cutoff": 120, "res": 0.5},
+                {"n": "(chord :c4, : major)", "release": 0.125, "cutoff": 120, "res": 0.5},
+                None,
+                None
+            ]
+        ],
+        "sleeps": [
+            [1, 0.25, 5, 1]
         ]
     },
     {
         "type": "sample",
-        "sample": "drum_cymbal_closed",
-        "opts": {
-        },
+        "name": "drum_cymbal_closed",
         "fxs": {
         },
         "patterns": [
-            []
+            [{"res": 0.9}, None, {"attack": 0.5}, None]
+        ],
+        "sleeps": [
+            0.25, 0.25, 0.25
         ]
     },
     {
         "type": "external_sample",
-        "sample": "/home/pi/mysample.ext",
-        "opts": {
-        },
+        "name": "/home/pi/mysample.ext",
         "fxs": {
         },
         "patterns": [
-            []
+            [{"rate": 0.9}, None, {"rate": 0.5}, None]
+        ],
+        "sleeps": [
+            0.25, 0.25, 0.25
         ]
     }
 ]
