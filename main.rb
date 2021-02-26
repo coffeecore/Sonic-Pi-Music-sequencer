@@ -1,16 +1,14 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug false
+use_debug true
 use_cue_logging false
 
 set :bpm, 60
-set :eighth, 4
 set :bar, 4
 set :pmax, 1
 set :state, STATE[:stop]
 
-# set :sleep, (1.0/get(:eighth))
 set_volume! 5
 
 live_loop :set_settings do
@@ -19,7 +17,6 @@ live_loop :set_settings do
     set_volume! value
   else
     set name.to_sym, value
-    # set :sleep, (1.0/get(:eighth))
   end
 end
 
@@ -82,15 +79,17 @@ end
 define :play_synth do |i, name|
   p = (sync :p)[0]
   in_thread do
-    i[:patterns][p].length.times do
-      sleepN = i[:steps][p].look
-      step = i[:patterns][p].tick
-      if step != nil then
-        note = eval(step[:n].to_s)
-        step[:note] = note
-        set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+    if i[:patterns][p] != nil then
+      i[:patterns][p].length.times do
+        sleepN = i[:sleeps][p].tick
+        step = i[:patterns][p].look
+        if step != nil then
+          # note = eval(step[:n].to_s)
+          # step[:note] = note
+          set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+        end
+        sleep sleepN
       end
-      sleep sleepN
     end
   end
 end
@@ -98,13 +97,15 @@ end
 define :play_external_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
-    i[:patterns][p].length.times do
-      sleepN = i[:patterns][p].look
-      step = i[:patterns][p].tick
-      if step != nil then
-        set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+    if i[:patterns][p] != nil then
+      i[:patterns][p].length.times do
+        sleepN = i[:sleeps][p].tick
+        step = i[:patterns][p].look
+        if step != nil then
+          set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+        end
+        sleep sleepN
       end
-      sleep sleepN
     end
   end
 end
@@ -112,21 +113,23 @@ end
 define :play_sample do |i, name|
   p = (sync :p)[0]
   in_thread do
-    i[:patterns][p].length.times do
-      sleepN = i[:steps][p].look
-      step = i[:patterns][p].tick
-      if step != nil then
-        set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+    if i[:patterns][p] != nil then
+      i[:patterns][p].length.times do
+        sleepN = i[:sleeps][p].tick
+        step = i[:patterns][p].look
+        if step != nil then
+          set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+        end
+        sleep sleepN
       end
-      sleep sleepN
     end
   end
 end
 
 live_loop :metronome do
   # use_real_time
-  use_bpm get(:bpm)
   while get(:state) != STATE[:play]
+    use_bpm get(:bpm)
     if get(:state) == STATE[:stop] then
       tick_reset
       tick # you must tick to avoid repeat first pattern
@@ -134,11 +137,13 @@ live_loop :metronome do
     end
     sleep 1
   end
+  use_bpm get(:bpm)
   l = look
   tick
   cue :p, l
   if look > (get(:pmax)-1) then
     tick_reset
+    tick
   end
   sleep get(:bar)
 end

@@ -42,17 +42,22 @@ i = [
   },
 ]
 
-sender.send_message('/settings', ['eighth', 1])
-time.sleep(0.2)
-sender.send_message('/settings', ['bar', 8])
-time.sleep(0.2)
-sender.send_message('/settings', ['pmax', 1])
-time.sleep(0.2)
+i = [{'type': 'synth', 'name': 'tb303', 'fxs': {}, 'patterns': [[{'n': 60}, None, {'n': 61, 'release': 0.5}], [{'n': 62, 'release': 0.5}, None, {'n': 63, 'release': 0.5}]], 'sleeps': [[1.5, 1.5, 0.25], [1.5, 0.25, 0.25]]}, {'type': 'sample', 'name': 'sn_dub', 'fxs': {}, 'patterns': [[None, {}, None, {}], [{}]], 'sleeps': [[0.25, 0.25, 0.25, 0.25], [0.25]]}]
 
+
+
+sender.send_message('/settings', ['eighth', 4])
+time.sleep(0.2)
+sender.send_message('/settings', ['bar', 4])
+time.sleep(0.2)
+sender.send_message('/settings', ['pmax', 2])
+time.sleep(0.2)
 
 
 sender.send_message('/channels', [json.dumps(i)])
 sender.send_message('/state', ['play'])
+exit()
+
 time.sleep(8)
 while True:
     for i in [100, 130, 70]:
@@ -91,8 +96,7 @@ while True:
         "sleeps": [
           [1, 1, 1, 1]
         ]
-    ]
-      },)])
+      })])
 
 
       time.sleep(8)
