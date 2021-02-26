@@ -45,7 +45,9 @@ class Machine:
 
     def display_channel(self, channel, i = 0):
         s = "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
-        if len(channel.name) < 8:
+        if len(channel.name) < 4:
+             s = s + "\t\t"
+        elif len(channel.name) < 8:
              s = s + "\t"
         else:
             s = s + "... "
@@ -62,3 +64,4 @@ class Machine:
 
     def json(self):
         return json.dumps(self.channels_to_list())
+

@@ -146,23 +146,24 @@ sender.send_message('/channels', [machine.json()])
 # sender.send_message('/channel', [0, json.dumps(channelOne.__dict__)])
 
 print(machine.display())
+for i, j in machine.channels[0].patterns[1][7].items():
+    print(i, j)
+# time.sleep(8)
+# machine.state = 'pause'
+# sender.send_message('/state', [machine.state])
+# print(machine.display_settings())
+# time.sleep(8)
+# machine.state = 'play'
+# sender.send_message('/state', [machine.state])
+# print(machine.display_settings())
+# time.sleep(8)
+# machine.state = 'stop'
+# sender.send_message('/state', [machine.state])
+# print(machine.display_settings())
+channelOne.del_step(10, 10)
+print(machine.channels[0].get_step(0, 15))
 
-time.sleep(8)
-machine.state = 'pause'
-sender.send_message('/state', [machine.state])
-print(machine.display_settings())
-time.sleep(8)
-machine.state = 'play'
-sender.send_message('/state', [machine.state])
-print(machine.display_settings())
-time.sleep(8)
-machine.state = 'stop'
-sender.send_message('/state', [machine.state])
-print(machine.display_settings())
-
-
-
-exit()
+# exit()
 # channelOne.add_step(1, 2, 0.36, {'n': 75})
 # print(machine.display())
 
@@ -250,6 +251,7 @@ def on_note_listener(key:int, event: bool):
             if pianoHat.BLACK_KEYS.count(key) != 0:
                 pianoHat.pattern[0] = pianoHat.BLACK_KEYS.index(key)
             if pianoHat.WHITE_KEYS.count(key) != 0:
+                print(pianoHat.WHITE_KEYS, pianoHat.WHITE_KEYS.index(key));
                 pianoHat.pattern[1] = pianoHat.WHITE_KEYS.index(key)
         return
     # STEP
@@ -266,21 +268,29 @@ def on_note_listener(key:int, event: bool):
 # print(machine.json())
 
 pianoHat = PianoHat()
+print('PH', pianoHat.pattern)
 # print(pianoHat.get_pattern())
 on_note_listener(0, True)
+# print(pianoHat.pattern)
 # print(pianoHat.get_pattern())
 on_note_listener(0, True)
+print('PH', pianoHat.pattern)
+
+print(pianoHat.get_pattern())
+
+# print(pianoHat.pattern)
 # print(pianoHat.get_pattern())
 on_instru_listener(0, True)
 # print(pianoHat.mod)
-on_octave_up_listener(0, True)
+on_octave_up_listener(1, True)
 # print(pianoHat.mod)
-on_note_listener(0, True)
-# print(pianoHat.layout)
-# print(pianoHat.octave)
+on_note_listener(4, True)
+print(pianoHat.layout)
+print(pianoHat.octave)
 on_octave_up_listener(0, True)
-# print(pianoHat.octave)
-# print(pianoHat.notes)
+print(pianoHat.octave)
+print(pianoHat.get_pattern())
+print(pianoHat.notes)
 # print(machine.channels)
 # print(machine.display())
 # piano.on_note(pianoHat.on_note)

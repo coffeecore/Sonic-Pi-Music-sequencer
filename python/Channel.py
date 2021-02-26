@@ -61,14 +61,14 @@ class Channel:
             i_p += 1
 
     def del_step(self, pattern: int, step: int):
-        del(self.patterns[pattern][step])
-        del(self.sleeps[pattern][step])
+        if len(self.patterns) > pattern and len(self.patterns[pattern]) > step:
+            del(self.patterns[pattern][step])
+            del(self.sleeps[pattern][step])
         i_p = pattern
         while i_p < len(self.patterns):
             total_sleep = 0
             for i_sl, sl in enumerate(self.sleeps[i_p]):
                 total_sleep = total_sleep + sl
-                print(len(self.sleeps) > (i+1), len(self.sleeps), (i_p+1))
             if total_sleep < self.bar and len(self.sleeps) > (i_p+1):
                 for i_sl, sl in enumerate(self.sleeps[i_p+1]):
                     total_sleep = total_sleep + sl
@@ -78,6 +78,11 @@ class Channel:
                         slee = self.sleeps[i_p+1].pop(i_sl)
                         self.sleeps[i_p].append(slee)
             i_p += 1
+
+    def get_step(self, pattern: int, step: int):
+        if len(self.patterns) > pattern and len(self.patterns[pattern]) > step:
+            return self.patterns[pattern][step]
+        return None
 
     def display(self, i, pmax = 4):
         s = ''
