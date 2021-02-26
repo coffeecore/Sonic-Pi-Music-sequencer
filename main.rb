@@ -13,17 +13,14 @@ set_volume! 5
 
 live_loop :set_settings do
   name, value = sync "/osc*/settings"
-  if name == 'volume' then
-    set_volume! value
-  else
-    set name.to_sym, value
+  case name
+    when 'volume'
+      set_volume! value
+    when 'state'
+      set :state, STATE[value.to_sym]
+    else
+      set name.to_sym, value
   end
-end
-
-live_loop :set_state do
-  stateName, = sync "/osc*/state"
-  state = get(:state)
-  set :state, STATE[stateName.to_sym]
 end
 
 live_loop :kill_loop do

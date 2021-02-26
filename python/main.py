@@ -14,14 +14,14 @@ machine.bpm = 120
 # machine.bar = 1
 # print(machine.display())
 
-channelOne = Channel('synth', 'fm')
+channelOne = Channel('synth', 'zawa')
 channelOne.bar = machine.bar
 
 for i in range(16):
     # channelOne.add_step(0, i, 0.25, {"note": random.choice(range(128)), "res": 2, "cutoff": 80, "amp": 0.5})
     # channelOne.add_step(1, i, 0.25, {"note": random.choice(range(128)), "res": 2, "cutoff": 80, "amp": 0.5})
-    channelOne.add_step(0, i, 0.25, {"note": i+50, "res": 2, "cutoff": 80, "amp": 0.5})
-    channelOne.add_step(1, i, 0.25, {"note": 60+i, "res": 2, "cutoff": 80, "amp": 0.5})
+    channelOne.add_step(0, i, 0.25, {"note": ":c2" if i%2 == 0 else ":c3", "res":0, "cutoff": 80})
+    # channelOne.add_step(1, i, 0.25, {"note": 60+i, "res": 2, "cutoff": 70, "amp": 0.5})
 
 # channelOne.add_step(0, 0, 0.25, {"note": ":g4", "res": 2, "cutoff": 80, "amp": 0.5})
 # channelOne.add_step(0, 1, 0.25, None)
@@ -128,11 +128,11 @@ sender.send_message('/settings', ['bpm', machine.bpm])
 # time.sleep(1)
 sender.send_message('/settings', ['bar', machine.bar])
 # time.sleep(0.2)
-machine.pmax = 2
+# machine.pmax = 2
 sender.send_message('/settings', ['pmax', machine.pmax])
 # time.sleep(0.2)
 machine.state = 'play'
-sender.send_message('/state', [machine.state])
+sender.send_message('/settings', ['state', machine.state])
 
 # channelThree.patterns[0][4] = None
 
@@ -146,8 +146,8 @@ sender.send_message('/channels', [machine.json()])
 # sender.send_message('/channel', [0, json.dumps(channelOne.__dict__)])
 
 print(machine.display())
-for i, j in machine.channels[0].patterns[1][7].items():
-    print(i, j)
+# for i, j in machine.channels[0].patterns[1][7].items():
+#     print(i, j)
 # time.sleep(8)
 # machine.state = 'pause'
 # sender.send_message('/state', [machine.state])
