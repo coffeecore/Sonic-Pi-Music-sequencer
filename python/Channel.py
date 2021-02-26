@@ -102,7 +102,6 @@ class Channel:
                         if a > 1:
                             for iii in range(a-1):
                                 s = s+'---- '
-            # s = s+"\t"+self.type+' : '+self.name
         if self.type == 'sample':
             for pp in range(pmax):
                 s = s+'| '
@@ -116,7 +115,6 @@ class Channel:
                         if a > 1:
                             for iii in range(a-1):
                                 s = s+'---- '
-            # s = s+"\t"+self.type+' : '+self.name
         s = s + "\n"
         s = s + "["+str(i)+"][sleeps] \t\t"
         for pp in range(pmax):
@@ -131,5 +129,4 @@ class Channel:
                     if a > 1:
                         for ii in range(a-1):
                             s = s+'---- '
-
         return s
