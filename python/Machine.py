@@ -23,6 +23,11 @@ class Machine:
         if len(self.channels) > position:
             self.channels.pop(position)
 
+    def get_channel(self, channel: int):
+        if len(self.channels) > channel:
+            return self.channels[channel]
+        return None
+
     def display(self):
         s = self.display_settings()
         s = s + self.display_channels()

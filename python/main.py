@@ -171,7 +171,7 @@ print(machine.channels[0].get_step(0, 15))
 # print()
 # print(machine.json())
 
-exit()
+# exit()
 
 def on_instru_listener(channel: int, event: bool):
     # CHANNEL
@@ -259,40 +259,27 @@ def on_note_listener(key:int, event: bool):
         if event:
             pianoHat.step = key
             if len(machine.channels) > 0:
-                pianoHat.notes = machine.channels[pianoHat.channel].patterns[pianoHat.get_pattern()][pianoHat.step]
+                pianoHat.notes = machine.get_channel(pianoHat.channel).get_step(pianoHat.get_pattern(), pianoHat.step)
             pianoHat.layout = pianoHat.LAYOUT_NOTE
             # On LED Octave Down
         return
 
-
-# print(machine.json())
-
 pianoHat = PianoHat()
 print('PH', pianoHat.pattern)
-# print(pianoHat.get_pattern())
 on_note_listener(0, True)
-# print(pianoHat.pattern)
-# print(pianoHat.get_pattern())
-on_note_listener(0, True)
-print('PH', pianoHat.pattern)
+on_note_listener(2, True)
 
 print(pianoHat.get_pattern())
 
-# print(pianoHat.pattern)
-# print(pianoHat.get_pattern())
 on_instru_listener(0, True)
-# print(pianoHat.mod)
 on_octave_up_listener(1, True)
-# print(pianoHat.mod)
-on_note_listener(4, True)
+on_note_listener(8, True)
 print(pianoHat.layout)
 print(pianoHat.octave)
 on_octave_up_listener(0, True)
 print(pianoHat.octave)
 print(pianoHat.get_pattern())
 print(pianoHat.notes)
-# print(machine.channels)
-# print(machine.display())
-# piano.on_note(pianoHat.on_note)
+
 
 
