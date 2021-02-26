@@ -26,18 +26,21 @@ class Machine:
     def display(self):
         s = ''
         for i, channel in enumerate(self.channels):
-            s = s + "["+str(i)+"] "
-            s = s + channel.display(i)
-            s = s + "\n\n"
+            s = s + "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
+            if len(channel.name) < 8:
+                s = s + "\t"
+            else:
+                s = s + "... "
+            s = s + channel.display(i, self.pmax)
+            s = s + " "+channel.name+"\n\n"
         return s
 
     def channels_to_list(self):
         result = []
         for channel in self.channels:
-            # result.append(channel.to_dict())
             result.append(channel.__dict__)
 
         return result
 
-    def to_json(self):
+    def json(self):
         return json.dumps(self.channels_to_list())

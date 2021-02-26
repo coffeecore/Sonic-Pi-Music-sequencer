@@ -10,7 +10,7 @@ import sys
 import random
 
 machine = Machine()
-machine.bpm = 120
+# machine.bpm = 120
 # machine.bar = 1
 # print(machine.display())
 
@@ -50,11 +50,11 @@ machine.add_channel(channelTwo)
 machine.add_channel(channelThree)
 machine.add_channel(channelFour)
 machine.add_channel(channelTwo)
-print(machine.display())
-time.sleep(2)
+# print(machine.display())
+# time.sleep(2)
 # channelOne.add_step(0, 2, 0.25, None)
 # print(14)
-print(machine.display())
+# print(machine.display())
 channelTwo.add_step(0, 0, 0.5, {})
 channelTwo.add_step(0, 2, 0.5, {})
 
@@ -119,25 +119,26 @@ channelFour.add_step(0, 4, 1, {})
 # channelOne.add_step(2, 3, 0.05, {'n': 97})
 # channelOne.add_step(2, 1, 0.5)
 
-print(machine.display())
-print('OSC')
+# print(machine.display())
+# print('OSC')
 # channelOne.del_step(2, 1)
 # print(machine.display())
 sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
 sender.send_message('/settings', ['bpm', machine.bpm])
-time.sleep(1)
+# time.sleep(1)
 sender.send_message('/settings', ['bar', machine.bar])
-time.sleep(0.2)
+# time.sleep(0.2)
 machine.pmax = 2
 sender.send_message('/settings', ['pmax', machine.pmax])
-time.sleep(0.2)
-sender.send_message('/state', ['play'])
+# time.sleep(0.2)
+machine.state = 'play'
+sender.send_message('/state', [machine.state])
 
 # channelThree.patterns[0][4] = None
 
 
-sender.send_message('/channels', [machine.to_json()])
-time.sleep(2)
+sender.send_message('/channels', [machine.json()])
+# time.sleep(2)
 
 # sender.send_message('/state', ['play'])
 # time.sleep(4)
@@ -146,13 +147,24 @@ time.sleep(2)
 
 print(machine.display())
 
+time.sleep(8)
+machine.state = 'pause'
+sender.send_message('/state', [machine.state])
+time.sleep(8)
+machine.state = 'play'
+sender.send_message('/state', [machine.state])
+time.sleep(8)
+machine.state = 'stop'
+sender.send_message('/state', [machine.state])
+
+
 exit()
 # channelOne.add_step(1, 2, 0.36, {'n': 75})
 # print(machine.display())
 
 # print(machine.channels_to_list())
 # print()
-# print(machine.to_json())
+# print(machine.json())
 
 exit()
 
@@ -247,7 +259,7 @@ def on_note_listener(key:int, event: bool):
         return
 
 
-# print(machine.to_json())
+# print(machine.json())
 
 pianoHat = PianoHat()
 # print(pianoHat.get_pattern())
