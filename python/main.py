@@ -10,11 +10,11 @@ import sys
 import random
 
 machine = Machine()
-# machine.bpm = 120
+machine.bpm = 120
 # machine.bar = 1
 # print(machine.display())
 
-channelOne = Channel('synth', 'tb303')
+channelOne = Channel('synth', 'fm')
 channelOne.bar = machine.bar
 
 for i in range(16):
@@ -150,12 +150,16 @@ print(machine.display())
 time.sleep(8)
 machine.state = 'pause'
 sender.send_message('/state', [machine.state])
+print(machine.display_settings())
 time.sleep(8)
 machine.state = 'play'
 sender.send_message('/state', [machine.state])
+print(machine.display_settings())
 time.sleep(8)
 machine.state = 'stop'
 sender.send_message('/state', [machine.state])
+print(machine.display_settings())
+
 
 
 exit()
