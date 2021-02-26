@@ -74,12 +74,12 @@ See begin of `test.py` for example.
 
 | Feature                            | OSC URI          | Parameters                                                  |
 | ---------------------------------- | ---------------- | ----------------------------------------------------------- |
-| Set global volume                  | /settings        | ['volume', Float] (between 0 and 5(default))                |
-| Set playback state                 | /settings        | ['state', `stop`, `play` or `pause`]                        |
-| Set bpm                            | /settings        | ['bpm', Integer] (default : 60)                             |
-| Set eighth (One sleep divided by)  | /settings        | ['eighth', Integer] (default : 4)                           |
-| Set bar (Sleeps between patterns)  | /settings        | ['bar', Integer] (default : 1)                              |
-| Set max pattern to play            | /settings        | ['pmax', Integer] (default : 4)                             |
+| Set global volume                  | /settings        | ['volume', Float] between 0 and 5 (default)                 |
+| Set playback state                 | /settings        | ['state', value] `stop` (default), `play` or `pause`        |
+| Set bpm                            | /settings        | ['bpm', Integer] default : 60                               |
+| Set eighth (One sleep divided by)  | /settings        | ['eighth', Integer] default : 4                             |
+| Set bar (Sleeps between patterns)  | /settings        | ['bar', Integer] default : 1                                |
+| Set max pattern to play            | /settings        | ['pmax', Integer] default : 4                               |
 | Kill a loop                        | /kill            | String `live_loop` name                                     |
 | Set channels                       | /channels        | Json                                                        |
 | Set channel                        | /channel         | [Integer `position`, Json]                                  |
