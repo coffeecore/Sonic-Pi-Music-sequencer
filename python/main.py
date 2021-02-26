@@ -9,6 +9,62 @@ import json
 import sys
 import random
 
+
+dark_mist = Machine()
+dark_mist.bar = 4
+dark_mist.pmax = 2
+
+sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
+sender.send_message('/settings', ['bpm', dark_mist.bpm])
+sender.send_message('/settings', ['bar', dark_mist.bar])
+sender.send_message('/settings', ['pmax', dark_mist.pmax])
+
+prophet_channel = Channel('synth', 'prophet')
+prophet_channel.bar = dark_mist.bar
+prophet_channel.add_fx('slicer')
+prophet_channel.add_fx_option('slicer', 'probability', 0.7)
+prophet_channel.add_fx_option('slicer', 'prob_pos', 1)
+prophet_channel.add_step(0, 0, 4, {"note": ":e1", "release": 8, "cutoff": 70})
+prophet_channel.add_step(0, 1, 4, {"note": ":f1", "release": 8, "cutoff": 70})
+dark_mist.add_channel(prophet_channel)
+
+guit_channel = Channel('sample', 'guit_em9')
+guit_channel.bar = dark_mist.bar
+guit_channel.add_fx('slicer')
+guit_channel.add_fx_option('slicer', 'phase', 0.125)
+guit_channel.add_step(0, 0, 4, {"rate": 0.5})
+dark_mist.add_channel(guit_channel)
+
+mika_channel = Channel('sample', 'loop_mika')
+mika_channel.bar = dark_mist.bar
+mika_channel.add_fx('slicer')
+mika_channel.add_fx_option('slicer', 'phase', 0.25)
+mika_channel.add_fx_option('slicer', 'wave', 0)
+mika_channel.add_step(0, 0, 4, {"rate": 0.5})
+dark_mist.add_channel(mika_channel)
+
+
+dark_mist.state = 'play'
+sender.send_message('/settings', ['state', dark_mist.state])
+sender.send_message('/channels', [dark_mist.json()])
+
+print(dark_mist.display())
+
+
+exit()
+
+
+
+
+
+
+
+
+
+
+
+
+
 machine = Machine()
 machine.bpm = 120
 # machine.bar = 1

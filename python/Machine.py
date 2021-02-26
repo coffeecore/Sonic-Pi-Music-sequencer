@@ -51,7 +51,7 @@ class Machine:
         s = "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
         if len(channel.name) < 5:
              s = s + "\t\t"
-        elif len(channel.name) < 7:
+        elif len(channel.name) < 8:
              s = s + "\t"
         else:
             s = s + "... "
