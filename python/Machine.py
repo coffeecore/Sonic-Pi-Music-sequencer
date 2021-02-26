@@ -49,9 +49,9 @@ class Machine:
 
     def display_channel(self, channel, i = 0):
         s = "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
-        if len(channel.name) < 4:
+        if len(channel.name) < 5:
              s = s + "\t\t"
-        elif len(channel.name) < 8:
+        elif len(channel.name) < 7:
              s = s + "\t"
         else:
             s = s + "... "
