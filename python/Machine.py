@@ -12,7 +12,6 @@ class Machine:
         if position == None:
             self.channels.append(channel)
             return;
-        self.channels.remove(position)
         self.channels.insert(position, channel)
 
     def del_channel(self, position = None):
