@@ -94,3 +94,7 @@ Record features are commented in `main.rb`, some time issues on Rpi 3 for the mo
 ## Run
 
 `run_file "/absolute/path/to/main.rb"`
+
+## Python
+
+...
