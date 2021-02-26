@@ -78,7 +78,7 @@ end
 
 define :play_synth do |i, name|
   p = (sync :p)[0]
-  in_thread do
+  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -91,12 +91,12 @@ define :play_synth do |i, name|
         sleep sleepN
       end
     end
-  end
+  # end
 end
 
 define :play_external_sample do |i, name|
   p = (sync :p)[0]
-  in_thread do
+  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -107,12 +107,12 @@ define :play_external_sample do |i, name|
         sleep sleepN
       end
     end
-  end
+  # end
 end
 
 define :play_sample do |i, name|
   p = (sync :p)[0]
-  in_thread do
+  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -123,7 +123,7 @@ define :play_sample do |i, name|
         sleep sleepN
       end
     end
-  end
+  # end
 end
 
 live_loop :metronome do
