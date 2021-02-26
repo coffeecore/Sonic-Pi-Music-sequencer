@@ -84,7 +84,7 @@ class Channel:
             return self.patterns[pattern][step]
         return None
 
-    def display(self, i, pmax = 4):
+    def display(self, i, pmax = 4, eighth = 0.25):
         s = ''
         if self.type == 'synth':
             for pp in range(pmax):
@@ -98,7 +98,7 @@ class Channel:
                             for ii in range(4-len(str(ss['note']))):
                                 s = s+'-'
                             s = s + ' '
-                        a = int(self.sleeps[pp][iii]/0.25)
+                        a = int(self.sleeps[pp][iii]/eighth)
                         if a > 1:
                             for iii in range(a-1):
                                 s = s+'---- '
@@ -111,7 +111,7 @@ class Channel:
                             s = s+'None '
                         else:
                             s = s+'-X-- '
-                        a = int(self.sleeps[pp][iii]/0.25)
+                        a = int(self.sleeps[pp][iii]/eighth)
                         if a > 1:
                             for iii in range(a-1):
                                 s = s+'---- '
@@ -125,7 +125,7 @@ class Channel:
                         s = s+'None '
                     else:
                         s = s+"{:.2f}".format(ss)+' '
-                    a = int(ss/0.25)
+                    a = int(ss/eighth)
                     if a > 1:
                         for ii in range(a-1):
                             s = s+'---- '
