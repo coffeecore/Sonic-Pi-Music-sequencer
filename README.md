@@ -19,11 +19,6 @@ Launch Sonic Pi `live_loop` from json.
     {
         "type": "synth",
         "name": "tb303",
-        "opts": {
-            "release": 0.125,
-            "cutoff": 120,
-            "res": 0.5
-        },
         "fxs": {
             "distortion": {
                 "distort": 0.99
@@ -59,7 +54,7 @@ Launch Sonic Pi `live_loop` from json.
         "fxs": {
         },
         "patterns": [
-            [{"rate": 0.9}, None, {"rate": 0.5}, None]
+            [{"rate": 0.9}, {}, {"rate": 0.5}, None]
         ],
         "sleeps": [
             0.25, 0.25, 0.25
