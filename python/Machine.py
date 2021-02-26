@@ -24,7 +24,12 @@ class Machine:
             self.channels.pop(position)
 
     def display(self):
-        s = ''
+        s = "Settins :\n"
+        s = s + "Bpm \t"+str(self.bpm)+"\n"
+        s = s + "Bar \t"+str(self.bar)+"\n"
+        s = s + "Pmax \t"+str(self.pmax)+"\n"
+        s = s + "State \t"+self.state+"\n"
+        s = s + "\n"
         for i, channel in enumerate(self.channels):
             s = s + "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
             if len(channel.name) < 8:

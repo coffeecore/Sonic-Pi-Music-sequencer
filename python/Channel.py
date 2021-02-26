@@ -87,7 +87,7 @@ class Channel:
                 if len(self.patterns) > pp:
                     for iii, ss in enumerate(self.patterns[pp]):
                         if ss == None:
-                            s = s+'---- '
+                            s = s+'None '
                         else:
                             s = s+str(ss['note'])
                             for ii in range(4-len(str(ss['note']))):
@@ -119,7 +119,7 @@ class Channel:
             if len(self.sleeps) > pp:
                 for ss in self.sleeps[pp]:
                     if ss == None:
-                        s = s+'---- '
+                        s = s+'None '
                     else:
                         s = s+"{:.2f}".format(ss)+' '
                     a = int(ss/0.25)
