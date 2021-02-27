@@ -26,9 +26,9 @@ Launch Sonic Pi `live_loop` from json.
         },
         "patterns": [
             [
-                {"n": ":e1", "release": 0.125, "cutoff": 120, "res": 0.5},
-                {"n": "(chord :c4, : major)", "release": 0.125, "cutoff": 120, "res": 0.5},
-                None,
+                {"note": ":e1", "release": 0.125, "cutoff": 120, "res": 0.5},
+                {"note": [60, 61], "release": 0.125, "cutoff": 120, "res": 0.5},
+                {"note": None, "release": 0.125, "cutoff": 120, "res": 0.5},
                 None
             ]
         ],
@@ -74,7 +74,7 @@ See begin of `test.py` for example.
 
 | Feature                            | OSC URI          | Parameters                                                  |
 | ---------------------------------- | ---------------- | ----------------------------------------------------------- |
-| Set global volume                  | /settings        | ['volume', Float] between 0 and 5 (default)                 |
+| Set global volume                  | /settings        | ['volume', Float] between 0 and 5                |
 | Set playback state                 | /settings        | ['state', value] `stop` (default), `play` or `pause`        |
 | Set bpm                            | /settings        | ['bpm', Integer] default : 60                               |
 | ~Set eighth (One sleep divided by)~  | ~/settings~        | ~['eighth', Integer] default : 4~                             |

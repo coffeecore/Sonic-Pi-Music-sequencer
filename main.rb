@@ -9,8 +9,6 @@ set :bar, 4
 set :pmax, 1
 set :state, STATE[:stop]
 
-set_volume! 5
-
 live_loop :set_settings do
   name, value = sync "/osc*/settings"
   case name
@@ -75,14 +73,11 @@ end
 
 define :play_synth do |i, name|
   p = (sync :p)[0]
-  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
         step = i[:patterns][p].look
         if step != nil then
-          # note = eval(step[:n].to_s)
-          # step[:note] = note
           set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
         end
         sleep sleepN
