@@ -23,7 +23,7 @@ Launch Sonic Pi `live_loop` from json.
 
 | Feature                            | OSC URI          | Parameters                                                  |
 | ---------------------------------- | ---------------- | ----------------------------------------------------------- |
-| Set global volume                  | /settings        | ['volume', Float] between 0 and 5 (default)                 |
+| Set global volume                  | /settings        | ['volume', Float] between 0 and 5                |
 | Set playback state                 | /settings        | ['state', value] `stop` (default), `play` or `pause`        |
 | Set bpm                            | /settings        | ['bpm', Integer] default : 60                               |
 | ~Set eighth (One sleep divided by)~  | ~/settings~        | ~['eighth', Integer] default : 4~                             |

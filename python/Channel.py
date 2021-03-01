@@ -84,7 +84,7 @@ class Channel:
             return self.patterns[pattern][step]
         return None
 
-    def display(self, i, pmax = 4, eighth = 0.25):
+    def display(self, i: int, eighth: float, pmax: int):
         s = ''
         if self.type == 'synth':
             for pp in range(pmax):

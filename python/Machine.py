@@ -52,7 +52,7 @@ class Machine:
             s = s + self.display_channel(channel, i)
         return s
 
-    def display_channel(self, channel, i = 0):
+    def display_channel(self, channel, i = 0, eighth = 0.25):
         s = "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
         if len(channel.name) < 5:
              s = s + "\t\t"
@@ -60,7 +60,7 @@ class Machine:
              s = s + "\t"
         else:
             s = s + "... "
-        s = s + channel.display(i, self.pmax, self.eighth)
+        s = s + channel.display(i, self.eighth, self.pmax)
         s = s + " "+channel.name+"\n\n"
         return s
 
