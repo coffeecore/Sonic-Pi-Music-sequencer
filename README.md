@@ -43,6 +43,8 @@ Record features are commented in `main.rb`, some time issues on Rpi 3 for the mo
 
 ## Run
 
+Set `CHANNELS_PATH` constant in `main.rb` and `python/Machine.py` files
+
 ### Sonic Pi
 
 `run_file "/absolute/path/to/main.rb"`
