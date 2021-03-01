@@ -1,4 +1,5 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
+CHANNELS_PATH = "/Users/antoine/Music/Sonic Pi/.data"
 STATE = (map stop: 0, play: 1, pause: 2)
 
 use_debug true
@@ -9,17 +10,17 @@ set :bar, 4
 set :pmax, 1
 set :state, STATE[:stop]
 
-set_volume! 5
+channels = []
 
 live_loop :set_settings do
   name, value = sync "/osc*/settings"
   case name
-    when 'volume'
-      set_volume! value
-    when 'state'
-      set :state, STATE[value.to_sym]
-    else
-      set name.to_sym, value
+  when 'volume'
+    set_volume! value
+  when 'state'
+    set :state, STATE[value.to_sym]
+  else
+    set name.to_sym, value
   end
 end
 
@@ -30,11 +31,12 @@ live_loop :kill_loop do
   end
 end
 
-live_loop :channels do
-  json, = sync "/osc*/channels"
-  instrus     = JSON.parse(json, :symbolize_names => true)
-  instrus.each_with_index do |i, p|
-    create_loop p, i
+live_loop :channel_from_json do
+  channel, = sync "/osc*/channel/json"
+  if Pathname.new(CHANNELS_PATH+"/channel_#{channel}.json").exist? then
+    content = File.read(CHANNELS_PATH+"/channel_#{channel}.json")
+    content = JSON.parse(content, :symbolize_names => true)
+    create_loop channel, content
   end
 end
 
@@ -44,7 +46,7 @@ live_loop :channel do
   create_loop position, instru
 end
 
-live_loop :channel_options do 
+live_loop :channel_options do
   name, json = sync "/osc*/channel/options"
   with_arg_checks false do
     control (get (name+"_opts").to_sym), JSON.parse(json, :symbolize_names => true)
@@ -75,25 +77,23 @@ end
 
 define :play_synth do |i, name|
   p = (sync :p)[0]
-  # in_thread do
+  in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
         step = i[:patterns][p].look
         if step != nil then
-          # note = eval(step[:n].to_s)
-          # step[:note] = note
           set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
         end
         sleep sleepN
       end
     end
-  # end
+  end
 end
 
 define :play_external_sample do |i, name|
   p = (sync :p)[0]
-  # in_thread do
+  in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -104,12 +104,12 @@ define :play_external_sample do |i, name|
         sleep sleepN
       end
     end
-  # end
+  end
 end
 
 define :play_sample do |i, name|
   p = (sync :p)[0]
-  # in_thread do
+  in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -120,16 +120,16 @@ define :play_sample do |i, name|
         sleep sleepN
       end
     end
-  # end
+  end
 end
 
 live_loop :metronome do
-  # use_real_time
+  use_real_time
   while get(:state) != STATE[:play]
     use_bpm get(:bpm)
     if get(:state) == STATE[:stop] then
       tick_reset
-      tick # you must tick to avoid repeat first pattern
+      tick
       set :state, STATE[:pause]
     end
     sleep 1

@@ -1,12 +1,16 @@
 import json
 
 class Machine:
+    SAMPLES_FOLDER = "/Users/antoine/Music/Sonic Pi/samples"
+    CHANNELS_PATH  = "/Users/antoine/Music/Sonic Pi/.data"
+
     def __init__(self):
         self.bpm      = 60
         self.bar      = 4
         self.pmax     = 1
         self.state    = 'stop'
         self.channels = []
+        self.eighth   = 0.125
 
     def add_channel(self, channel, position = None):
         if position == None:
@@ -38,6 +42,7 @@ class Machine:
         s = s + "Bar \t"+str(self.bar)+"\n"
         s = s + "Pmax \t"+str(self.pmax)+"\n"
         s = s + "State \t"+self.state+"\n"
+        s = s + "Eighth \t"+str(self.eighth)+"\n"
         s = s + "\n"
         return s
 
@@ -51,21 +56,19 @@ class Machine:
         s = "["+str(i)+"]["+channel.type+"] "+channel.name[:8]
         if len(channel.name) < 5:
              s = s + "\t\t"
-        elif len(channel.name) < 8:
+        elif len(channel.name) < 9:
              s = s + "\t"
         else:
             s = s + "... "
-        s = s + channel.display(i, self.pmax)
+        s = s + channel.display(i, self.pmax, self.eighth)
         s = s + " "+channel.name+"\n\n"
         return s
 
-    def channels_to_list(self):
-        result = []
-        for channel in self.channels:
-            result.append(channel.__dict__)
+    def json_channels(self):
+        for i, channel in enumerate(self.channels):
+            self.json_channel(i)
 
-        return result
-
-    def json(self):
-        return json.dumps(self.channels_to_list())
+    def json_channel(self, i):
+        with open(self.CHANNELS_PATH+'/channel_'+str(i)+'.json', 'w') as outfile:
+            json.dump(self.channels[i].__dict__, outfile)
 
