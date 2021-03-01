@@ -9,3 +9,5 @@ synths/*
 !synths/.gitkeep
 dark_mist.rb
 python/__pycache__/*
+data/*
+!data/.gitkeep
