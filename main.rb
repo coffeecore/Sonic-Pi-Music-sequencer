@@ -1,5 +1,5 @@
 FILE_PATH = "/Users/antoine/Music/Sonic Pi"
-CHANNELS_PATH = "/Users/antoine/Music/Sonic Pi/.data"
+CHANNELS_PATH = '/Users/antoine/Music/Sonic Pi/.data'
 STATE = (map stop: 0, play: 1, pause: 2)
 
 use_debug true
@@ -34,6 +34,7 @@ end
 
 live_loop :channel_from_json do
   channel, = sync "/osc*/channel/json"
+  puts "OOOO"
   if Pathname.new(CHANNELS_PATH+"/channel_#{channel}.json").exist? then
     content = File.read(CHANNELS_PATH+"/channel_#{channel}.json")
     content = JSON.parse(content, :symbolize_names => true)

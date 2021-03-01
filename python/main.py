@@ -219,7 +219,7 @@ for i in range(8):
 # bizzet.json_channels()
 for i, c in enumerate(bizzet.channels):
     bizzet.json_channel(i)
-    sender.send_message('/ping/json', [i])
+    sender.send_message('/channel/json', [i])
 # bizzet.state = 'play'
 # sender.send_message('/settings', ['state', bizzet.state])
 # sender.send_message('/channels', [bizzet.json()])
