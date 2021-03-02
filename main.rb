@@ -34,7 +34,6 @@ end
 
 live_loop :channel_from_json do
   channel, = sync "/osc*/channel/json"
-  puts "OOOO"
   if Pathname.new(CHANNELS_PATH+"/channel_#{channel}.json").exist? then
     content = File.read(CHANNELS_PATH+"/channel_#{channel}.json")
     content = JSON.parse(content, :symbolize_names => true)

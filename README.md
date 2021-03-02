@@ -32,7 +32,7 @@ Launch Sonic Pi `live_loop` from json.
 | Kill a loop                        | /kill            | String `live_loop` name                                     |
 | ~Set channels~                     | ~/channels~      | ~Json~                                                      |
 | Send signal to read json channel file  | /channel         | [Integer `position`]                                  |
-| Set channel                        | /channel         | [Integer `position`, Json]                                  |
+| Set channel                        | /channel         | [Integer `position`, Json] (Caution : this command doesn't write JSON file)       |
 | Channel opts                       | /channel/options | [String `live_loop` name, Json]                             |
 | Channel FXs                        | /channel/fxs     | [String `live_loop` name, String FX name, Json]             |
 | Start record (*Experimental*)      | /record/start    | Start to record                                             |
