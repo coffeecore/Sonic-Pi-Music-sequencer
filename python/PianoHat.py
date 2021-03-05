@@ -18,7 +18,7 @@ class PianoHat:
         self.layout       = self.LAYOUT_CHANNEL
         self.mod          = self.MOD_KEY
         self.notes        = []
-        self.channel_max  = 0
+        self.pmax         = 0
 
     def get_pattern(self):
         return (self.pattern[0])*7+(self.pattern[1])

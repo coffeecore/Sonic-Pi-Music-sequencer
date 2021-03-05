@@ -32,19 +32,20 @@ live_loop :kill_loop do
   end
 end
 
-live_loop :channel_from_json do
-  channel, = sync "/osc*/channel/json"
-  if Pathname.new(CHANNELS_PATH+"/channel_#{channel}.json").exist? then
-    content = File.read(CHANNELS_PATH+"/channel_#{channel}.json")
+live_loop :channel_from_json_file do
+  channel, = sync "/osc*/channel/json/file"
+  filepath = CHANNELS_PATH+"/channel_#{channel}.json"
+  if Pathname.new(filepath).exist? then
+    content = File.read(filepath)
     content = JSON.parse(content, :symbolize_names => true)
     create_loop channel, content
   end
 end
 
-live_loop :channel do
-  position, json = sync "/osc*/channel"
+live_loop :channel_from_json do
+  channel, json = sync "/osc*/channel/json"
   instru     = JSON.parse(json, :symbolize_names => true)
-  create_loop position, instru
+  create_loop channel, instru
 end
 
 live_loop :channel_options do

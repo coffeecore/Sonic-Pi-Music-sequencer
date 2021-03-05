@@ -68,7 +68,7 @@ class Machine:
         for i, channel in enumerate(self.channels):
             self.json_channel(i)
 
-    def json_channel(self, i):
-        with open(self.CHANNELS_PATH+'/channel_'+str(i)+'.json', 'w') as outfile:
+    def json_channel(self, i, file_prefix = 'channel_'):
+        with open(self.CHANNELS_PATH+'/'+file_prefix+str(i)+'.json', 'w') as outfile:
             json.dump(self.channels[i].__dict__, outfile)
 

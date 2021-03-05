@@ -6,8 +6,9 @@ class Channel:
         self.patterns = []
         self.sleeps = []
         self.bar = bar
+        self.default_step_options = {}
 
-    def add_fx(self, fx):
+    def add_fx(self, fx: str):
         self.fxs[fx] = {}
 
     def del_fx(self, fx: str):
@@ -21,6 +22,13 @@ class Channel:
         if self.fxs.get(fx) != None:
             if self.fxs[fx].get(option) != None:
                 del(self.fxs[fx][option])
+
+    def add_default_step_option(self, option: str, value):
+        self.default_step_options[option] = value
+
+    def del_default_step_option(self, option: str):
+        if self.default_step_options.get(option) != None:
+            del(self.default_step_options[option])
 
     def add_step(self, pattern: int, step: int, sleep: float, value = None):
         if type == 'synth' and value is not None and len(value) == 0:
