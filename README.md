@@ -21,6 +21,7 @@ Launch Sonic Pi `live_loop` from json.
 ### 20210310
 
 - Remove some OSC commands for Rpi 3 (uncomment lines to enable)
+- Add write channel file when use `/channel/json` command
 
 ### 20210301
 

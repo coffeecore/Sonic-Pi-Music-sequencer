@@ -46,6 +46,8 @@ live_loop :channel_from_json do
   channel, json = sync "/osc*/channel/json"
   instru     = JSON.parse(json, :symbolize_names => true)
   create_loop channel, instru
+  filepath = CHANNELS_PATH+"/channel_#{channel}.json"
+  File.write(filepath, json)
 end
 
 # live_loop :channel_options do
