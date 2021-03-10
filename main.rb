@@ -48,17 +48,17 @@ live_loop :channel_from_json do
   create_loop channel, instru
 end
 
-live_loop :channel_options do
-  name, json = sync "/osc*/channel/options"
-  with_arg_checks false do
-    control (get (name+"_opts").to_sym), JSON.parse(json, :symbolize_names => true)
-  end
-end
+# live_loop :channel_options do
+#   name, json = sync "/osc*/channel/options"
+#   with_arg_checks false do
+#     control (get (name+"_opts").to_sym), JSON.parse(json, :symbolize_names => true)
+#   end
+# end
 
-live_loop :channel_fxs do
-  name, fx, json = sync "/osc*/channel/fxs"
-  control (get (name+"_fxs_"+fx).to_sym), JSON.parse(json, :symbolize_names => true)
-end
+# live_loop :channel_fxs do
+#   name, fx, json = sync "/osc*/channel/fxs"
+#   control (get (name+"_fxs_"+fx).to_sym), JSON.parse(json, :symbolize_names => true)
+# end
 
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
@@ -87,6 +87,7 @@ define :play_synth do |i, name, p|
         step = i[:patterns][p].look
         if step != nil then
           set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+          synth i[:name].to_sym, step
         end
         sleep sleepN
       end
@@ -102,7 +103,8 @@ define :play_external_sample do |i, name, p|
         sleepN = i[:sleeps][p].tick
         step = i[:patterns][p].look
         if step != nil then
-          set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+          # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+          sample i[:name].to_sym, step
         end
         sleep sleepN
       end
@@ -118,7 +120,8 @@ define :play_sample do |i, name, p|
         sleepN = i[:sleeps][p].tick
         step = i[:patterns][p].look
         if step != nil then
-          set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+          # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+          sample i[:name].to_sym, step
         end
         sleep sleepN
       end

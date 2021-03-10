@@ -5,14 +5,22 @@ Launch Sonic Pi `live_loop` from json.
 ## Todo
 
 - [ ] Run on RPi...
-    - [ ] Test with Rpi3 : Reverb FX consumes too many resources
-    - [ ] Test with RPi4
+    - [ ] Rpi3
+        - Reverb FX consumes too many resources
+        - Remove some commands (see strikethrough lines below)
+    - [ ] RPi4
+    - [x] Mac OS
+        - All commands work
 - [ ] Python part :
     - [ ] Piano HAT (WIP)
     - [ ] Potards
     - [ ] E-ink display
 
 ## Changelog
+
+### 20210310
+
+- Remove some OSC commands for Rpi 3 (uncomment lines to enable)
 
 ### 20210301
 
@@ -33,8 +41,8 @@ Launch Sonic Pi `live_loop` from json.
 | ~Set channels~                     | ~/channels~      | ~Json~                                                      |
 | Send signal to read json channel file  | /channel/json/file         | [Integer `position`]                                  |
 | Set channel                        | /channel/json         | [Integer `position`, Json] (Caution : this command doesn't write JSON file)       |
-| Channel opts                       | /channel/options | [String `live_loop` name, Json]                             |
-| Channel FXs                        | /channel/fxs     | [String `live_loop` name, String FX name, Json]             |
+| ~Channel opts~                       | ~/channel/options~ | ~[String `live_loop` name, Json]~                             |
+| ~Channel FXs~                        | ~/channel/fxs~     | ~[String `live_loop` name, String FX name, Json]~             |
 | Start record (*Experimental*)      | /record/start    | Start to record                                             |
 | Stop record (*Experimental*)       | /record/stop     | Stop record                                                 |
 | Save record (*Experimental*)       | /record/save     | Save record (Change `FILE_PATH` constant in `main.rb` file) |
