@@ -4,12 +4,12 @@ Launch Sonic Pi `live_loop` from json.
 
 ## Todo
 
-- [ ] Run on RPi...
-    - [ ] Rpi3
+- [ ] Platforms :
+    - [ ] Rpi3 :
         - Reverb FX consumes too many resources
         - Remove some commands (see strikethrough lines below)
-    - [ ] RPi4
-    - [x] Mac OS
+    - [ ] ~RPi4~ (don't own for the moment)
+    - [x] Mac OS X (10.14.6) :
         - All commands work
 - [ ] Python part :
     - [ ] Piano HAT (WIP)
@@ -20,7 +20,7 @@ Launch Sonic Pi `live_loop` from json.
 
 ### 20210310
 
-- Remove some OSC commands for Rpi 3 (uncomment lines to enable)
+- Remove some OSC commands for Rpi 3 (uncomment lines in `main.rb` to enable)
 - Add write channel file when use `/channel/json` command
 
 ### 20210301
