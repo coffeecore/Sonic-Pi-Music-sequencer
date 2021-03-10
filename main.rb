@@ -1,4 +1,4 @@
-FILE_PATH = "/Users/antoine/Music/Sonic Pi"
+FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 CHANNELS_PATH = '/Users/antoine/Music/Sonic Pi/.data'
 STATE = (map stop: 0, play: 1, pause: 2)
 
@@ -44,7 +44,7 @@ end
 
 live_loop :channel_from_json do
   channel, json = sync "/osc*/channel/json"
-  instru     = JSON.parse(json, :symbolize_names => true)
+  instru        = JSON.parse(json, :symbolize_names => true)
   create_loop channel, instru
   filepath = CHANNELS_PATH+"/channel_#{channel}.json"
   File.write(filepath, json)
@@ -66,11 +66,11 @@ define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   live_loop name.to_sym do
     use_bpm get(:bpm)
-    p = (sync :p)[0]
-    s = ""
+    p, = sync :p
+    s  = ""
     i[:fxs].each do |key, value|
       s += "with_fx :#{key}, #{value} do |f_#{key}| \n"
-      s += "set :#{name}_fxs_#{key}, f_#{key} \n"
+      # s += "set :#{name}_fxs_#{key}, f_#{key} \n"
     end
     s += "play_#{i[:type]} i, name, p \n"
     i[:fxs].each do |key, value|
@@ -86,9 +86,9 @@ define :play_synth do |i, name, p|
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
-        step = i[:patterns][p].look
+        step   = i[:patterns][p].look
         if step != nil then
-          set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+          # set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
           synth i[:name].to_sym, step
         end
         sleep sleepN
@@ -103,7 +103,7 @@ define :play_external_sample do |i, name, p|
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
-        step = i[:patterns][p].look
+        step   = i[:patterns][p].look
         if step != nil then
           # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
           sample i[:name].to_sym, step
@@ -120,7 +120,7 @@ define :play_sample do |i, name, p|
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
-        step = i[:patterns][p].look
+        step   = i[:patterns][p].look
         if step != nil then
           # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
           sample i[:name].to_sym, step
