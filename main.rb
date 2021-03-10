@@ -64,12 +64,13 @@ define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   live_loop name.to_sym do
     use_bpm get(:bpm)
+    p = (sync :p)[0]
     s = ""
     i[:fxs].each do |key, value|
       s += "with_fx :#{key}, #{value} do |f_#{key}| \n"
       s += "set :#{name}_fxs_#{key}, f_#{key} \n"
     end
-    s += "play_#{i[:type]} i, name \n"
+    s += "play_#{i[:type]} i, name, p \n"
     i[:fxs].each do |key, value|
       s += "end \n"
     end
@@ -77,9 +78,9 @@ define :create_loop do |p, i|
   end
 end
 
-define :play_synth do |i, name|
-  p = (sync :p)[0]
-  in_thread do
+define :play_synth do |i, name, p|
+  # p = (sync :p)[0]
+  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -90,12 +91,12 @@ define :play_synth do |i, name|
         sleep sleepN
       end
     end
-  end
+  # end
 end
 
-define :play_external_sample do |i, name|
-  p = (sync :p)[0]
-  in_thread do
+define :play_external_sample do |i, name, p|
+  # p = (sync :p)[0]
+  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -106,12 +107,12 @@ define :play_external_sample do |i, name|
         sleep sleepN
       end
     end
-  end
+  # end
 end
 
-define :play_sample do |i, name|
-  p = (sync :p)[0]
-  in_thread do
+define :play_sample do |i, name, p|
+  # p = (sync :p)[0]
+  # in_thread do
     if i[:patterns][p] != nil then
       i[:patterns][p].length.times do
         sleepN = i[:sleeps][p].tick
@@ -122,7 +123,7 @@ define :play_sample do |i, name|
         sleep sleepN
       end
     end
-  end
+  # end
 end
 
 live_loop :metronome do
