@@ -2,7 +2,7 @@ FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 CHANNELS_PATH = '/Users/antoine/Music/Sonic Pi/.data'
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug true
+use_debug false
 use_cue_logging false
 
 set :bpm, 60
@@ -32,22 +32,22 @@ live_loop :kill_loop do
   end
 end
 
-live_loop :channel_from_json_file do
-  channel, = sync "/osc*/channel/json/file"
-  filepath = CHANNELS_PATH+"/channel_#{channel}.json"
-  if Pathname.new(filepath).exist? then
-    content = File.read(filepath)
-    content = JSON.parse(content, :symbolize_names => true)
-    create_loop channel, content
-  end
-end
+# live_loop :channel_from_json_file do
+#   channel, = sync "/osc*/channel/json/file"
+#   filepath = CHANNELS_PATH+"/channel_#{channel}.json"
+#   if Pathname.new(filepath).exist? then
+#     content = File.read(filepath)
+#     content = JSON.parse(content, :symbolize_names => true)
+#     create_loop channel, content
+#   end
+# end
 
 live_loop :channel_from_json do
   channel, json = sync "/osc*/channel/json"
   instru        = JSON.parse(json, :symbolize_names => true)
   create_loop channel, instru
-  filepath = CHANNELS_PATH+"/channel_#{channel}.json"
-  File.write(filepath, json)
+  # filepath = CHANNELS_PATH+"/channel_#{channel}.json"
+  # File.write(filepath, json)
 end
 
 # live_loop :channel_options do
@@ -66,69 +66,63 @@ define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   live_loop name.to_sym do
     use_bpm get(:bpm)
-    p, = sync :p
-    s  = ""
-    i[:fxs].each do |key, value|
-      s += "with_fx :#{key}, #{value} do |f_#{key}| \n"
-      # s += "set :#{name}_fxs_#{key}, f_#{key} \n"
+    psync, = sync :p
+    create_fx(i, name, 0, i[:fxs].keys, psync)
+  end
+end
+
+define :create_fx do |i, name, fx_index, fxs_name, psync|
+  if fxs_name.length == 0 or fx_index >= fxs_name.length then
+    send("play_#{i[:type]}", i, name, psync)
+  end
+  if fx_index < fxs_name.length then
+    with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
+      fx_index = fx_index + 1
+      create_fx(i, name, fx_index, fxs_name, psync)
     end
-    s += "play_#{i[:type]} i, name, p \n"
-    i[:fxs].each do |key, value|
-      s += "end \n"
-    end
-    eval s
   end
 end
 
 define :play_synth do |i, name, p|
-  # p = (sync :p)[0]
-  # in_thread do
-    if i[:patterns][p] != nil then
-      i[:patterns][p].length.times do
-        sleepN = i[:sleeps][p].tick
-        step   = i[:patterns][p].look
-        if step != nil then
-          # set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
-          synth i[:name].to_sym, step
-        end
-        sleep sleepN
+  if i[:patterns][p] != nil then
+    i[:patterns][p].length.times do
+      sleepN = i[:sleeps][p].tick
+      step   = i[:patterns][p].look
+      if step != nil then
+        # set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
+        synth i[:name].to_sym, i[:default_step_options].merge(step)
       end
+      sleep sleepN
     end
-  # end
+  end
 end
 
 define :play_external_sample do |i, name, p|
-  # p = (sync :p)[0]
-  # in_thread do
-    if i[:patterns][p] != nil then
-      i[:patterns][p].length.times do
-        sleepN = i[:sleeps][p].tick
-        step   = i[:patterns][p].look
-        if step != nil then
-          # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
-          sample i[:name].to_sym, step
-        end
-        sleep sleepN
+  if i[:patterns][p] != nil then
+    i[:patterns][p].length.times do
+      sleepN = i[:sleeps][p].tick
+      step   = i[:patterns][p].look
+      if step != nil then
+        # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+        sample i[:name], i[:default_step_options].merge(step)
       end
+      sleep sleepN
     end
-  # end
+  end
 end
 
 define :play_sample do |i, name, p|
-  # p = (sync :p)[0]
-  # in_thread do
-    if i[:patterns][p] != nil then
-      i[:patterns][p].length.times do
-        sleepN = i[:sleeps][p].tick
-        step   = i[:patterns][p].look
-        if step != nil then
-          # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
-          sample i[:name].to_sym, step
-        end
-        sleep sleepN
+  if i[:patterns][p] != nil then
+    i[:patterns][p].length.times do
+      sleepN = i[:sleeps][p].tick
+      step   = i[:patterns][p].look
+      if step != nil then
+        # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
+        sample i[:name].to_sym, i[:default_step_options].merge(step)
       end
+      sleep sleepN
     end
-  # end
+  end
 end
 
 live_loop :metronome do

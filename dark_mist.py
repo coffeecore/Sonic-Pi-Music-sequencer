@@ -50,8 +50,8 @@ i = [
 
 
 
-sender.send_message('/settings', ['eighth', 4])
-time.sleep(0.2)
+# sender.send_message('/settings', ['eighth', 4])
+# time.sleep(0.2)
 sender.send_message('/settings', ['bar', 4])
 time.sleep(0.2)
 sender.send_message('/settings', ['pmax', 2])

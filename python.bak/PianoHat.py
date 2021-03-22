@@ -1,6 +1,3 @@
-from Machine import Machine
-import pianohat
-
 class PianoHat:
     LAYOUT_CHANNEL = 0
     LAYOUT_PATTERN = 1
@@ -21,7 +18,7 @@ class PianoHat:
         self.layout       = self.LAYOUT_CHANNEL
         self.mod          = self.MOD_KEY
         self.notes        = []
-        self.pmax         = 0
+        self.pmax         = 1
 
     def get_pattern(self):
         return (self.pattern[0])*7+(self.pattern[1])
