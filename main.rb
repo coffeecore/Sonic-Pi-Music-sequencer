@@ -64,18 +64,20 @@ end
 
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
+  fxs_name = i[:fxs].keys
   live_loop name.to_sym do
     use_bpm get(:bpm)
     psync, = sync :p
-    create_fx(i, name, 0, i[:fxs].keys, psync)
+    create_fx(i, name, 0, fxs_name, psync)
   end
 end
 
 define :create_fx do |i, name, fx_index, fxs_name, psync|
   if fxs_name.length == 0 or fx_index >= fxs_name.length then
     send("play_#{i[:type]}", i, name, psync)
-  end
-  if fx_index < fxs_name.length then
+  # end
+  # if fx_index < fxs_name.length then
+  else
     with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
       fx_index = fx_index + 1
       create_fx(i, name, fx_index, fxs_name, psync)

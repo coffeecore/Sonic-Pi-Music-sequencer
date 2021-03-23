@@ -193,7 +193,7 @@ def on_note_step(key: int, pressed: bool):
             pianohat.set_led(14, True)
             time.sleep(0.05)
             pianohat.set_led(14, False)
-            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {"note": [piano_hat.midi_note(key)]}
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {"note": [piano_hat.key_to_midi_note(key)]}
             piano_hat.step = piano_hat.step + 1
             return
         # Back to layout pattern and mod key after 8 notes type
@@ -207,14 +207,14 @@ def on_note_step(key: int, pressed: bool):
     if piano_hat.mod == piano_hat.MOD_KEY and machine.channels[piano_hat.channel].type == 'synth':
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] is None:
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {"note": []}
-        if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].index(piano_hat.midi_note(key)) is not None:
-            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].remove(piano_hat.midi_note(key))
+        if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].index(piano_hat.key_to_midi_note(key)) is not None:
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].remove(piano_hat.key_to_midi_note(key))
             return
-        machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].append(piano_hat.midi_note(key))
+        machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].append(piano_hat.key_to_midi_note(key))
         leds_step_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step])
 ## MIDI
 def on_note_midi(key: int, pressed: bool):
-    note = piano_hat.midi_note(key)
+    note = piano_hat.key_to_midi_note(key)
 
 ## INSTRUMENT
 ### CHANNEL
@@ -276,9 +276,9 @@ def leds_step_on(step):
         for i, note in enumerate(step.get("note")):
             if none is not None:
                 k_l = [piano_hat.WHITE_KEYS] + [piano_hat.BLACK_KEYS]
-                pianohat.set_led(k_l[k_l.index(((piano_hat.octave)*12-note))*(-1)], True)
+                pianohat.set_led(k_l[k_l.index(piano_hat.midi_note_to_key(key))], True)
                 continue
-            pianohat.set_led(k_l[k_l.index(((piano_hat.octave)*12-note))*(-1)], False)
+            pianohat.set_led(k_l[k_l.index(piano_hat.midi_note_to_key(key))], False)
 
 def print_info(key_string: str):
     print('#############################')
@@ -409,12 +409,12 @@ def handle_note(key:int, pressed: bool):
     if piano_hat.layout == piano_hat.LAYOUT_STEP and pressed:
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] is None:
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {"note": []}
-        machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]['note'].append(piano_hat.midi_note(key))
+        machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]['note'].append(piano_hat.key_to_midi_note(key))
         return
     if piano_hat.layout == piano_hat.LAYOUT_NOTE and pressed:
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] is None:
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {"note": []}
-        machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]['note'].append(piano_hat.midi_note(key))
+        machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]['note'].append(piano_hat.key_to_midi_note(key))
 
 
 def handle_instrument(key: int, pressed: bool):
