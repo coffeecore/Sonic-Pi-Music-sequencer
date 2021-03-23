@@ -1,6 +1,10 @@
 # :musical_keyboard: Sonic Pi Json Sequencer
 
-Launch Sonic Pi `live_loop` from json.
+Launch Sonic Pi `live_loop` from json with Piano HAT.
+
+## UI
+
+![ui_preview](https://github.com/coffeecore/sonic-pi-json-sequencer/raw/master/ui.png)
 
 ## Todo
 
@@ -11,27 +15,13 @@ Launch Sonic Pi `live_loop` from json.
     - [ ] ~RPi4~ (don't own for the moment)
     - [x] Mac OS X (10.14.6) :
         - All commands work
+- [ ] Sonic Pi part :
+    - [ ] Add code live play
+    - [ ] Optimize for Rpi
 - [ ] Python part :
     - [ ] Piano HAT (WIP)
     - [ ] Potards
     - [ ] E-ink display
-
-## Changelog
-
-## 20210323
-
-- Rewrite fx creation in Sonic Pi
-- Begin PianoHat part
-
-### 20210310
-
-- Remove some OSC commands for Rpi 3 (uncomment lines in `main.rb` to enable)
-- Add write channel file when use `/channel/json` command
-
-### 20210301
-
-- Read channel information from json file
-- Adapt Python part
 
 ## OSC commands
 
