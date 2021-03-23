@@ -188,13 +188,21 @@ def on_note_pattern_synth(key: int, pressed: bool):
 def on_note_step(key: int, pressed: bool):
     if piano_hat.mod == piano_hat.MOD_LIVE and machine.channels[piano_hat.channel].type == 'synth':
         if piano_hat.step < 8:
+            pianohat.set_led(14, False)
+            time.sleep(0.05)
             pianohat.set_led(14, True)
             time.sleep(0.05)
             pianohat.set_led(14, False)
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {"note": [piano_hat.midi_note(key)]}
             piano_hat.step = piano_hat.step + 1
             return
+        # Back to layout pattern and mod key after 8 notes type
         piano_hat.step = 0
+        piano_hat.layout = piano_hat.LAYOUT_PATTERN
+        pianohat.set_led(14, False)
+        piano_hat.mod = piano_hat.MOD_KEY
+        osc_sender.send_message('/channel/json', [piano_hat.channel, json.dumps(machine.channels[piano_hat.channel].__dict__)])
+        leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
         return
     if piano_hat.mod == piano_hat.MOD_KEY and machine.channels[piano_hat.channel].type == 'synth':
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] is None:
