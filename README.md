@@ -18,6 +18,11 @@ Launch Sonic Pi `live_loop` from json.
 
 ## Changelog
 
+## 20210323
+
+- Rewrite fx creation in Sonic Pi
+- Begin PianoHat part
+
 ### 20210310
 
 - Remove some OSC commands for Rpi 3 (uncomment lines in `main.rb` to enable)

@@ -86,6 +86,9 @@ def handle_note(key: int, pressed: bool):
     if piano_hat.layout == piano_hat.LAYOUT_STEP and pressed:
         on_note_step(key, pressed)
         return
+    if piano_hat.layout == piano_hat.LAYOUT_MIDI and pressed:
+        on_note_midi(key, pressed)
+        return
 ## INSTRUMENT
 def handle_instrument(key: int, pressed: bool):
     print_info('instrument')
@@ -98,6 +101,9 @@ def handle_instrument(key: int, pressed: bool):
     if piano_hat.layout == piano_hat.LAYOUT_STEP and pressed:
         on_instrument_step(key, pressed)
         return
+    if piano_hat.layout == piano_hat.LAYOUT_MIDI and pressed:
+        on_instrument_midi(key, pressed)
+        return
 
 
 
@@ -109,7 +115,10 @@ def on_octave_up_channel(key: int, pressed: bool):
     if piano_hat.channel < len(machine.channels)-1:
         piano_hat.channel += 1
     else :
-        piano_hat.channel = 0
+        piano_hat.channel = -1
+    if piano_hat.channel == -1:
+        leds_off()
+        pianohat.set_led(15, True)
 ## PATTERN
 def on_octave_up_pattern(key: int, pressed: bool):
     if machine.channels[piano_hat.channel].type == 'synth':
@@ -128,7 +137,7 @@ def on_octave_up_step(key: int, pressed: bool):
 ## OCTAVE DOWN
 ### CHANNEL
 def on_octave_down_channel(key: int, pressed: bool):
-    if piano_hat.channel == 0:
+    if piano_hat.channel == -1:
         piano_hat.channel = len(machine.channels)-1
     else:
         piano_hat.channel -= 1
@@ -174,6 +183,7 @@ def on_note_pattern_sample(key: int, pressed: bool):
 def on_note_pattern_synth(key: int, pressed: bool):
     piano_hat.layout = piano_hat.LAYOUT_STEP
     piano_hat.step = piano_hat.WHITE_KEYS.index(key)
+    leds_step_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step])
 ## STEP
 def on_note_step(key: int, pressed: bool):
     if piano_hat.mod == piano_hat.MOD_LIVE and machine.channels[piano_hat.channel].type == 'synth':
@@ -193,13 +203,19 @@ def on_note_step(key: int, pressed: bool):
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].remove(piano_hat.midi_note(key))
             return
         machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].append(piano_hat.midi_note(key))
-
+        leds_step_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step])
+## MIDI
+def on_note_midi(key: int, pressed: bool):
+    note = piano_hat.midi_note(key)
 
 ## INSTRUMENT
 ### CHANNEL
 def on_instrument_channel(key: int, pressed: bool):
     piano_hat.layout = piano_hat.LAYOUT_PATTERN
-    if len(machine.channels[piano_hat.channel].patterns) <= piano_hat.get_pattern():
+    if piano_hat.channel == -1:
+        piano_hat.layout = piano_hat.LAYOUT_MIDI
+        leds_off()
+    elif len(machine.channels[piano_hat.channel].patterns) <= piano_hat.get_pattern():
         for i in range(piano_hat.get_pattern()+1):
             if len(machine.channels[piano_hat.channel].patterns) <= i:
                 machine.channels[piano_hat.channel].patterns.insert(i, [None for _ in range(8) ])
@@ -216,8 +232,11 @@ def on_instrument_step(key: int, pressed: bool):
     pianohat.set_led(14, False)
     piano_hat.mod = piano_hat.MOD_KEY
     osc_sender.send_message('/channel/json', [piano_hat.channel, json.dumps(machine.channels[piano_hat.channel].__dict__)])
-
-
+    leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+## NOTE
+def on_instrument_midi(key: int, pressed: bool):
+    piano_hat.layout = piano_hat.LAYOUT_CHANNEL
+    leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
 
 
 # LED HANDLER

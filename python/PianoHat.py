@@ -6,6 +6,7 @@ class PianoHat:
     LAYOUT_PATTERN = 1
     LAYOUT_STEP    = 2
     LAYOUT_NOTE    = 3
+    LAYOUT_MIDI    = 4
 
     MOD_KEY        = 0
     MOD_LIVE       = 1
