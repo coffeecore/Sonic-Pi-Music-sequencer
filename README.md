@@ -2,7 +2,7 @@
 
 Launch Sonic Pi `live_loop` from json with Piano HAT.
 
-## UI
+## UI (WIP)
 
 ![ui_preview](https://github.com/coffeecore/sonic-pi-json-sequencer/raw/master/ui.png)
 
