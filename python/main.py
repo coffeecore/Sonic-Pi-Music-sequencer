@@ -39,15 +39,21 @@ drum_cymbal_closed_channel = Channel('sample', 'drum_cymbal_closed')
 drum_cymbal_closed_channel.bar  = machine.bar
 machine.add_channel(drum_cymbal_closed_channel)
 
-fm_channel = Channel('synth', 'fm')
-fm_channel.bar  = machine.bar
-machine.add_channel(fm_channel)
+sn_dub_channel = Channel('sample', 'sn_dub')
+sn_dub_channel.bar  = machine.bar
+machine.add_channel(sn_dub_channel)
+
+tb303_channel = Channel('synth', 'tb303')
+tb303_channel.bar  = machine.bar
+machine.add_channel(tb303_channel)
+
+zawa_channel = Channel('synth', 'zawa')
+zawa_channel.bar  = machine.bar
+machine.add_channel(zawa_channel)
 ## End channels init
 
 ## PianoHAT init
 piano_hat = PianoHat()
-piano_hat.pmax = machine.pmax
-
 
 # KEY HANDLER
 ## OCTAVE UP
@@ -169,14 +175,15 @@ def on_note_channel(key: int, pressed: bool):
     leds_channel_on()
 ### Pattern
 def on_note_pattern(key: int, pressed: bool):
-    if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] is None:
-        if machine.channels[piano_hat.channel].type == 'sample' or machine.channels[piano_hat.channel].type == 'external_sample':
+    if machine.channels[piano_hat.channel].type == 'sample' or machine.channels[piano_hat.channel].type == 'external_sample':
+        if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] is None:
             on_note_pattern_sample(key, pressed)
-        if machine.channels[piano_hat.channel].type == 'synth':
-            on_note_pattern_synth(key, pressed)
-        return
-    machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = None
-    leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+        else:
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = None
+        leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+    elif machine.channels[piano_hat.channel].type == 'synth':
+        # if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] is None:
+        on_note_pattern_synth(key, pressed)
 def on_note_pattern_sample(key: int, pressed: bool):
     machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = {}
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
@@ -280,18 +287,27 @@ def leds_step_on(step):
                 continue
             pianohat.set_led(k_l[k_l.index(piano_hat.midi_note_to_key(key))], False)
 
+# MISC FUNCTIONS
 def print_info(key_string: str):
-    print('#############################')
-    print('KEY '+key_string)
-    print('LAYOUT '+str(piano_hat.layout))
-    print('MOD '+str(piano_hat.mod))
-    print('CHANNEL '+str(piano_hat.channel))
-    print('OCTAVE '+str(piano_hat.octave))
-    print('STEP '+str(piano_hat.step))
-    print('PATTERNS '+str(machine.channels[piano_hat.channel].patterns))
-
-
-
+    print('##########################')
+    print('## Sonic Pi - Piano HAT ##')
+    print('##########################')
+    print('KEY : '+key_string)
+    print('LAYOUT : '+str(piano_hat.layout))
+    print(piano_hat.get_layout())
+    print('MOD : '+str(piano_hat.mod))
+    print(piano_hat.get_mod())
+    print('CHANNEL : '+str(piano_hat.channel))
+    print(machine.channels[piano_hat.channel].type+' : '+machine.channels[piano_hat.channel].name)
+    print('OCTAVE : '+str(piano_hat.octave))
+    print('STEP : '+str(piano_hat.step))
+    print('PATTERNS : '+str(machine.channels[piano_hat.channel].patterns))
+    print('##########################')
+    print()
+def signal_handler(signal, frame):
+  leds_off()
+  print()
+  sys.exit(0)
 
 # PIANOHAT PCB INIT
 pianohat.auto_leds(False)
@@ -303,14 +319,24 @@ leds_off()
 leds_on(0.01)
 leds_off()
 
-def signal_handler(signal, frame):
-  leds_off()
-  print()
-  sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 signal.pause()
 
 exit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
