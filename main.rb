@@ -2,7 +2,7 @@ FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 CHANNELS_PATH = '/Users/antoine/Music/Sonic Pi/.data'
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug true
+use_debug false
 use_cue_logging false
 
 set :bpm, 60

@@ -1,6 +1,6 @@
 # :musical_keyboard: Sonic Pi Json Sequencer
 
-Launch Sonic Pi `live_loop` from json with Piano HAT.
+Use Piano HAT like a step sequencer. You can record a notes sequence (continue for the moment) on synth channel. Simple on/off for sample channels. You can also play a note on a channel without save.
 
 ## UI (WIP)
 
@@ -9,7 +9,7 @@ Launch Sonic Pi `live_loop` from json with Piano HAT.
 ## Todo
 
 - [ ] Platforms :
-    - [ ] Rpi3 :
+    - [ ] Rpi3 : [2021-03-24] Project runs
         - Reverb FX consumes too many resources
         - Remove some commands (see strikethrough lines below)
     - [ ] ~RPi4~ (don't own for the moment)
@@ -19,8 +19,15 @@ Launch Sonic Pi `live_loop` from json with Piano HAT.
     - [ ] Add code live play
     - [ ] Optimize for Rpi
 - [ ] Python part :
-    - [ ] Piano HAT (WIP)
-    - [ ] Potards
+    - [ ] Piano HAT (WIP) [2021-03-24] Major features made
+        - [ ] Config file for channels configuration
+    - [ ] Potards / Buttons
+        - [ ] Add channel on the fly
+        - [ ] Change channel sample/synth
+        - [ ] Add/remove FXs
+        - [ ] Add/remove default channel options
+        - [ ] Add/remove step options
+        - [ ] Control live played note
     - [ ] E-ink display
 
 ## OSC commands
@@ -35,8 +42,9 @@ Launch Sonic Pi `live_loop` from json with Piano HAT.
 | Set max pattern to play            | /settings        | ['pmax', Integer] default : 4                               |
 | Kill a loop                        | /kill            | String `live_loop` name                                     |
 | ~Set channels~                     | ~/channels~      | ~Json~                                                      |
-| Send signal to read json channel file  | /channel/json/file         | [Integer `position`]                                  |
+| ~Send signal to read json channel file~  | ~/channel/json/file~         | ~[Integer `position`]~                                  |
 | Set channel                        | /channel/json         | [Integer `position`, Json]       |
+| Play a note on channel  | /channel/play         | [Integer `position`, note]       |
 | ~Channel opts~                       | ~/channel/options~ | ~[String `live_loop` name, Json]~                             |
 | ~Channel FXs~                        | ~/channel/fxs~     | ~[String `live_loop` name, String FX name, Json]~             |
 | Start record (*Experimental*)      | /record/start    | Start to record                                             |
@@ -47,7 +55,7 @@ Record features are commented in `main.rb`, some time issues on Rpi 3 for the mo
 
 ## Run
 
-Set `CHANNELS_PATH` constant in `main.rb` and `python/Machine.py` files
+~Set `CHANNELS_PATH` constant in `main.rb` and `python/Machine.py` files~
 
 ### Sonic Pi
 
@@ -55,14 +63,7 @@ Set `CHANNELS_PATH` constant in `main.rb` and `python/Machine.py` files
 
 ### Python
 
-Install [python-osc](https://pypi.org/project/python-osc/) : `pip install python-osc`
+- [python-osc](https://pypi.org/project/python-osc/)
+- [PianoHAT](https://github.com/pimoroni/Piano-HAT/)
 
 `python3 python/main.py`
-
-## Python
-
-### Machine
-
-### Channel
-
-### PianoHat
