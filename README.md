@@ -1,6 +1,14 @@
 # :musical_keyboard: Sonic Pi Json Sequencer
 
-Use Piano HAT like a step sequencer. You can record a notes sequence (continue for the moment) on synth channel. Simple on/off for sample channels. You can also play a note on a channel without save.
+A very simple step pattern and music instrument powered by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone") and controled by a [Piano HAT](https://github.com/pimoroni/Piano-HAT "Python library and examples for Piano HAT Raspberry Pi Add-on board") ~, some potards, buttons and with a E-Ink screen~ (N/A) 
+
+- 40 patterns
+- 8 steps by pattern
+- Sonic Pi Synth
+- Samples
+- Options
+- ~FXs~ (N/A)
+- Midi note
 
 ## UI (WIP)
 
