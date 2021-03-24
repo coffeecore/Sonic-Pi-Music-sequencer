@@ -46,8 +46,16 @@ live_loop :channel_from_json do
   channel, json = sync "/osc*/channel/json"
   instru        = JSON.parse(json, :symbolize_names => true)
   create_loop channel, instru
+  set "channel_#{channel}".to_sym, instru
   # filepath = CHANNELS_PATH+"/channel_#{channel}.json"
   # File.write(filepath, json)
+end
+
+live_loop :channel_play do
+  channel, note = sync "/osc*/channel/play"
+  instru = get "channel_#{channel}".to_sym
+  synth instru[:name].to_sym, instru[:default_step_options].merge({:note => note}) if instru[:type] == 'synth'
+  sample instru[:name], instru[:default_step_options] if instru[:type] == 'sample' or instru[:type] == 'external_sample'
 end
 
 # live_loop :channel_options do

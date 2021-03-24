@@ -18,10 +18,12 @@ class PianoHat:
 
     MOD_KEY        = 0
     MOD_LIVE       = 1
+    MOD_REC        = 2
 
     MODS = [
         'Key',
-        'Live'
+        'Live',
+        'Rec'
     ]
 
     BLACK_KEYS = [1, 3, 6, 8, 10]
