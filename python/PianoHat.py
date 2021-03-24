@@ -31,7 +31,7 @@ class PianoHat:
 
     def __init__(self):
         self.octave       = 5
-        self.channel      = -1
+        self.channel      = 0
         self.pattern      = [0, 0]
         self.step         = 0
         self.layout       = self.LAYOUT_CHANNEL
@@ -45,7 +45,7 @@ class PianoHat:
         return (self.octave)*12+key
 
     def midi_note_to_key(self, note: int):
-        return (self.octave)*12-note*(-1)
+        return ((self.octave)*12-note)*(-1)
 
     def get_layout(self):
         return self.LAYOUTS[self.layout]
