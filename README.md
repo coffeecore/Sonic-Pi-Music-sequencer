@@ -9,23 +9,30 @@ Use Piano HAT like a step sequencer. You can record a notes sequence (continue f
 ## Todo
 
 - [ ] Platforms :
-    - [ ] Rpi3 : [2021-03-24] Project runs
+    - [x] Rpi3 : [2021-03-24] Project runs
         - Reverb FX consumes too many resources
         - Remove some commands (see strikethrough lines below)
-    - [ ] ~RPi4~ (don't own for the moment)
+    - [ ] RPi4 (don't own for the moment)
     - [x] Mac OS X (10.14.6) :
         - All commands work
-- [ ] Sonic Pi part :
+- [x] Sonic Pi part :
     - [ ] Add code live play
-    - [ ] Optimize for Rpi
+        - [ ] Add FX
+    - [x] Optimize for Rpi
 - [ ] Python part :
+    - [ ] Clean code...
     - [ ] Piano HAT (WIP) [2021-03-24] Major features made
         - [ ] Config file for channels configuration
+        - [ ] Change JSON format to MessagePack
+        - [ ] Add default live options
+        - [ ] Add defaults live FXs
     - [ ] Potards / Buttons
         - [ ] Add channel on the fly
         - [ ] Change channel sample/synth
         - [ ] Add/remove FXs
         - [ ] Add/remove default channel options
+        - [ ] Add/remove default live options
+        - [ ] Add/remove default live Fxs
         - [ ] Add/remove step options
         - [ ] Control live played note
     - [ ] E-ink display
@@ -55,7 +62,7 @@ Record features are commented in `main.rb`, some time issues on Rpi 3 for the mo
 
 ## Run
 
-~Set `CHANNELS_PATH` constant in `main.rb` and `python/Machine.py` files~
+Change IP in `python/main.py`
 
 ### Sonic Pi
 
