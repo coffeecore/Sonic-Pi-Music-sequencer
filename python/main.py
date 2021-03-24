@@ -16,8 +16,8 @@ import time
 
 
 # OSC init
-# osc_sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
-osc_sender = udp_client.SimpleUDPClient('192.168.1.15', 4560)
+osc_sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
+# osc_sender = udp_client.SimpleUDPClient('192.168.1.15', 4560)
 
 ## Machine init
 machine = Machine()
@@ -29,21 +29,21 @@ osc_sender.send_message('/settings', ['bar', machine.bar])
 osc_sender.send_message('/settings', ['pmax', machine.pmax])
 
 ## Channels init
-# bd_tek_channel = Channel('sample', 'bd_tek')
-bd_tek_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/BT/BTAA0D7.WAV')
+bd_tek_channel = Channel('sample', 'bd_tek')
+# bd_tek_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/BT/BTAA0D7.WAV')
 bd_tek_channel.bar  = machine.bar
 machine.add_channel(bd_tek_channel)
 # bd_tek_channel.patterns = [ [None for _ in range(8) ] for _ in range(40)]
 # bd_tek_channel.sleeps = [ [0.25 for _ in range(8) ] for _ in range(40)]
 
-# drum_cymbal_closed_channel = Channel('sample', 'drum_cymbal_closed')
-drum_cymbal_closed_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/HHCD/HHCD0.WAV')
+drum_cymbal_closed_channel = Channel('sample', 'drum_cymbal_closed')
+# drum_cymbal_closed_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/HHCD/HHCD0.WAV')
 drum_cymbal_closed_channel.default_step_options = {"amp": 0.5}
 drum_cymbal_closed_channel.bar  = machine.bar
 machine.add_channel(drum_cymbal_closed_channel)
 
-# sn_dub_channel = Channel('sample', 'sn_dub')
-sn_dub_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/ST/ST0T0S3.WAV')
+sn_dub_channel = Channel('sample', 'sn_dub')
+# sn_dub_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/ST/ST0T0S3.WAV')
 sn_dub_channel.bar  = machine.bar
 machine.add_channel(sn_dub_channel)
 
@@ -199,6 +199,7 @@ def on_note_pattern(key: int, pressed: bool):
             else:
                 machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = None
             leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+            pianohat.set_led(15, True)
     elif machine.channels[piano_hat.channel].type == 'synth':
         if piano_hat.BLACK_KEYS.count(key) != 0:
             piano_hat.layout = piano_hat.LAYOUT_STEP
@@ -210,6 +211,7 @@ def on_note_pattern(key: int, pressed: bool):
 def on_note_pattern_sample(key: int, pressed: bool):
     machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = {**{}, **machine.channels[piano_hat.channel].default_step_options}
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+    pianohat.set_led(15, True)
 def on_note_pattern_synth(key: int, pressed: bool):
     piano_hat.layout = piano_hat.LAYOUT_STEP
     piano_hat.step = piano_hat.WHITE_KEYS.index(key)
