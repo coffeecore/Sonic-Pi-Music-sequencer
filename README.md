@@ -4,11 +4,12 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
 
 - 40 patterns
 - 8 steps by pattern
+- instrument mode
 - Sonic Pi Synth
 - Samples
 - Options
-- ~FXs~ (N/A)
-- Midi note
+- FXs
+- ~Midi note~ (N/A)
 
 ## UI (WIP)
 
