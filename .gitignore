@@ -1,7 +1,10 @@
 .DS_Store
+.*DS_Store
 model.rb
 samples/*
 !samples/.gitkeep
+Samples/*
+!Samples/.gitkeep
 records/*
 !records/.gitkeep
 SonicPiSuperColliderSynthDefs

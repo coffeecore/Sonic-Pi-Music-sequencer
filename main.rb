@@ -2,13 +2,13 @@ FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 CHANNELS_PATH = '/Users/antoine/Music/Sonic Pi/.data'
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug false
+use_debug true
 use_cue_logging false
 
 set :bpm, 60
 set :bar, 4
 set :pmax, 1
-set :state, STATE[:stop]
+set :state, STATE[:play]
 
 
 channels = []
@@ -52,10 +52,11 @@ live_loop :channel_from_json do
 end
 
 live_loop :channel_play do
+  use_real_time
   channel, note = sync "/osc*/channel/play"
   instru = get "channel_#{channel}".to_sym
-  synth instru[:name].to_sym, instru[:default_step_options].merge({:note => note}) if instru[:type] == 'synth'
-  sample instru[:name], instru[:default_step_options] if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+  synth instru[:name].to_sym, instru[:default_step_options].to_h.merge({:note => note}) if instru[:type] == 'synth'
+  sample instru[:name], instru[:default_step_options].to_h if instru[:type] == 'sample' or instru[:type] == 'external_sample'
 end
 
 # live_loop :channel_options do
@@ -83,8 +84,8 @@ end
 define :create_fx do |i, name, fx_index, fxs_name, psync|
   if fxs_name.length == 0 or fx_index >= fxs_name.length then
     send("play_#{i[:type]}", i, name, psync)
-  # end
-  # if fx_index < fxs_name.length then
+    # end
+    # if fx_index < fxs_name.length then
   else
     with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
       fx_index = fx_index + 1
