@@ -22,7 +22,7 @@ osc_sender = udp_client.SimpleUDPClient('192.168.1.15', 4560)
 ## Machine init
 machine = Machine()
 machine.bpm = 60
-machine.pmax = 2
+machine.pmax = 4
 machine.bar = 2
 machine.eighth = 0.25
 osc_sender.send_message('/settings', ['bar', machine.bar])
@@ -231,6 +231,7 @@ def on_note_step(key: int, pressed: bool):
         piano_hat.mod = piano_hat.MOD_KEY
         osc_sender.send_message('/channel/json', [piano_hat.channel, json.dumps(machine.channels[piano_hat.channel].__dict__)])
         leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+        pianohat.set_led(15, True)
         return
     if piano_hat.mod == piano_hat.MOD_KEY and machine.channels[piano_hat.channel].type == 'synth':
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] is None:
@@ -263,6 +264,7 @@ def on_instrument_channel(key: int, pressed: bool):
                 machine.channels[piano_hat.channel].patterns.insert(i, [None for _ in range(8) ])
                 machine.channels[piano_hat.channel].sleeps.insert(i, [0.25 for _ in range(8) ])
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+    pianohat.set_led(15, True)
 ### PATTERN
 def on_instrument_pattern(key: int, pressed: bool):
     piano_hat.layout = piano_hat.LAYOUT_CHANNEL
@@ -275,12 +277,14 @@ def on_instrument_step(key: int, pressed: bool):
     piano_hat.mod = piano_hat.MOD_KEY
     osc_sender.send_message('/channel/json', [piano_hat.channel, json.dumps(machine.channels[piano_hat.channel].__dict__)])
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+    pianohat.set_led(15, True)
 ## NOTE
 def on_instrument_midi(key: int, pressed: bool):
     piano_hat.layout = piano_hat.LAYOUT_PATTERN
     piano_hat.mod = piano_hat.MOD_KEY
     pianohat.set_led(14, False)
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+    pianohat.set_led(15, True)
 
 
 # LED HANDLER
