@@ -7,6 +7,8 @@ class Channel:
         self.sleeps               = []
         self.bar                  = bar
         self.default_step_options = {}
+        self.live_options         = {}
+        self.live_fxs             = {}
 
     def add_fx(self, fx: str):
         self.fxs[fx] = {}
