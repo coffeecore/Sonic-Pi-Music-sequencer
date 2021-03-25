@@ -1,5 +1,4 @@
 FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
-CHANNELS_PATH = '/Users/antoine/Music/Sonic Pi/.data'
 STATE = (map stop: 0, play: 1, pause: 2)
 
 use_debug false
@@ -9,9 +8,6 @@ set :bpm, 60
 set :bar, 4
 set :pmax, 1
 set :state, STATE[:play]
-
-
-channels = []
 
 live_loop :set_settings do
   name, value = sync "/osc*/settings"
@@ -32,23 +28,11 @@ live_loop :kill_loop do
   end
 end
 
-# live_loop :channel_from_json_file do
-#   channel, = sync "/osc*/channel/json/file"
-#   filepath = CHANNELS_PATH+"/channel_#{channel}.json"
-#   if Pathname.new(filepath).exist? then
-#     content = File.read(filepath)
-#     content = JSON.parse(content, :symbolize_names => true)
-#     create_loop channel, content
-#   end
-# end
-
 live_loop :channel_from_json do
   channel, json = sync "/osc*/channel/json"
-  instru        = JSON.parse(json, :symbolize_names => true)
+  instru        = MultiJson.load(json, :symbolize_keys => true)
   create_loop channel, instru
   set "channel_#{channel}".to_sym, instru
-  # filepath = CHANNELS_PATH+"/channel_#{channel}.json"
-  # File.write(filepath, json)
 end
 
 live_loop :channel_play do
@@ -71,18 +55,6 @@ define :create_fx_channel_play do |instru, note, fx_index, fxs_name|
   end
 end
 
-# live_loop :channel_options do
-#   name, json = sync "/osc*/channel/options"
-#   with_arg_checks false do
-#     control (get (name+"_opts").to_sym), JSON.parse(json, :symbolize_names => true)
-#   end
-# end
-
-# live_loop :channel_fxs do
-#   name, fx, json = sync "/osc*/channel/fxs"
-#   control (get (name+"_fxs_"+fx).to_sym), JSON.parse(json, :symbolize_names => true)
-# end
-
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   fxs_name = i[:fxs].keys
@@ -96,8 +68,6 @@ end
 define :create_fx do |i, name, fx_index, fxs_name, psync|
   if fxs_name.length == 0 or fx_index >= fxs_name.length then
     send("play_#{i[:type]}", i, name, psync)
-    # end
-    # if fx_index < fxs_name.length then
   else
     with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
       fx_index = fx_index + 1
@@ -112,7 +82,6 @@ define :play_synth do |i, name, p|
       sleepN = i[:sleeps][p].tick
       step   = i[:patterns][p].look
       if step != nil then
-        # set (name+"_opts").to_sym, (synth i[:name].to_sym, step)
         synth i[:name].to_sym, i[:default_step_options].merge(step)
       end
       sleep sleepN
@@ -126,7 +95,6 @@ define :play_external_sample do |i, name, p|
       sleepN = i[:sleeps][p].tick
       step   = i[:patterns][p].look
       if step != nil then
-        # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
         sample i[:name], i[:default_step_options].merge(step)
       end
       sleep sleepN
@@ -140,7 +108,6 @@ define :play_sample do |i, name, p|
       sleepN = i[:sleeps][p].tick
       step   = i[:patterns][p].look
       if step != nil then
-        # set (name+"_opts").to_sym, (sample i[:name].to_sym, step)
         sample i[:name].to_sym, i[:default_step_options].merge(step)
       end
       sleep sleepN
