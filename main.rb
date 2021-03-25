@@ -53,10 +53,22 @@ end
 
 live_loop :channel_play do
   use_real_time
+  use_bpm get(:bpm)
   channel, note = sync "/osc*/channel/play"
   instru = get "channel_#{channel}".to_sym
-  synth instru[:name].to_sym, instru[:default_step_options].to_h.merge({:note => note}) if instru[:type] == 'synth'
-  sample instru[:name], instru[:default_step_options].to_h if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+  create_fx_channel_play(instru, note, 0, instru[:fxs].keys)
+end
+
+define :create_fx_channel_play do |instru, note, fx_index, fxs_name|
+  if fxs_name.length == 0 or fx_index >= fxs_name.length then
+    synth instru[:name].to_sym, instru[:default_step_options].to_h.merge({:note => note}) if instru[:type] == 'synth'
+    sample instru[:name], instru[:default_step_options].to_h if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+  else
+    with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
+      fx_index = fx_index + 1
+      create_fx_channel_play(i, fx_index, fxs_name)
+    end
+  end
 end
 
 # live_loop :channel_options do

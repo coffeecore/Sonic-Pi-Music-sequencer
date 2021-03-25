@@ -2,8 +2,8 @@
 
 A very simple step pattern and music instrument powered by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone") and controled by a [Piano HAT](https://github.com/pimoroni/Piano-HAT "Python library and examples for Piano HAT Raspberry Pi Add-on board") ~, some potards, buttons and with a E-Ink screen~ (N/A) 
 
-- 40 patterns (more if you don't use Piano HAT)
-- 8 steps by pattern (more if you don't use Piano HAT)
+- 40 patterns (more if you use Sonic Pi part only)
+- 8 steps by pattern (more if you use Sonic Pi part only)
 - instrument mode
 - Sonic Pi Synth
 - Samples
@@ -26,13 +26,13 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
         - All commands work
 - [x] Sonic Pi part :
     - [ ] Add code live play
-        - [ ] Add FX
+        - [x] Add FX
     - [x] Optimize for Rpi
 - [ ] Python part :
     - [ ] Clean code...
     - [ ] Piano HAT (WIP) [2021-03-24] Major features made
         - [ ] Config file for channels configuration
-        - [ ] Change JSON format to MessagePack
+        - [ ] ~Change JSON format to MessagePack~ (Impossible to use Ruby Gem on Sonic Pi)
         - [ ] Add default live options
         - [ ] Add defaults live FXs
     - [ ] Potards / Buttons
@@ -45,6 +45,7 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
         - [ ] Add/remove step options
         - [ ] Control live played note
     - [ ] E-ink display
+    - [ ] Use keyboard to replace Piano HAT if you don't have one
 
 ## OSC commands
 
