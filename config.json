@@ -5,8 +5,8 @@
     },
     "machine": {
         "bpm": 60,
-        "pmax": 4,
-        "bar": 2,
+        "pmax": 2,
+        "bar": 4,
         "eighth": 0.25
     },
     "channels": [

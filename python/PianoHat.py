@@ -39,10 +39,10 @@ class PianoHat:
         self.notes        = []
 
     def get_pattern(self):
-        return (self.pattern[0])*7+(self.pattern[1])
+        return (self.pattern[0])*8+(self.pattern[1])
 
     def get_step(self):
-        return (self.steps[0])*7+(self.steps[1])
+        return (self.step[0])*8+(self.step[1])
 
     def key_to_midi_note(self, key: int):
         return (self.octave)*12+key

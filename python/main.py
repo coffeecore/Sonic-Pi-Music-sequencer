@@ -166,13 +166,16 @@ def on_note_channel(key: int, pressed: bool):
 def on_note_pattern(key: int, pressed: bool):
     if piano_hat.BLACK_KEYS.count(key) != 0 and key != 10:
         piano_hat.step[0] = piano_hat.BLACK_KEYS.index(key)
+        if len(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()]) < piano_hat.get_step()+1:
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()] += [None for _ in range(8)]
         leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
     elif machine.channels[piano_hat.channel].type == 'sample' or machine.channels[piano_hat.channel].type == 'external_sample':
         if piano_hat.WHITE_KEYS.count(key) != 0:
-            if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] is None:
+            piano_hat.step[1] = piano_hat.WHITE_KEYS.index(key)
+            if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()] is None:
                 on_note_pattern_sample(key, pressed)
             else:
-                machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = None
+                machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()] = None
             leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
             pianohat.set_led(15, True)
     elif machine.channels[piano_hat.channel].type == 'synth':
@@ -184,7 +187,8 @@ def on_note_pattern(key: int, pressed: bool):
         else:
             on_note_pattern_synth(key, pressed)
 def on_note_pattern_sample(key: int, pressed: bool):
-    machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = {**{}, **machine.channels[piano_hat.channel].options}
+    piano_hat.step[1] = piano_hat.WHITE_KEYS.index(key)
+    machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()] = {**{}, **machine.channels[piano_hat.channel].options}
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
     pianohat.set_led(15, True)
 def on_note_pattern_synth(key: int, pressed: bool):
@@ -291,11 +295,11 @@ def leds_pattern_on(pattern):
     leds_off()
     if len(pattern) > 0:
         pianohat.set_led(piano_hat.BLACK_KEYS[piano_hat.step[0]], True)
-        for i, step in enumerate(pattern):
+        for i, step in enumerate(pattern[piano_hat.step[0]*8:piano_hat.step[0]*8+8]):
             if step is not None:
-                pianohat.set_led(piano_hat.WHITE_KEYS[i], True)
+                pianohat.set_led(piano_hat.WHITE_KEYS[i-(piano_hat.step[0]*8)], True)
             else:
-                pianohat.set_led(piano_hat.WHITE_KEYS[i], False)
+                pianohat.set_led(piano_hat.WHITE_KEYS[i-(piano_hat.step[0]*8)], False)
 def leds_step_on(step):
     leds_off()
     if step is not None and step.get("note") is not None:
