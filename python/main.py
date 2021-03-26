@@ -80,7 +80,7 @@ def handle_note(key: int, pressed: bool):
     if piano_hat.layout == piano_hat.LAYOUT_STEP and pressed:
         on_note_step(key, pressed)
         return
-    if piano_hat.layout == piano_hat.LAYOUT_MIDI and pressed:
+    if piano_hat.layout == piano_hat.LAYOUT_MIDI:
         on_note_midi(key, pressed)
         return
 ## INSTRUMENT
@@ -198,7 +198,9 @@ def on_note_step(key: int, pressed: bool):
             pianohat.set_led(13, False)
             time.sleep(0.05)
             pianohat.set_led(13, True)
-            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()] = {"note": [piano_hat.key_to_midi_note(key)]}
+            note = piano_hat.key_to_midi_note(key)
+            osc_sender.send_message('/channel/play', [piano_hat.channel, note])
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()] = {"note": [note]}
             piano_hat.step[1] = piano_hat.step[1] + 1
             return
         # Back to layout pattern and mod key after 8 notes type
@@ -218,17 +220,23 @@ def on_note_step(key: int, pressed: bool):
             if len(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()]["note"]) == 0:
                 machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()] = None
         else :
-            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()]["note"].append(piano_hat.key_to_midi_note(key))
+            note = piano_hat.key_to_midi_note(key)
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()]["note"].append(note)
+            osc_sender.send_message('/channel/play', [piano_hat.channel, note])
         leds_step_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()])
 ## MIDI
 def on_note_midi(key: int, pressed: bool):
-    pianohat.set_led(key, True)
-    time.sleep(0.01)
-    pianohat.set_led(key, False)
+    if pressed:
+        pianohat.set_led(key, True)
+        time.sleep(0.01)
+        pianohat.set_led(key, False)
     note = 0
     if machine.channels[piano_hat.channel].type == 'synth':
         note = piano_hat.key_to_midi_note(key)
-    osc_sender.send_message('/channel/play', [piano_hat.channel, note])
+    if pressed:
+        osc_sender.send_message('/channel/play/on', [piano_hat.channel, note])
+    else:
+        osc_sender.send_message('/channel/play/off', [piano_hat.channel, note])
 
 
 ## INSTRUMENT
