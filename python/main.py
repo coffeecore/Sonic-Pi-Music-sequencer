@@ -222,7 +222,7 @@ def on_note_step(key: int, pressed: bool):
         else :
             note = piano_hat.key_to_midi_note(key)
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()]["note"].append(note)
-            osc_sender.send_message('/channel/play', [piano_hat.channel, note])
+            # osc_sender.send_message('/channel/play', [piano_hat.channel, note])
         leds_step_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.get_step()])
 ## MIDI
 def on_note_midi(key: int, pressed: bool):
