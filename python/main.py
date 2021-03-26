@@ -311,10 +311,12 @@ def print_info(key_string: str):
     print('CHANNEL : '+str(piano_hat.channel))
     print(machine.channels[piano_hat.channel].type+' : '+machine.channels[piano_hat.channel].name)
     print('OCTAVE : '+str(piano_hat.octave))
-    print('STEP : '+str(piano_hat.step))
+    print('PATTERN : '+str(piano_hat.get_pattern()))
+    print('STEP : '+str(piano_hat.get_step()))
     print('PATTERNS : '+str(machine.channels[piano_hat.channel].patterns))
     print('##########################')
     print()
+
 def signal_handler(signal, frame):
   leds_off()
   print()
