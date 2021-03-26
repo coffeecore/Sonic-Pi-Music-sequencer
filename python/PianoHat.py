@@ -33,8 +33,7 @@ class PianoHat:
         self.octave       = 5
         self.channel      = 0
         self.pattern      = [0, 0]
-        self.step         = 0
-        self.steps        = [0, 0]
+        self.step         = [0, 0]
         self.layout       = self.LAYOUT_CHANNEL
         self.mod          = self.MOD_KEY
         self.notes        = []
@@ -55,3 +54,4 @@ class PianoHat:
         return self.LAYOUTS[self.layout]
     def get_mod(self):
         return self.MODS[self.mod]
+
