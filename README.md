@@ -29,6 +29,7 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
     - [x] Add code live play
         - [x] Add FX
         - [x] Add options
+        - [ ] Add flag to disable FXs and/or options
     - [x] Optimize for Rpi
 - [ ] Python part :
     - [ ] Clean code...
