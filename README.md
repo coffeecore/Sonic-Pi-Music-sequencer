@@ -4,6 +4,7 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
 
 - 40 patterns (more if you use Sonic Pi part only)
 - 8 steps by pattern (more if you use Sonic Pi part only)
+    - WIP to have 32 steps by pattern
 - instrument mode
 - Sonic Pi Synth
 - Samples
@@ -25,17 +26,18 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
     - [x] Mac OS X (10.14.6) :
         - All commands work
 - [x] Sonic Pi part :
-    - [ ] Add code live play
+    - [x] Add code live play
         - [x] Add FX
         - [x] Add options
     - [x] Optimize for Rpi
 - [ ] Python part :
     - [ ] Clean code...
     - [ ] Piano HAT (WIP) [2021-03-24] Major features made
-        - [ ] Config file for channels configuration
-        - [ ] ~Change JSON format to MessagePack~ (Impossible to use Ruby Gem on Sonic Pi)
-        - [x] Add default live options
-        - [x] Add defaults live FXs
+        - [x] Config file for channels configuration
+        - [x] ~Change JSON format to MessagePack~ (Impossible to use Ruby Gem on Sonic Pi)
+        - [x] ~Add default live options~
+        - [x] ~Add defaults live FXs~
+        - [ ] Add more steps with black keys
     - [ ] Potards / Buttons
         - [ ] Add channel on the fly
         - [ ] Change channel sample/synth
