@@ -6,9 +6,7 @@ class Channel:
         self.patterns             = []
         self.sleeps               = []
         self.bar                  = bar
-        self.default_step_options = {}
-        self.live_options         = {}
-        self.live_fxs             = {}
+        self.options              = {}
 
     def add_fx(self, fx: str):
         self.fxs[fx] = {}
@@ -25,10 +23,10 @@ class Channel:
             if self.fxs[fx].get(option) != None:
                 del(self.fxs[fx][option])
 
-    def add_default_step_option(self, option: str, value):
+    def add_option(self, option: str, value):
         self.default_step_options[option] = value
 
-    def del_default_step_option(self, option: str):
+    def del_option(self, option: str):
         if self.default_step_options.get(option) != None:
             del(self.default_step_options[option])
 

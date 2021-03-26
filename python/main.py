@@ -1,13 +1,13 @@
 from Channel import Channel
 from Machine import Machine
 from os import walk
-from PianoHat import PianoHat
+# from PianoHat import PianoHat
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 import glob
 import json
 import os
-import pianohat
+# import pianohat
 import random
 import re
 import signal
@@ -15,58 +15,30 @@ import sys
 import time
 
 
+with open('./config.json') as json_file:
+    config = json.load(json_file)
+
+
 # OSC init
-osc_sender = udp_client.SimpleUDPClient('127.0.0.1', 4560)
-# osc_sender = udp_client.SimpleUDPClient('192.168.1.15', 4560)
+osc_sender = udp_client.SimpleUDPClient(config['osc']['host'], config['osc']['port'])
 
 ## Machine init
 machine = Machine()
-machine.bpm = 60
-machine.pmax = 4
-machine.bar = 2
-machine.eighth = 0.25
+machine.bpm    = config['machine']['bpm']
+machine.pmax   = config['machine']['pmax']
+machine.bar    = config['machine']['bar']
+machine.eighth = config['machine']['eighth']
 osc_sender.send_message('/settings', ['bar', machine.bar])
 osc_sender.send_message('/settings', ['pmax', machine.pmax])
 
 ## Channels init
-bd_tek_channel = Channel('sample', 'bd_tek')
-# bd_tek_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/BT/BTAA0D7.WAV')
-bd_tek_channel.bar  = machine.bar
-machine.add_channel(bd_tek_channel)
-# bd_tek_channel.patterns = [ [None for _ in range(8) ] for _ in range(40)]
-# bd_tek_channel.sleeps = [ [0.25 for _ in range(8) ] for _ in range(40)]
-
-drum_cymbal_closed_channel = Channel('sample', 'drum_cymbal_closed')
-# drum_cymbal_closed_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/HHCD/HHCD0.WAV')
-drum_cymbal_closed_channel.default_step_options = {"amp": 0.5}
-drum_cymbal_closed_channel.bar  = machine.bar
-machine.add_channel(drum_cymbal_closed_channel)
-
-sn_dub_channel = Channel('sample', 'sn_dub')
-# sn_dub_channel = Channel('external_sample', '/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/ST/ST0T0S3.WAV')
-sn_dub_channel.bar  = machine.bar
-machine.add_channel(sn_dub_channel)
-
-tb303_channel = Channel('synth', 'tb303')
-tb303_channel.default_step_options = {"cutoff": 80, "release": 0.25}
-tb303_channel.bar  = machine.bar
-machine.add_channel(tb303_channel)
-
-# Synth chip
-pulse_one_channel = Channel('synth', 'pulse')
-pulse_one_channel.default_step_options = {"release": 0.2, "mod_rate": 5, "amp": 0.6}
-pulse_one_channel.bar  = machine.bar
-machine.add_channel(pulse_one_channel)
-
-tri_channel = Channel('synth', 'tri')
-tri_channel.default_step_options = {"attack": 0, "sustain": 0.1, "decay": 0.1, "release": 0.1, "amp": 0.4}
-tri_channel.bar  = machine.bar
-machine.add_channel(tri_channel)
-fm_channel = Channel('synth', 'fm')
-fm_channel.default_step_options = {"divisor": 1.6666, "attack": 0.0, "depth": 1500, "sustain": 0.05, "release": 0.0}
-fm_channel.bar  = machine.bar
-machine.add_channel(fm_channel)
-## End channels init
+for ch in config['channels']:
+    channel = Channel(ch['type'], ch['name'])
+    if ch.get('options') is not None:
+        channel.options = ch['options']
+    if ch.get('fxs') is not None:
+        channel.fxs = ch['fxs']
+    machine.add_channel(channel)
 
 ## PianoHAT init
 piano_hat = PianoHat()
@@ -206,10 +178,10 @@ def on_note_pattern(key: int, pressed: bool):
             piano_hat.mod = piano_hat.MOD_REC
             piano_hat.step = 0
             pianohat.set_led(13, True)
-        else: 
+        else:
             on_note_pattern_synth(key, pressed)
 def on_note_pattern_sample(key: int, pressed: bool):
-    machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = {**{}, **machine.channels[piano_hat.channel].default_step_options}
+    machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.WHITE_KEYS.index(key)] = {**{}, **machine.channels[piano_hat.channel].options}
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
     pianohat.set_led(15, True)
 def on_note_pattern_synth(key: int, pressed: bool):
@@ -237,7 +209,7 @@ def on_note_step(key: int, pressed: bool):
         return
     if piano_hat.mod == piano_hat.MOD_KEY and machine.channels[piano_hat.channel].type == 'synth':
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] is None:
-            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {**{"note": []}, **machine.channels[piano_hat.channel].default_step_options}
+            machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step] = {**{"note": []}, **machine.channels[piano_hat.channel].options}
         if machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].count(piano_hat.key_to_midi_note(key)) != 0:
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"].remove(piano_hat.key_to_midi_note(key))
             if len(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()][piano_hat.step]["note"]) == 0:

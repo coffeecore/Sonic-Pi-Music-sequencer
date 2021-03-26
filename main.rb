@@ -40,15 +40,15 @@ live_loop :channel_play do
   use_bpm get(:bpm)
   channel, note = sync "/osc*/channel/play"
   instru = get "channel_#{channel}".to_sym
-  create_fx_channel_play(instru, note, 0, instru[:live_fxs].keys)
+  create_fx_channel_play(instru, note, 0, instru[:fxs].keys)
 end
 
 define :create_fx_channel_play do |instru, note, fx_index, fxs_name|
   if fxs_name.length == 0 or fx_index >= fxs_name.length then
-    synth instru[:name].to_sym, instru[:live_options].to_h.merge({:note => note}) if instru[:type] == 'synth'
-    sample instru[:name], instru[:live_options].to_h if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+    synth instru[:name].to_sym, instru[:options].to_h.merge({:note => note}) if instru[:type] == 'synth'
+    sample instru[:name], instru[:options].to_h if instru[:type] == 'sample' or instru[:type] == 'external_sample'
   else
-    with_fx fxs_name[fx_index], i[:live_fxs][fxs_name[fx_index]] do
+    with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
       fx_index = fx_index + 1
       create_fx_channel_play(i, fx_index, fxs_name)
     end
@@ -82,7 +82,7 @@ define :play_synth do |i, name, p|
       sleepN = i[:sleeps][p].tick
       step   = i[:patterns][p].look
       if step != nil then
-        synth i[:name].to_sym, i[:default_step_options].merge(step)
+        synth i[:name].to_sym, i[:options].merge(step)
       end
       sleep sleepN
     end
@@ -95,7 +95,7 @@ define :play_external_sample do |i, name, p|
       sleepN = i[:sleeps][p].tick
       step   = i[:patterns][p].look
       if step != nil then
-        sample i[:name], i[:default_step_options].merge(step)
+        sample i[:name], i[:options].merge(step)
       end
       sleep sleepN
     end
@@ -108,7 +108,7 @@ define :play_sample do |i, name, p|
       sleepN = i[:sleeps][p].tick
       step   = i[:patterns][p].look
       if step != nil then
-        sample i[:name].to_sym, i[:default_step_options].merge(step)
+        sample i[:name].to_sym, i[:options].merge(step)
       end
       sleep sleepN
     end

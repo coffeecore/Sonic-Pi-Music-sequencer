@@ -34,12 +34,16 @@ class PianoHat:
         self.channel      = 0
         self.pattern      = [0, 0]
         self.step         = 0
+        self.steps        = [0, 0]
         self.layout       = self.LAYOUT_CHANNEL
         self.mod          = self.MOD_KEY
         self.notes        = []
 
     def get_pattern(self):
         return (self.pattern[0])*7+(self.pattern[1])
+
+    def get_step(self):
+        return (self.steps[0])*7+(self.steps[1])
 
     def key_to_midi_note(self, key: int):
         return (self.octave)*12+key

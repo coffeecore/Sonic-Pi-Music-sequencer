@@ -1,0 +1,46 @@
+{
+    "osc": {
+        "host": "192.168.1.15",
+        "port": 4560
+    },
+    "machine": {
+        "bpm": 60,
+        "pmax": 4,
+        "bar": 2,
+        "eighth": 0.25
+    },
+    "channels": [
+        {
+            "type": "external_sample",
+            "name": "/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/BT/BTAA0D7.WAV"
+        },
+        {
+            "type": "external_sample",
+            "name": "/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/HHCD/HHCD0.WAV",
+            "options": {
+                "amp": 0.5
+            }
+        },
+        {
+            "type": "external_sample",
+            "name": "/Users/antoine/Music/Sonic Pi/Samples/Roland TR-909/ST/ST0T0S3.WAV"
+        },
+        {
+            "type": "synth",
+            "name": "tb303",
+            "options": {
+                "cutoff": 80,
+                "release": 0.25
+            }
+        },
+        {
+            "type": "synth",
+            "name": "pulse",
+            "options": {
+                "release": 0.2,
+                "mod_rate": 5,
+                "amp": 0.6
+            }
+        }
+    ]
+}
