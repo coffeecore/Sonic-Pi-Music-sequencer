@@ -252,7 +252,7 @@ def on_instrument_channel(key: int, pressed: bool):
         for i in range(piano_hat.get_pattern()+1):
             if len(machine.channels[piano_hat.channel].patterns) <= i:
                 machine.channels[piano_hat.channel].patterns.insert(i, [None for _ in range(8) ])
-                machine.channels[piano_hat.channel].sleeps.insert(i, [0.25 for _ in range(8) ])
+                machine.channels[piano_hat.channel].sleeps.insert(i, [machine.eighth for _ in range(8) ])
     leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
     pianohat.set_led(15, True)
 ### PATTERN
