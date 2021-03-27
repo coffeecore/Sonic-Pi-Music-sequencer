@@ -85,6 +85,6 @@ Record features are commented in `main.rb`, some time issues on Rpi 3 for the mo
 - [python-osc](https://pypi.org/project/python-osc/)
 - [PianoHAT](https://github.com/pimoroni/Piano-HAT/)
 
-Modify settings in `config.json` file. Where you can add/edit channels
+Copy `config.json.example` to `config.json` and edit it
 
 `python3 python/main.py`
