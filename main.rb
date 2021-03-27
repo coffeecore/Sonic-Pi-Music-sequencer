@@ -7,7 +7,7 @@ use_cue_logging false
 set :bpm, 60
 set :bar, 4
 set :pmax, 1
-set :state, STATE[:play]
+set :state, STATE[:stop]
 
 live_loop :set_settings do
   name, value = sync "/osc*/settings"
@@ -35,6 +35,10 @@ live_loop :channel_from_json do
   set "channel_#{channel}".to_sym, instru
 end
 
+
+
+
+# PLAY
 live_loop :channel_play_on do
   use_real_time
   use_bpm get(:bpm)
@@ -49,12 +53,18 @@ live_loop :channel_play_off do
   (get "play_on_#{channel}_#{note}".to_sym).kill
 end
 
+live_loop :channel_play_control do
+  use_real_time
+  channel, note, json = sync "/osc*/channel/play/control"
+  options        = MultiJson.load(json, :symbolize_keys => true)
+  control (get "play_on_#{channel}_#{note}".to_sym), options
+end
+
 live_loop :channel_play do
   use_real_time
   use_bpm get(:bpm)
   channel, note, with_fxs, with_opts = sync "/osc*/channel/play"
   create_fx_channel_play(channel, (get "channel_#{channel}".to_sym), note, 0, instru[:fxs].keys, with_fxs, with_opts)
-
 end
 
 define :create_fx_channel_play do |channel, instru, note, fx_index, fxs_name, with_fxs, with_opts|
@@ -74,11 +84,11 @@ end
 
 define :is_with_opts do |type, name, slug, options, with_opts|
   if with_opts == false and with_opts != nil then
-      channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}", {:note => note}) if instru[:type] == 'synth'
-      channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}") if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+      channel_play_once(type, name, "#{channel}_#{note}", {:note => note}) if type == 'synth'
+      channel_play_once(type, name, "#{channel}_#{note}") if type == 'sample' or type == 'external_sample'
   else
-    channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h.merge({:note => note})) if instru[:type] == 'synth'
-    channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h) if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+    channel_play_once(type, name, "#{channel}_#{note}", options.to_h.merge({:note => note})) if type == 'synth'
+    channel_play_once(type, name, "#{channel}_#{note}", options.to_h) if type == 'sample' or type == 'external_sample'
   end
 end
 
@@ -94,6 +104,10 @@ define :channel_play_once do |type, name, slug, options|
   end
 end
 
+
+
+
+# SEQUENCER
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
   fxs_name = i[:fxs].keys
@@ -154,6 +168,10 @@ define :play_sample do |i, name, p|
   end
 end
 
+
+
+
+# METRONOME
 live_loop :metronome do
   use_real_time
   while get(:state) != STATE[:play]
