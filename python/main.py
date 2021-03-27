@@ -40,6 +40,9 @@ for i, ch in enumerate(config['channels']):
         channel.fxs = ch['fxs']
     machine.add_channel(channel)
     osc_sender.send_message('/channel/json', [i, json.dumps(channel.__dict__)])
+    leds_off()
+    leds_on(0.01)
+    leds_off()
 
 ## PianoHAT init
 piano_hat = PianoHat()
