@@ -47,6 +47,13 @@
                 "mod_rate": 5,
                 "amp": 0.6
             }
-        }
+        },
+        {
+            "type": "synth",
+            "name": "fm",
+            "options": {
+                "sustain": 300
+            }
+        },
     ]
 }
