@@ -16,3 +16,6 @@ python.bak/__pycache__/*
 .data/*
 !.data/.gitkeep
 aa
+config.json
+config.json*
+!config.json.example

@@ -12,7 +12,12 @@
     "channels": [
         {
             "type": "sample",
-            "name": "bd_tek"
+            "name": "bd_tek",
+            "fxs": {
+                "distortion": {
+                    "distort": 0.7
+                }
+            }
         },
         {
             "type": "sample",
@@ -30,7 +35,8 @@
             "name": "tb303",
             "options": {
                 "cutoff": 80,
-                "release": 0.25
+                "release": 0.25,
+                "res": 0.8
             }
         },
         {
