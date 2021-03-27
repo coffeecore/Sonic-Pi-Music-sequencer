@@ -29,15 +29,15 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
     - [x] Add code live play
         - [x] Add FX
         - [x] Add options
-        - [ ] Add flag to disable FXs and/or options
+        - [x] Add flag to disable FXs and/or options [2021-03-27]
     - [x] Optimize for Rpi
 - [ ] Python part :
     - [ ] Clean code...
     - [ ] Piano HAT (WIP) [2021-03-24] Major features made
         - [x] Config file for channels configuration
         - [x] ~Change JSON format to MessagePack~ (Impossible to use Ruby Gem on Sonic Pi)
-        - [x] ~Add default live options~
-        - [x] ~Add defaults live FXs~
+        - [x] ~Add default live options~ [Removed]
+        - [x] ~Add defaults live FXs~ [Removed]
         - [ ] Add more steps with black keys
     - [ ] Potards / Buttons
         - [ ] Add channel on the fly
@@ -65,7 +65,7 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
 | ~Set channels~                     | ~/channels~      | ~Json~                                                      |
 | ~Send signal to read json channel file~  | ~/channel/json/file~         | ~[Integer `position`]~                                  |
 | Set channel                        | /channel/json         | [Integer `position`, Json]       |
-| Play a note on channel  | /channel/play         | [Integer `position`, note]       |
+| Play a note on channel  | /channel/play         | [Integer `position`, note [with_fxs, with_opts]] with_fxs: bool with_opts: bool (default with)       |
 | ~Channel opts~                       | ~/channel/options~ | ~[String `live_loop` name, Json]~                             |
 | ~Channel FXs~                        | ~/channel/fxs~     | ~[String `live_loop` name, String FX name, Json]~             |
 | Start record (*Experimental*)      | /record/start    | Start to record                                             |
@@ -76,8 +76,6 @@ Record features are commented in `main.rb`, some time issues on Rpi 3 for the mo
 
 ## Run
 
-Change IP in `python/main.py`
-
 ### Sonic Pi
 
 `run_file "/absolute/path/to/main.rb"`
@@ -86,5 +84,7 @@ Change IP in `python/main.py`
 
 - [python-osc](https://pypi.org/project/python-osc/)
 - [PianoHAT](https://github.com/pimoroni/Piano-HAT/)
+
+Modify settings in `config.json` file. Where you can add/edit channels
 
 `python3 python/main.py`
