@@ -32,13 +32,14 @@ osc_sender.send_message('/settings', ['bar', machine.bar])
 osc_sender.send_message('/settings', ['pmax', machine.pmax])
 
 ## Channels init
-for ch in config['channels']:
+for i, ch in enumerate(config['channels']):
     channel = Channel(ch['type'], ch['name'])
     if ch.get('options') is not None:
         channel.options = ch['options']
     if ch.get('fxs') is not None:
         channel.fxs = ch['fxs']
     machine.add_channel(channel)
+    osc_sender.send_message('/channel/json', [i, json.dumps(channel.__dict__)])
 
 ## PianoHAT init
 piano_hat = PianoHat()
@@ -323,8 +324,8 @@ def print_info(key_string: str):
     print('CHANNEL : '+str(piano_hat.channel))
     print(machine.channels[piano_hat.channel].type+' : '+machine.channels[piano_hat.channel].name)
     print('OCTAVE : '+str(piano_hat.octave))
-    print('PATTERN : '+str(piano_hat.get_pattern()))
-    print('STEP : '+str(piano_hat.get_step()))
+    print('PATTERN : '+str(piano_hat.get_pattern())+str(piano_hat.pattern))
+    print('STEP : '+str(piano_hat.get_step())+str(piano_hat.step))
     print('PATTERNS : '+str(machine.channels[piano_hat.channel].patterns))
     print('##########################')
     print()

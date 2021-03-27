@@ -38,8 +38,8 @@ end
 live_loop :channel_play_on do
   use_real_time
   use_bpm get(:bpm)
-  channel, note = sync "/osc*/channel/play/on"
-  create_fx_channel_play(channel, get "channel_#{channel}".to_sym, note, 0, instru[:fxs].keys)
+  channel, note, with_opts, with_fxs = sync "/osc*/channel/play/on"
+  create_fx_channel_play(channel, get "channel_#{channel}".to_sym, note, 0, instru[:fxs].keys, with_fxs, with_opts)
 end
 
 live_loop :channel_play_off do
@@ -52,16 +52,18 @@ end
 live_loop :channel_play do
   use_real_time
   use_bpm get(:bpm)
-  channel, note = sync "/osc*/channel/play"
-  create_fx_channel_play(channel, (get "channel_#{channel}".to_sym), note, 0, instru[:fxs].keys)
+  channel, note, with_fxs, with_opts = sync "/osc*/channel/play"
+  create_fx_channel_play(channel, (get "channel_#{channel}".to_sym), note, 0, instru[:fxs].keys, with_fxs, with_opts)
+
 end
 
-define :create_fx_channel_play do |channel, instru, note, fx_index, fxs_name|
-  if fxs_name.length == 0 or fx_index >= fxs_name.length then
-    ##| ,
-    s = synth instru[:name].to_sym, instru[:options].to_h.merge({:note => note}) if instru[:type] == 'synth'
-    s = sample instru[:name], instru[:options].to_h if instru[:type] == 'sample' or instru[:type] == 'external_sample'
-    set "play_on_#{channel}_#{note}".to_sym, s
+define :create_fx_channel_play do |channel, instru, note, fx_index, fxs_name, with_fxs, with_opts|
+  if with_fxs == false and with_fxs != nil then
+    is_with_opts(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h.merge({:note => note}), with_opts) if instru[:type] == 'synth'
+    is_with_opts(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h, with_opts) if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+  elsif fxs_name.length == 0 or fx_index >= fxs_name.length then
+    is_with_opts(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h.merge({:note => note}), with_opts) if instru[:type] == 'synth'
+    is_with_opts(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h, with_opts) if instru[:type] == 'sample' or instru[:type] == 'external_sample'
   else
     with_fx fxs_name[fx_index], i[:fxs][fxs_name[fx_index]] do
       fx_index = fx_index + 1
@@ -70,6 +72,27 @@ define :create_fx_channel_play do |channel, instru, note, fx_index, fxs_name|
   end
 end
 
+define :is_with_opts do |type, name, slug, options, with_opts|
+  if with_opts == false and with_opts != nil then
+      channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}", {:note => note}) if instru[:type] == 'synth'
+      channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}") if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+  else
+    channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h.merge({:note => note})) if instru[:type] == 'synth'
+    channel_play_once(instru[:type], instru[:name], "#{channel}_#{note}", instru[:options].to_h) if instru[:type] == 'sample' or instru[:type] == 'external_sample'
+  end
+end
+
+define :channel_play_once do |type, name, slug, options|
+  if options.length != 0 then
+    s = synth name.to_sym, options if type == 'synth'
+    s = sample name, options.to_h if type == 'sample' or type == 'external_sample'
+    set "play_on_#{slug}".to_sym, s
+  else
+    s = synth name.to_sym if type == 'synth'
+    s = sample name if type == 'sample' or type == 'external_sample'
+    set "play_on_#{slug}slug".to_sym, s
+  end
+end
 
 define :create_loop do |p, i|
   name = "#{i[:type]}_#{p}"
