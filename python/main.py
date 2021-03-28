@@ -40,9 +40,6 @@ for i, ch in enumerate(config['channels']):
         channel.fxs = ch['fxs']
     machine.add_channel(channel)
     osc_sender.send_message('/channel/json', [i, json.dumps(channel.__dict__)])
-    leds_off()
-    leds_on(0.01)
-    leds_off()
 
 ## PianoHAT init
 piano_hat = PianoHat()
@@ -173,6 +170,8 @@ def on_note_pattern(key: int, pressed: bool):
         if len(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()]) < piano_hat.get_step()+1:
             machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()] += [None for _ in range(8)]
         leds_pattern_on(machine.channels[piano_hat.channel].patterns[piano_hat.get_pattern()])
+        if piano_hat.mod == piano_hat.MOD_REC:
+            pianohat.set_led(13, True)
     elif machine.channels[piano_hat.channel].type == 'sample' or machine.channels[piano_hat.channel].type == 'external_sample':
         if piano_hat.WHITE_KEYS.count(key) != 0:
             piano_hat.step[1] = piano_hat.WHITE_KEYS.index(key)
@@ -245,7 +244,7 @@ def on_note_midi(key: int, pressed: bool):
         note = piano_hat.key_to_midi_note(key)
     if pressed:
         osc_sender.send_message('/channel/play/on', [piano_hat.channel, note])
-    else:
+    elif machine.channels[piano_hat.channel].type == 'synth':
         osc_sender.send_message('/channel/play/off', [piano_hat.channel, note])
 
 ## INSTRUMENT
