@@ -17,3 +17,4 @@ python.bak/__pycache__/*
 !.data/.gitkeep
 aa
 config.json
+config.internal.json
