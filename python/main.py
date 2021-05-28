@@ -300,9 +300,15 @@ def leds_channel_on():
     pianohat.set_led(piano_hat.WHITE_KEYS[piano_hat.pattern[1]], True)
 def leds_pattern_on(pattern):
     leds_off()
+    pianohat.set_led(15, True)
     if len(pattern) > 0:
         pianohat.set_led(piano_hat.BLACK_KEYS[piano_hat.step[0]], True)
         for i, step in enumerate(pattern[piano_hat.step[0]*8:piano_hat.step[0]*8+8]):
+            print('POOPOPOPOPOPOPOP')
+            print(i-(piano_hat.step[0]*8))
+            # if i-(piano_hat.step[0]*8) >= 0:
+            if i <= 0:
+                i = i*(-1)    
             if step is not None:
                 pianohat.set_led(piano_hat.WHITE_KEYS[i-(piano_hat.step[0]*8)], True)
             else:

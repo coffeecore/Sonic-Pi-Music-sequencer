@@ -51,8 +51,10 @@ live_loop :channel_play_off do
   use_real_time
   use_bpm get(:bpm)
   channel, note = sync "/osc*/channel/play/off"
-  (get "play_on_#{channel}_#{note}".to_sym).kill
-end
+  a = get "play_on_#{channel}_#{note}".to_sym
+  if a != nil then
+    a.kill
+  endend
 
 live_loop :channel_play_control do
   use_real_time
