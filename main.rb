@@ -1,8 +1,8 @@
 FILE_PATH     = "/Users/antoine/Music/Sonic Pi"
 STATE = (map stop: 0, play: 1, pause: 2)
 
-use_debug false
-use_cue_logging false
+use_debug true
+use_cue_logging true
 
 set :bpm, 60
 set :bar, 4
@@ -54,7 +54,8 @@ live_loop :channel_play_off do
   a = get "play_on_#{channel}_#{note}".to_sym
   if a != nil then
     a.kill
-  endend
+  end
+end
 
 live_loop :channel_play_control do
   use_real_time

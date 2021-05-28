@@ -16,6 +16,7 @@ import time
 
 
 with open('./config.json') as json_file:
+    # with open('./config.internal.json') as json_file:
     config = json.load(json_file)
 
 
@@ -30,6 +31,7 @@ machine.bar    = config['machine']['bar']
 machine.eighth = config['machine']['eighth']
 osc_sender.send_message('/settings', ['bar', machine.bar])
 osc_sender.send_message('/settings', ['pmax', machine.pmax])
+osc_sender.send_message('/settings', ['bpm', machine.bpm])
 
 ## Channels init
 for i, ch in enumerate(config['channels']):
