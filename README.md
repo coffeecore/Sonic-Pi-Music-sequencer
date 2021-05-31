@@ -38,7 +38,7 @@ A very simple step pattern and music instrument powered by [Sonic Pi](https://so
         - [x] ~Change JSON format to MessagePack~ (Impossible to use Ruby Gem on Sonic Pi)
         - [x] ~Add default live options~ [Removed]
         - [x] ~Add defaults live FXs~ [Removed]
-        - [ ] Add more steps with black keys
+        - [x] Add more steps with black keys
     - [ ] Potards / Buttons
         - [ ] Add channel on the fly
         - [ ] Change channel sample/synth
