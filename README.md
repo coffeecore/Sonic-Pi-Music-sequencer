@@ -1,3 +1,5 @@
+⚠️ **2021-07-14 : Development on this project is stopped. May be resumed later**  ⚠️
+
 # :musical_keyboard: Sonic Pi sequencer with Piano HAT
 
 A very simple step pattern and music instrument powered by [Sonic Pi](https://sonic-pi.net/ "Sonic Pi - The Live Coding Music Synth for Everyone") and controled by a [Piano HAT](https://github.com/pimoroni/Piano-HAT "Python library and examples for Piano HAT Raspberry Pi Add-on board") ~, some potards, buttons and with a E-Ink screen~ (N/A) 
